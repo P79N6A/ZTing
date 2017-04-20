@@ -19,6 +19,7 @@
 #import "CardViewController.h"
 #import "HistoryViewController.h"
 #import "CollectViewController.h"
+#import "PaySelfViewController.h"
 
 #import "ZTMapViewCtrl.h"
 
@@ -208,7 +209,8 @@
 
 #pragma mark 自助缴费
 - (void)payExpenseAction {
-    
+    PaySelfViewController *payVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PaySelfViewController"];
+    [self.navigationController pushViewController:payVC animated:YES];
 }
 
 #pragma mark 菜单按钮

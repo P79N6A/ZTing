@@ -232,6 +232,9 @@
 - (void)reLogin {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KLoginState];
     
+    // 发送登出通知
+    [[NSNotificationCenter defaultCenter] postNotificationName:KLoginOutNotification object:nil];
+    
     LoginViewController *loginVC = [[LoginViewController alloc] init];
     [self presentViewController:loginVC animated:YES completion:^{
         [self.navigationController popViewControllerAnimated:YES];
