@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16C48b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="KGk-i7-Jjw" customClass="BindCarCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_car_card_bg" translatesAutoresizingMaskIntoConstraints="NO" id="hm3-Ry-7Gj">
+                        <rect key="frame" x="10" y="17.5" width="100" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="sTA-9f-jwc"/>
+                            <constraint firstAttribute="width" constant="100" id="xeS-Wp-LSl"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="湘C521A7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cr1-CV-rOs">
+                        <rect key="frame" x="26" y="17.5" width="68.5" height="44"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kle-OR-2vX">
+                        <rect key="frame" x="118" y="30" width="42.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开启自动支付" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kcl-Pj-Ast">
+                        <rect key="frame" x="238.5" y="49.5" width="74" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A3l-pw-KbF">
+                        <rect key="frame" x="251" y="14.5" width="51" height="31"/>
+                        <connections>
+                            <action selector="paySwitch:" destination="KGk-i7-Jjw" eventType="valueChanged" id="OTu-Sy-aYo"/>
+                        </connections>
+                    </switch>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Cr1-CV-rOs" firstAttribute="centerX" secondItem="hm3-Ry-7Gj" secondAttribute="centerX" id="0hq-bS-M3q"/>
+                    <constraint firstItem="A3l-pw-KbF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="6.5" id="6r2-hy-y1g"/>
+                    <constraint firstItem="Kcl-Pj-Ast" firstAttribute="top" secondItem="A3l-pw-KbF" secondAttribute="bottom" constant="4" id="7k9-IK-xag"/>
+                    <constraint firstItem="Kle-OR-2vX" firstAttribute="leading" secondItem="hm3-Ry-7Gj" secondAttribute="trailing" constant="8" id="8y2-Ho-hdc"/>
+                    <constraint firstItem="Kle-OR-2vX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="bZU-zq-X0x"/>
+                    <constraint firstItem="hm3-Ry-7Gj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="c7d-7x-Dr7"/>
+                    <constraint firstItem="Cr1-CV-rOs" firstAttribute="centerY" secondItem="hm3-Ry-7Gj" secondAttribute="centerY" id="lSU-9g-QyG"/>
+                    <constraint firstItem="hm3-Ry-7Gj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="stE-sU-3qc"/>
+                    <constraint firstItem="Cr1-CV-rOs" firstAttribute="top" secondItem="hm3-Ry-7Gj" secondAttribute="top" id="u4K-hx-k2u"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="A3l-pw-KbF" secondAttribute="trailing" constant="12" id="uFk-v3-aVG"/>
+                    <constraint firstItem="A3l-pw-KbF" firstAttribute="centerX" secondItem="Kcl-Pj-Ast" secondAttribute="centerX" id="x6l-Ip-BSi"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="_carNameLabel" destination="Kle-OR-2vX" id="1oa-c2-MQe"/>
+                <outlet property="_numLabel" destination="Cr1-CV-rOs" id="3dg-8l-q8x"/>
+                <outlet property="_paySwitch" destination="A3l-pw-KbF" id="MHi-n6-hLG"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="72"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_car_card_bg" width="170" height="77"/>
+    </resources>
+</document>

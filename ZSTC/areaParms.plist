@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>areaName</key>
+		<string>五一广场</string>
+		<key>areaLat</key>
+		<string>28.196453</string>
+		<key>areaLng</key>
+		<string>112.977316</string>
+	</dict>
+	<dict>
+		<key>areaName</key>
+		<string>万家丽广场</string>
+		<key>areaLat</key>
+		<string>28.190429</string>
+		<key>areaLng</key>
+		<string>113.031841</string>
+	</dict>
+	<dict>
+		<key>areaName</key>
+		<string>万达广场</string>
+		<key>areaLat</key>
+		<string>28.198819</string>
+		<key>areaLng</key>
+		<string>112.970879</string>
+	</dict>
+	<dict>
+		<key>areaName</key>
+		<string>长沙火车站</string>
+		<key>areaLat</key>
+		<string>28.193961</string>
+		<key>areaLng</key>
+		<string>113.013055</string>
+	</dict>
+</array>
+</plist>
