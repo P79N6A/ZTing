@@ -9,7 +9,7 @@
 #import "BIndCarViewController.h"
 #import <IQKeyboardManager.h>
 
-@interface BIndCarViewController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface BIndCarViewController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
 {
     __weak IBOutlet UITextField *_provinceTF;
     __weak IBOutlet UITextField *_letterTF;
@@ -33,7 +33,20 @@
     [self _initView];
 }
 
+- (void)hidView {
+    _carTypeView.hidden = YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if(touch.view == _carTypeView){
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
 - (void)_initView {
+    
     _addBt.layer.masksToBounds = YES;
     _addBt.layer.cornerRadius = 4;
     
@@ -52,9 +65,10 @@
     _carTypeView.hidden = YES;
     _carTypeView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.2];
     [self.view addSubview:_carTypeView];
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidCarTypeView)];
-//    _carTypeView.userInteractionEnabled = YES;
-//    [_carTypeView addGestureRecognizer:tap];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidView)];
+    _carTypeView.userInteractionEnabled = YES;
+    tap.delegate = self;
+    [_carTypeView addGestureRecognizer:tap];
     
     UITableView *typeTableView = [[UITableView alloc] initWithFrame:CGRectMake(_typeLabel.left, 180, _typeLabel.width, 120) style:UITableViewStylePlain];
     typeTableView.delegate = self;
@@ -80,7 +94,7 @@
         [self showHint:@"请检查车牌号码"];
         return;
     }
-    if(_provinceTF.text == nil && _provinceTF.text.length < 5){
+    if(_numTF.text == nil && _numTF.text.length < 5){
         [self showHint:@"请检查车牌号码"];
         return;
     }

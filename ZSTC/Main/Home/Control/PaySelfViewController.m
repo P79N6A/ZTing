@@ -10,8 +10,9 @@
 #import "PaySelfModel.h"
 #import "SelCarNoView.h"
 #import "PayTypeView.h"
+#import "NoDataView.h"
 
-@interface PaySelfViewController ()
+@interface PaySelfViewController ()<SelCarNoDelegate, SelPayDelegate>
 {
     __weak IBOutlet UIView *_carInfoView;
 
@@ -38,6 +39,8 @@
     SelCarNoView *_selCarNoView;  // 选择车牌
     
     PayTypeView *_payTypeView;   // 支付
+    
+    NoDataView *_noDataView;
 }
 @end
 
@@ -70,6 +73,11 @@
     
     _payBt.layer.masksToBounds = YES;
     _payBt.layer.cornerRadius = 4;
+    
+    // 无数据视图
+    _noDataView = [[NoDataView alloc] initWithFrame:CGRectMake(0, _carInfoView.bottom, KScreenWidth, KScreenHeight - _carInfoView.bottom)];
+    _noDataView.hidden = YES;
+    [self.view addSubview:_noDataView];
     
     // 计费规则
     _ruleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
@@ -106,8 +114,14 @@
     // 选择车牌
     _selCarNoView = [[SelCarNoView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
     _selCarNoView.hidden = YES;
+    _selCarNoView.delegate = self;
     [self.view addSubview:_selCarNoView];
     
+    // 缴费视图
+    _payTypeView = [[PayTypeView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+    _payTypeView.hidden = YES;
+    _payTypeView.delegate = self;
+    [self.view addSubview:_payTypeView];
 }
 
 - (void)closeRule {
@@ -116,6 +130,7 @@
 
 #pragma mark 根据车牌查询详细信息
 - (void)_loadData:(NSString *)carNo {
+    _carStateView.hidden = YES;
     NSString *findCarUrl = [NSString stringWithFormat:@"%@pay/findFeeByCarNo", KDomain];
     NSMutableDictionary *params = @{}.mutableCopy;
     [params setObject:KToken forKey:@"token"];
@@ -126,8 +141,11 @@
     [[ZTNetworkClient sharedInstance] POST:findCarUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
         if([responseObject[@"success"] boolValue]){
+            _noDataView.hidden = YES;
             _paySelfModel = [[PaySelfModel alloc] initWithDataDic:responseObject[@"data"]];
             [self uploadView:_paySelfModel];
+        }else {
+            _noDataView.hidden = NO;
         }
     } failure:^(NSError *error) {
         [self hideHud];
@@ -168,14 +186,58 @@
 
 #pragma mark 查询按钮
 - (IBAction)queryCar:(id)sender {
+    [self.view endEditing:YES];
+    if(_provinceTF.text == nil && _provinceTF.text.length <= 0){
+        [self showHint:@"请输入有效的车牌"];
+        return;
+    }
+    if(_letterTF.text == nil && _letterTF.text.length <= 0){
+        [self showHint:@"请输入有效的车牌"];
+        return;
+    }
+    if(_numTF.text == nil && _provinceTF.text.length < 5){
+        [self showHint:@"请输入有效的车牌"];
+        return;
+    }
+    
+    NSString *inputCarNo = [NSString stringWithFormat:@"%@%@%@", _provinceTF.text, _letterTF.text, _numTF.text];
+    [self _loadData:inputCarNo];
+    
 }
 
 #pragma mark 缴费按钮
 - (IBAction)payMoney:(id)sender {
-    if(_paySelfModel.fee.floatValue == 0) {
-        [self showHint:@"当前不需要缴费"];
-    }else {
-        
+//    if(_paySelfModel.fee.floatValue == 0) {
+//        [self showHint:@"当前不需要缴费"];
+//    }else {
+        _payTypeView.hidden = NO;
+//    }
+}
+
+#pragma mark 选择车牌协议
+- (void)selCarNoCompelete:(NSString *)carNo {
+    [self _loadData:carNo];
+    
+    _provinceTF.text = [carNo substringWithRange:NSMakeRange(0, 1)];
+    _letterTF.text = [carNo substringWithRange:NSMakeRange(1, 1)];
+    _numTF.text = [carNo substringWithRange:NSMakeRange(2, carNo.length - 2)];
+}
+
+#pragma mark 选择支付协议
+- (void)selPay:(PayType)payType {
+    switch (payType) {
+        case AccountPay:
+            
+            break;
+            
+        case AliPay:
+            
+            break;
+            
+        case WeChatPay:
+            
+            break;
+            
     }
 }
 

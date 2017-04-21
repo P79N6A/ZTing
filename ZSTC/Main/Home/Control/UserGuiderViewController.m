@@ -38,7 +38,7 @@
         
         for (int i=0; i<imageViewCount; i++) {
             UIImageView  *imageview=[[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width)*i, 0,self.view.frame.size.width,self.view.frame.size.height)];
-            NSString *imagename=[NSString  stringWithFormat:@"new_feature_%d", i + 1];
+            NSString *imagename=[NSString  stringWithFormat:@"yin0%d", i + 1];
             
             imageview.image=[UIImage imageNamed:imagename];
             [_rootScrollView  addSubview:imageview];
