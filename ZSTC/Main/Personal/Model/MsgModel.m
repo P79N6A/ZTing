@@ -21,6 +21,7 @@
             NSDate *pushDate = [formater dateFromString:pushTime];
             
             NSDateFormatter *newFormater = [[NSDateFormatter alloc] init];
+            [newFormater setLocale:[[NSLocale alloc]initWithLocaleIdentifier:@"zh_Hans"]];
             [newFormater setDateFormat:@"yyyy-MM-dd"];
             
             NSString *timeString = [pushDate timeAgoWithLimit:24*60*60*3 dateFormatter:newFormater];

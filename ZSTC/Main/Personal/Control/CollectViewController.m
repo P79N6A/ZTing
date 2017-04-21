@@ -15,6 +15,7 @@
 #import "AnnotationModel.h"
 #import "ZTDriveNavViewCtrl.h"
 #import "ZTRouteViewCtrl.h"
+#import "ParkDetailCtrl.h"
 
 #import <CoreLocation/CoreLocation.h>
 
@@ -130,6 +131,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    ParkDetailCtrl *parkDeail = [[ParkDetailCtrl alloc] init];
+    CollectModel *colModel = _collectData[indexPath.row];
+    parkDeail.parkId = colModel.collectParkid;
+    [self.navigationController pushViewController:parkDeail animated:YES];
 }
 
 #pragma mark 无数据协议
