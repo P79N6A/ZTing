@@ -15,4 +15,5 @@ pod 'SDWebImage', '~> 4.0.0'
 pod 'AMapSearch-NO-IDFA', '~> 4.5.0'
 pod 'CYLTableViewPlaceHolder'
 pod 'WMPageController'
+pod 'AMapLocation-NO-IDFA', '~> 2.3.0'
 end

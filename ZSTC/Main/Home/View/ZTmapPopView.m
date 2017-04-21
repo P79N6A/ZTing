@@ -309,6 +309,7 @@
     ParkDetailCtrl *parkDetailCtrl = [[ParkDetailCtrl alloc] init];
     UIViewController *viewCtrl = [self viewController];
     parkDetailCtrl.parkId = _model.parkId;
+    parkDetailCtrl.model = _model;
     [viewCtrl.navigationController pushViewController:parkDetailCtrl animated:YES];
 }
 

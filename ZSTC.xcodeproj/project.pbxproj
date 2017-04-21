@@ -126,6 +126,9 @@
 		D63B78591EA4BD1F00D878CF /* ZTparkMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D63B78581EA4BD1F00D878CF /* ZTparkMessageView.m */; };
 		D6412CF41E9B949100305CC1 /* PersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6412CF31E9B949100305CC1 /* PersonalViewController.m */; };
 		D6534FD21E9C848E0088D769 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6534FD11E9C848E0088D769 /* LoginModel.m */; };
+		D65384F91EA8569D004335E9 /* parkCommentCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = D65384F81EA8569D004335E9 /* parkCommentCtrl.m */; };
+		D65384FC1EA88691004335E9 /* ZTCustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D65384FB1EA88691004335E9 /* ZTCustomTextView.m */; };
+		D65385021EA897C3004335E9 /* AppDelegate+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = D65385011EA897C3004335E9 /* AppDelegate+Location.m */; };
 		D67F781E1E9F28EC00BFD023 /* ZTmapPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = D67F781D1E9F28EC00BFD023 /* ZTmapPopView.m */; };
 		D6902E2C1E825CCC00C3196D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D61478941E80CCB5001A13D7 /* libz.tbd */; };
 		D6902E2D1E825CDB00C3196D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D6902D8F1E81FEBE00C3196D /* libc++.tbd */; };
@@ -356,6 +359,12 @@
 		D6412CF31E9B949100305CC1 /* PersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalViewController.m; sourceTree = "<group>"; };
 		D6534FD01E9C848E0088D769 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		D6534FD11E9C848E0088D769 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
+		D65384F71EA8569D004335E9 /* parkCommentCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parkCommentCtrl.h; sourceTree = "<group>"; };
+		D65384F81EA8569D004335E9 /* parkCommentCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = parkCommentCtrl.m; sourceTree = "<group>"; };
+		D65384FA1EA88691004335E9 /* ZTCustomTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTCustomTextView.h; sourceTree = "<group>"; };
+		D65384FB1EA88691004335E9 /* ZTCustomTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTCustomTextView.m; sourceTree = "<group>"; };
+		D65385001EA897C3004335E9 /* AppDelegate+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Location.h"; sourceTree = "<group>"; };
+		D65385011EA897C3004335E9 /* AppDelegate+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Location.m"; sourceTree = "<group>"; };
 		D67D4F2F1E81017C00664332 /* ZTPrefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTPrefix.pch; sourceTree = "<group>"; };
 		D67F781C1E9F28EC00BFD023 /* ZTmapPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTmapPopView.h; sourceTree = "<group>"; };
 		D67F781D1E9F28EC00BFD023 /* ZTmapPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTmapPopView.m; sourceTree = "<group>"; };
@@ -587,6 +596,8 @@
 		9283D6661EA8430F00BC2EAA /* Control */ = {
 			isa = PBXGroup;
 			children = (
+				D65384F71EA8569D004335E9 /* parkCommentCtrl.h */,
+				D65384F81EA8569D004335E9 /* parkCommentCtrl.m */,
 				9283D6671EA8430F00BC2EAA /* ParkDetailCtrl.h */,
 				9283D6681EA8430F00BC2EAA /* ParkDetailCtrl.m */,
 			);
@@ -617,6 +628,8 @@
 			isa = PBXGroup;
 			children = (
 				9283D6761EA8436E00BC2EAA /* StarView */,
+				D65384FA1EA88691004335E9 /* ZTCustomTextView.h */,
+				D65384FB1EA88691004335E9 /* ZTCustomTextView.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -866,6 +879,8 @@
 				92469F4D1EA7011F00FA1577 /* NoDataView.m */,
 				9283D67A1EA8455D00BC2EAA /* NSDate+MJ.h */,
 				9283D67B1EA8455D00BC2EAA /* NSDate+MJ.m */,
+				D65385001EA897C3004335E9 /* AppDelegate+Location.h */,
+				D65385011EA897C3004335E9 /* AppDelegate+Location.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -905,13 +920,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		D62697871EA60333008078AA /* iflyMSC */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = iflyMSC;
-			sourceTree = "<group>";
-		};
 		D67F781B1E9F272900BFD023 /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -940,7 +948,6 @@
 		D6902E241E824F5500C3196D /* Bundle */ = {
 			isa = PBXGroup;
 			children = (
-				D62697871EA60333008078AA /* iflyMSC */,
 				D6902E271E825C3600C3196D /* Alipay */,
 			);
 			name = Bundle;
@@ -1280,7 +1287,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		9DDAB441A32E13A94279D787 /* [CP] Copy Pods Resources */ = {
@@ -1320,6 +1327,7 @@
 				92469F4E1EA7011F00FA1577 /* NoDataView.m in Sources */,
 				9283D7731EA8652D00BC2EAA /* PaySelfViewController.m in Sources */,
 				D63B78521EA46B0C00D878CF /* ZTDriveNavViewCtrl.m in Sources */,
+				D65384F91EA8569D004335E9 /* parkCommentCtrl.m in Sources */,
 				92469F3B1EA5E97600FA1577 /* HisDetailViewController.m in Sources */,
 				92433DC41E9F153B00664D80 /* TopUpViewController.m in Sources */,
 				92E9505C1E9B25B700A017AC /* HomeViewController.m in Sources */,
@@ -1333,6 +1341,8 @@
 				92469F461EA6F72E00FA1577 /* CardModel.m in Sources */,
 				92B3092D1EA0C48000AF09B2 /* NSDateFormatter+Category.m in Sources */,
 				D63B78591EA4BD1F00D878CF /* ZTparkMessageView.m in Sources */,
+				D65384FC1EA88691004335E9 /* ZTCustomTextView.m in Sources */,
+				D65385021EA897C3004335E9 /* AppDelegate+Location.m in Sources */,
 				928604B11E9B8BF9005302E0 /* LoginViewController.m in Sources */,
 				92469F4A1EA6F81E00FA1577 /* CardCell.m in Sources */,
 				920C98EA1E9CD91600B33D21 /* UserInfoModel.m in Sources */,

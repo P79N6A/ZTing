@@ -37,5 +37,6 @@
 #import "UIImage+ScaleImage.h"
 #import <MJRefresh.h>
 #import "NSString+Date.h"
+#import "AppDelegate+Location.h"
 
 #endif /* common_h */
