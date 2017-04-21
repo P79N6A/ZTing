@@ -12,6 +12,8 @@
 #import "PayTypeView.h"
 #import "NoDataView.h"
 
+#import "ZTAliPay.h"
+
 @interface PaySelfViewController ()<SelCarNoDelegate, SelPayDelegate>
 {
     __weak IBOutlet UIView *_carInfoView;
@@ -231,7 +233,7 @@
             break;
             
         case AliPay:
-            
+            [ZTAliPay aliPayWithOrderId:_paySelfModel.orderId];
             break;
             
         case WeChatPay:

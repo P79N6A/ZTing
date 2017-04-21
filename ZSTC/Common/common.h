@@ -18,6 +18,8 @@
 #define MainColor [UIColor colorWithRed:255.2f/255 green:180.2f/255 blue:0.2f/255 alpha:1]
 #define color(r,g,b,a)     [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
+#define KAppScheme @"ZTAlipayScheme"
+
 #define KLoginState @"lognState"
 #define KLoginNotification @"loginNotification"
 #define KLoginOutNotification @"loginOutNotification"
