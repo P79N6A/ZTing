@@ -11,6 +11,8 @@
 #import "parkCommentCell.h"
 #import "parkDetailModel.h"
 #import "AnnotationModel.h"
+#import "parkCommentCtrl.h"
+#import "ZTRouteViewCtrl.h"
 
 @interface ParkDetailCtrl ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -53,7 +55,7 @@ static NSString * const parkCellId = @"parkCellId";
 -(UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] init];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -72,12 +74,6 @@ static NSString * const parkCellId = @"parkCellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.view addSubview:self.tableView];
-    _tableView.sd_layout
-    .topSpaceToView(self.view, 0)
-    .leftSpaceToView(self.view, 0)
-    .rightSpaceToView(self.view, 0)
-    .bottomSpaceToView(self.view, 48);
     
     [self _initView];
     
@@ -86,20 +82,32 @@ static NSString * const parkCellId = @"parkCellId";
     [self _loadParkDetail];
     
     [self _loadData];
+    
+    [self cheakIsCollect];
 }
 
 -(void)_initView
 {
     self.title = @"停车场详情";
     
-    _page = 0;
-    
-    _length = 10;
-    
     // 设置返回按钮
     UIBarButtonItem *returnButtonItem = [[UIBarButtonItem alloc] init];
     returnButtonItem.title = @"";
     self.navigationItem.backBarButtonItem = returnButtonItem;
+    
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    
+    _page = 0;
+    
+    _length = 10;
+    
+    [self.view addSubview:self.tableView];
+    _tableView.sd_layout
+    .topSpaceToView(self.view, 0)
+    .leftSpaceToView(self.view, 0)
+    .rightSpaceToView(self.view, 0)
+    .bottomSpaceToView(self.view, 48);
+
     
     [self.tableView registerClass:[parkCommentCell class] forCellReuseIdentifier:parkCellId];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -119,7 +127,7 @@ static NSString * const parkCellId = @"parkCellId";
     self.tableView.mj_footer.automaticallyHidden = YES;
     
 }
-
+#pragma mark 初始化子视图
 -(void)_initHeaderView
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 300)];
@@ -266,6 +274,7 @@ static NSString * const parkCellId = @"parkCellId";
     [collectionBtn setTitle:@"收藏" forState:UIControlStateNormal];
     [collectionBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
     [collectionBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    self.collectionBtn = collectionBtn;
     [self.bottomView addSubview:collectionBtn];
     
     UIButton *commentBtn = [[UIButton alloc] init];
@@ -316,6 +325,24 @@ static NSString * const parkCellId = @"parkCellId";
 #pragma mark 路线规划
 -(void)routeBtnAction:(UIButton *)sender
 {
+    AppDelegate *delegate = [[AppDelegate alloc] init];
+    [delegate startLocation];
+    
+    [delegate receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
+        if (isLocationSuccess) {
+            // 路线规划
+            ZTRouteViewCtrl *routeVC = [[ZTRouteViewCtrl alloc] init];
+            routeVC.startCoor = CLLocationCoordinate2DMake(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
+            CLLocationCoordinate2D coor = CLLocationCoordinate2DMake(_model.parkLat.floatValue/1000000.6f, _model.parkLng.floatValue/1000000.6f);
+            routeVC.coor = coor;
+            routeVC.model = self.model;
+            [self.navigationController pushViewController:routeVC animated:YES];
+        }else
+        {
+            [self showHint:@"路线规划失败"];
+        }
+        
+    }];
     
 }
 
@@ -323,12 +350,64 @@ static NSString * const parkCellId = @"parkCellId";
 -(void)collectionBtnAction:(UIButton *)sender
 {
     
+    if (sender.selected) {
+        [self showHudInView:self.view hint:@""];
+        
+        NSString *cancalCollectUrl = [NSString stringWithFormat:@"%@collect/cancel",KDomain];
+        
+        NSMutableDictionary *cancalCollectParams = @{}.mutableCopy;
+        [cancalCollectParams setValue:self.parkId forKey:@"parkId"];
+        [cancalCollectParams setValue:KMemberId forKey:@"memberId"];
+        [cancalCollectParams setValue:KToken forKey:@"token"];
+        
+        [[ZTNetworkClient sharedInstance] POST:cancalCollectUrl dict:cancalCollectParams progressFloat:nil succeed:^(id responseObject) {
+//            NSLog(@"%@",responseObject);
+            [self hideHud];
+            if([responseObject[@"success"] boolValue]){
+                [_collectionBtn setTitle:@"收藏" forState:UIControlStateNormal];
+                [_collectionBtn setImage:[UIImage imageNamed:@"icon_park_collect_nor"] forState:UIControlStateNormal];
+                sender.selected = !sender.selected;
+            }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+            [self hideHud];
+        }];
+        
+    }else
+    {
+        [self showHudInView:self.view hint:@""];
+        
+        NSString *addCollectUrl = [NSString stringWithFormat:@"%@collect/add",KDomain];
+        NSMutableDictionary *addCollectParams = @{}.mutableCopy;
+        
+        [addCollectParams setValue:self.parkId forKey:@"parkId"];
+        [addCollectParams setValue:self.model.parkName forKey:@"parkName"];
+        [addCollectParams setValue:KToken forKey:@"token"];
+        [addCollectParams setValue:KMemberId forKey:@"memberId"];
+        
+        [[ZTNetworkClient sharedInstance] POST:addCollectUrl dict:addCollectParams progressFloat:nil succeed:^(id responseObject) {
+//            NSLog(@"%@",responseObject);
+            [self hideHud];
+            if([responseObject[@"success"] boolValue]){
+                [_collectionBtn setTitle:@"已收藏" forState:UIControlStateNormal];
+                [_collectionBtn setImage:[UIImage imageNamed:@"icon_park_collect_h"] forState:UIControlStateNormal];
+                sender.selected = !sender.selected;
+            }
+
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+            [self hideHud];
+        }];
+    }
 }
 
 #pragma mark 评论
 -(void)commentBtnAction:(UIButton *)sender
 {
-    
+    parkCommentCtrl *commentCtrl = [[parkCommentCtrl alloc] init];
+    commentCtrl.parkId = self.parkId;
+    [self.navigationController pushViewController:commentCtrl animated:YES];
 }
 
 #pragma mark 加载停车场详情
@@ -342,12 +421,13 @@ static NSString * const parkCellId = @"parkCellId";
      [params setValue:self.parkId forKey:@"parkId"];
      
      [[ZTNetworkClient sharedInstance] GET:parkUrlStr dict:params progressFloat:nil succeed:^(id responseObject) {
-         NSLog(@"%@",responseObject);
+//         NSLog(@"%@",responseObject);
          if([responseObject[@"success"] boolValue]){
              [_tableView reloadData];
              
              NSDictionary *dic = responseObject[@"data"][@"park"];
              AnnotationModel *model = [[AnnotationModel alloc] initWithDataDic:dic];
+             
              dispatch_async(dispatch_get_main_queue(), ^{
                  [_imageView sd_setImageWithURL:[NSURL URLWithString:[model.parkPhotoid stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
                  
@@ -411,7 +491,7 @@ static NSString * const parkCellId = @"parkCellId";
         [self hideHud];
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
-        NSLog(@"%@",responseObject);
+//        NSLog(@"%@",responseObject);
         if([responseObject[@"success"] boolValue]){
             if(_page == 0){
                 [_dataArr removeAllObjects];
@@ -434,6 +514,39 @@ static NSString * const parkCellId = @"parkCellId";
         [self hideHud];
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+    }];
+}
+
+#pragma mark 检查是否被收藏
+
+-(void)cheakIsCollect
+{
+    NSString *collectUrl = [NSString stringWithFormat:@"%@park/isCollect",KDomain];
+    NSMutableDictionary *params = @{}.mutableCopy;
+    [params setValue:self.parkId forKey:@"parkId"];
+    [params setValue:KMemberId forKey:@"memberId"];
+    [params setValue:KToken forKey:@"token"];
+    
+    [[ZTNetworkClient sharedInstance] POST:collectUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+//        NSLog(@"%@",responseObject);
+        if([responseObject[@"success"] boolValue]){
+            if ([responseObject[@"message"] isEqualToString:@"未被收藏"]) {
+                [_collectionBtn setTitle:@"收藏" forState:UIControlStateNormal];
+                [_collectionBtn setImage:[UIImage imageNamed:@"icon_park_collect_nor"] forState:UIControlStateNormal];
+                
+                _collectionBtn.selected = NO;
+            }
+            if ([responseObject[@"message"] isEqualToString:@"该停车场已收藏"]) {
+                [_collectionBtn setTitle:@"已收藏" forState:UIControlStateNormal];
+                [_collectionBtn setImage:[UIImage imageNamed:@"icon_park_collect_h"] forState:UIControlStateNormal];
+                
+                _collectionBtn.selected = YES;
+            }
+            
+        }
+        
+    } failure:^(NSError *error) {
+        
     }];
 }
 
@@ -474,6 +587,17 @@ static NSString * const parkCellId = @"parkCellId";
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 300;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.5)];
+    return view;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.5;
 }
 
 - (void)didReceiveMemoryWarning {

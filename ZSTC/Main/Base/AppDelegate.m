@@ -45,6 +45,9 @@
     [self JPushApplication:application didFinishLaunchingWithOptions:launchOptions];
     //高德地图
     [AMapServices sharedServices].apiKey = @"ea8b6fb545fe45ae2cf6d7e7798b7b92";
+    //讯飞语音初始化
+//    NSString *initString = [[NSString alloc] initWithFormat:@"appid=%@",@"58d1d4f2"];
+//    [IFlySpeechUtility createUtility:initString];
     
     return YES;
 }

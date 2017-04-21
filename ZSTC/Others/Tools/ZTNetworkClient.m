@@ -55,7 +55,7 @@ static ZTNetworkClient *netWorkClient = nil;
     //创建网络请求管理对象
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //设置请求接口回来的时候支持什么类型的数据
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/xml",@"text/xml",@"text/html",nil];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/xml",@"text/xml",@"text/html",@"text/plain",@"text/json",@"application/json",nil];
     //发送网络请求(请求方式为GET)
     [manager GET:URLString parameters:dict progress:^(NSProgress * _Nonnull downloadProgress) {
         //下载进度
@@ -87,7 +87,8 @@ static ZTNetworkClient *netWorkClient = nil;
     //创建网络请求管理对象
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //设置请求接口回来的时候支持什么类型的数据
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/xml",@"text/xml",@"text/html",nil];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/xml",@"text/xml",@"text/html",@"text/plain",@"text/json",@"application/json",nil];
+    
     //发送网络请求(请求方式为POST)
     [manager POST:URLString parameters:dict progress:^(NSProgress * _Nonnull uploadProgress) {
         //下载进度

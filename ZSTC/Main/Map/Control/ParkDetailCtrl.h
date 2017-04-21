@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZTBaseViewCtrl.h"
+#import "AnnotationModel.h"
 
-@interface ParkDetailCtrl : UIViewController
+@interface ParkDetailCtrl : ZTBaseViewCtrl
 
 @property (nonatomic,copy) NSString *parkId;
+
+@property (nonatomic,strong) AnnotationModel *model;
 
 @end
