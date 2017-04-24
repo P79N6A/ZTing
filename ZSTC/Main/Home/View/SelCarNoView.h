@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SelCarNoView : UIView <UITableViewDelegate, UITableViewDataSource>
+@protocol SelCarNoDelegate <NSObject>
+
+- (void)selCarNoCompelete:(NSString *)carNo;
+
+@end
+
+@interface SelCarNoView : UIView <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
+
+@property (nonatomic, assign) id<SelCarNoDelegate> delegate;
 
 @end

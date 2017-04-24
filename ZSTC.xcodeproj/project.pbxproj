@@ -67,6 +67,8 @@
 		9283D77C1EA8B17500BC2EAA /* PayTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9283D77B1EA8B17500BC2EAA /* PayTypeView.m */; };
 		9283D7801EA8B3D100BC2EAA /* CarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9283D77E1EA8B3D100BC2EAA /* CarCell.m */; };
 		9283D7811EA8B3D100BC2EAA /* CarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9283D77F1EA8B3D100BC2EAA /* CarCell.xib */; };
+		9283D7841EA9A84B00BC2EAA /* BillDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9283D7831EA9A84B00BC2EAA /* BillDetailTableViewController.m */; };
+		9283D7871EA9DFC300BC2EAA /* ZTAliPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9283D7861EA9DFC300BC2EAA /* ZTAliPay.m */; };
 		928604B11E9B8BF9005302E0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928604B01E9B8BF9005302E0 /* LoginViewController.m */; };
 		928604B41E9B8C2F005302E0 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 928604B31E9B8C2F005302E0 /* Utils.m */; };
 		928C3FD11EA7388F00C31324 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 928C3FCB1EA7388F00C31324 /* AppDelegate.m */; };
@@ -263,6 +265,10 @@
 		9283D77D1EA8B3D100BC2EAA /* CarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarCell.h; sourceTree = "<group>"; };
 		9283D77E1EA8B3D100BC2EAA /* CarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarCell.m; sourceTree = "<group>"; };
 		9283D77F1EA8B3D100BC2EAA /* CarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarCell.xib; sourceTree = "<group>"; };
+		9283D7821EA9A84B00BC2EAA /* BillDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillDetailTableViewController.h; sourceTree = "<group>"; };
+		9283D7831EA9A84B00BC2EAA /* BillDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillDetailTableViewController.m; sourceTree = "<group>"; };
+		9283D7851EA9DFC300BC2EAA /* ZTAliPay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTAliPay.h; sourceTree = "<group>"; };
+		9283D7861EA9DFC300BC2EAA /* ZTAliPay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTAliPay.m; sourceTree = "<group>"; };
 		928604AF1E9B8BF9005302E0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		928604B01E9B8BF9005302E0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		928604B21E9B8C2F005302E0 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
@@ -815,6 +821,8 @@
 				D6412CF31E9B949100305CC1 /* PersonalViewController.m */,
 				920C98C51E9C6E1900B33D21 /* BillViewController.h */,
 				920C98C61E9C6E1900B33D21 /* BillViewController.m */,
+				9283D7821EA9A84B00BC2EAA /* BillDetailTableViewController.h */,
+				9283D7831EA9A84B00BC2EAA /* BillDetailTableViewController.m */,
 				920C98C81E9C6E2D00B33D21 /* EditViewController.h */,
 				920C98C91E9C6E2D00B33D21 /* EditViewController.m */,
 				920C98CB1E9C6E3D00B33D21 /* MoneyViewController.h */,
@@ -898,6 +906,8 @@
 				9283D67B1EA8455D00BC2EAA /* NSDate+MJ.m */,
 				D65385001EA897C3004335E9 /* AppDelegate+Location.h */,
 				D65385011EA897C3004335E9 /* AppDelegate+Location.m */,
+				9283D7851EA9DFC300BC2EAA /* ZTAliPay.h */,
+				9283D7861EA9DFC300BC2EAA /* ZTAliPay.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1353,6 +1363,7 @@
 				92469F3B1EA5E97600FA1577 /* HisDetailViewController.m in Sources */,
 				92433DC41E9F153B00664D80 /* TopUpViewController.m in Sources */,
 				92E9505C1E9B25B700A017AC /* HomeViewController.m in Sources */,
+				9283D7841EA9A84B00BC2EAA /* BillDetailTableViewController.m in Sources */,
 				9283D7701EA85DE800BC2EAA /* CarDetailModel.m in Sources */,
 				920C98DC1E9C6E9B00B33D21 /* MessageViewController.m in Sources */,
 				925391F51E9B78C60020F7E7 /* CarInfoView.m in Sources */,
@@ -1391,6 +1402,7 @@
 				D608EDE51E83B28800848829 /* FLAlipayManager.m in Sources */,
 				9283D6791EA8436E00BC2EAA /* CWStarRateView.m in Sources */,
 				9283D6611EA74D3C00BC2EAA /* MsgDetailViewController.m in Sources */,
+				9283D7871EA9DFC300BC2EAA /* ZTAliPay.m in Sources */,
 				928C3FD81EA73CE100C31324 /* InOutTableViewController.m in Sources */,
 				920C98CD1E9C6E3D00B33D21 /* MoneyViewController.m in Sources */,
 				92E950481E9B213800A017AC /* ZTCustomCalloutView.m in Sources */,

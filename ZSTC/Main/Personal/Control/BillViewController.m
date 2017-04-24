@@ -13,6 +13,7 @@
 #import <MJRefresh.h>
 #import "CYLTableViewPlaceHolder.h"
 #import "NoDataView.h"
+#import "BillDetailTableViewController.h"
 
 @interface BillViewController ()<CYLTableViewPlaceHolderDelegate>
 {
@@ -108,6 +109,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    BillDetailTableViewController *billDetailVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"BillDetailTableViewController"];
+    billDetailVC.billInfoModel = _billData[indexPath.row];;
+    [self.navigationController pushViewController:billDetailVC animated:YES];
 }
 
 #pragma mark 无数据协议

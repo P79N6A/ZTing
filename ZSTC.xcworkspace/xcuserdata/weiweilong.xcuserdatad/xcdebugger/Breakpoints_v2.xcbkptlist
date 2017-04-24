@@ -35,5 +35,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZSTC/Others/Tools/ZTAliPay.m"
+            timestampString = "514452747.837793"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "+ailPay:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[ZTAliPay ailPay:]"
+                  moduleName = "ZSTC"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/weiweilong/Desktop/Xcode_project/ZTing/ZSTC/Others/Tools/ZTAliPay.m"
+                  timestampString = "514452752.363651"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "532">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__19+[ZTAliPay ailPay:]_block_invoke.83"
+                  moduleName = "ZSTC"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/weiweilong/Desktop/Xcode_project/ZTing/ZSTC/Others/Tools/ZTAliPay.m"
+                  timestampString = "514452752.365255"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
