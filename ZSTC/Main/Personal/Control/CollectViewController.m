@@ -147,9 +147,11 @@
 - (void)routePark:(NSString *)parkId {
     [self loadPardDetail:parkId withType:0];
 }
+
 - (void)navPark:(NSString *)parkId {
     [self loadPardDetail:parkId withType:1];
 }
+
 - (void)loadPardDetail:(NSString *)parkId withType:(int)type {   // type: 类型，0：路线规划； 1：导航
     NSString *parkUrl = [NSString stringWithFormat:@"%@park/detail", KDomain];
     NSMutableDictionary *params = @{}.mutableCopy;

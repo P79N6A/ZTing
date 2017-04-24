@@ -119,6 +119,10 @@
 		D62697821EA5FFA4008078AA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62697811EA5FFA4008078AA /* AVFoundation.framework */; };
 		D626978E1EA6049E008078AA /* SpeechSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D626978D1EA6049E008078AA /* SpeechSynthesizer.m */; };
 		D62AAA011E826E9E00FC11C1 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62AAA001E826E9E00FC11C1 /* AlipaySDK.framework */; };
+		D6356EF31EA9932E00950091 /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6356EF21EA9932E00950091 /* iflyMSC.framework */; };
+		D6356EF51EA993E500950091 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6356EF41EA993E500950091 /* ContactsUI.framework */; };
+		D6356EF71EA993F000950091 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6356EF61EA993F000950091 /* Contacts.framework */; };
+		D6356EFD1EA99E1500950091 /* ZTVoiceSearchCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = D6356EFC1EA99E1500950091 /* ZTVoiceSearchCtrl.m */; };
 		D63A7F5C1E826C6600E971FC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6902E9B1E8267B600C3196D /* QuartzCore.framework */; };
 		D63B78521EA46B0C00D878CF /* ZTDriveNavViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = D63B784F1EA46B0C00D878CF /* ZTDriveNavViewCtrl.m */; };
 		D63B78531EA46B0C00D878CF /* ZTRouteViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = D63B78511EA46B0C00D878CF /* ZTRouteViewCtrl.m */; };
@@ -129,6 +133,7 @@
 		D65384F91EA8569D004335E9 /* parkCommentCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = D65384F81EA8569D004335E9 /* parkCommentCtrl.m */; };
 		D65384FC1EA88691004335E9 /* ZTCustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D65384FB1EA88691004335E9 /* ZTCustomTextView.m */; };
 		D65385021EA897C3004335E9 /* AppDelegate+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = D65385011EA897C3004335E9 /* AppDelegate+Location.m */; };
+		D65635751EAD8529005DCA7F /* RoadsideParkingCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = D65635741EAD8529005DCA7F /* RoadsideParkingCtrl.m */; };
 		D67F781E1E9F28EC00BFD023 /* ZTmapPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = D67F781D1E9F28EC00BFD023 /* ZTmapPopView.m */; };
 		D6902E2C1E825CCC00C3196D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D61478941E80CCB5001A13D7 /* libz.tbd */; };
 		D6902E2D1E825CDB00C3196D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D6902D8F1E81FEBE00C3196D /* libc++.tbd */; };
@@ -346,6 +351,11 @@
 		D62AA9FC1E826DCD00FC11C1 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		D62AA9FD1E826DCD00FC11C1 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		D62AAA001E826E9E00FC11C1 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlipaySDK.framework; path = ZSTC/Bundle/Alipay/AlipaySDK.framework; sourceTree = "<group>"; };
+		D6356EF21EA9932E00950091 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = ZSTC/lib/iflyMSC.framework; sourceTree = "<group>"; };
+		D6356EF41EA993E500950091 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
+		D6356EF61EA993F000950091 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		D6356EFB1EA99E1500950091 /* ZTVoiceSearchCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTVoiceSearchCtrl.h; sourceTree = "<group>"; };
+		D6356EFC1EA99E1500950091 /* ZTVoiceSearchCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTVoiceSearchCtrl.m; sourceTree = "<group>"; };
 		D63B784E1EA46B0C00D878CF /* ZTDriveNavViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTDriveNavViewCtrl.h; sourceTree = "<group>"; };
 		D63B784F1EA46B0C00D878CF /* ZTDriveNavViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTDriveNavViewCtrl.m; sourceTree = "<group>"; };
 		D63B78501EA46B0C00D878CF /* ZTRouteViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTRouteViewCtrl.h; sourceTree = "<group>"; };
@@ -365,6 +375,8 @@
 		D65384FB1EA88691004335E9 /* ZTCustomTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTCustomTextView.m; sourceTree = "<group>"; };
 		D65385001EA897C3004335E9 /* AppDelegate+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Location.h"; sourceTree = "<group>"; };
 		D65385011EA897C3004335E9 /* AppDelegate+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Location.m"; sourceTree = "<group>"; };
+		D65635731EAD8529005DCA7F /* RoadsideParkingCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoadsideParkingCtrl.h; sourceTree = "<group>"; };
+		D65635741EAD8529005DCA7F /* RoadsideParkingCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoadsideParkingCtrl.m; sourceTree = "<group>"; };
 		D67D4F2F1E81017C00664332 /* ZTPrefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTPrefix.pch; sourceTree = "<group>"; };
 		D67F781C1E9F28EC00BFD023 /* ZTmapPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTmapPopView.h; sourceTree = "<group>"; };
 		D67F781D1E9F28EC00BFD023 /* ZTmapPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTmapPopView.m; sourceTree = "<group>"; };
@@ -479,6 +491,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6356EF71EA993F000950091 /* Contacts.framework in Frameworks */,
+				D6356EF51EA993E500950091 /* ContactsUI.framework in Frameworks */,
+				D6356EF31EA9932E00950091 /* iflyMSC.framework in Frameworks */,
 				D62697821EA5FFA4008078AA /* AVFoundation.framework in Frameworks */,
 				D626977D1EA5FCB6008078AA /* CoreLocation.framework in Frameworks */,
 				D626977B1EA5FCA0008078AA /* AddressBook.framework in Frameworks */,
@@ -714,6 +729,8 @@
 				D63B78511EA46B0C00D878CF /* ZTRouteViewCtrl.m */,
 				9283D7711EA8652D00BC2EAA /* PaySelfViewController.h */,
 				9283D7721EA8652D00BC2EAA /* PaySelfViewController.m */,
+				D65635731EAD8529005DCA7F /* RoadsideParkingCtrl.h */,
+				D65635741EAD8529005DCA7F /* RoadsideParkingCtrl.m */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -900,6 +917,8 @@
 			children = (
 				D626976E1EA5ACBC008078AA /* SearchViewCtrl.h */,
 				D626976F1EA5ACBC008078AA /* SearchViewCtrl.m */,
+				D6356EFB1EA99E1500950091 /* ZTVoiceSearchCtrl.h */,
+				D6356EFC1EA99E1500950091 /* ZTVoiceSearchCtrl.m */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -1140,6 +1159,9 @@
 		E1105E1E46BF690B928E71D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D6356EF61EA993F000950091 /* Contacts.framework */,
+				D6356EF41EA993E500950091 /* ContactsUI.framework */,
+				D6356EF21EA9932E00950091 /* iflyMSC.framework */,
 				D62697811EA5FFA4008078AA /* AVFoundation.framework */,
 				D626977C1EA5FCB6008078AA /* CoreLocation.framework */,
 				D626977A1EA5FCA0008078AA /* AddressBook.framework */,
@@ -1356,6 +1378,7 @@
 				D626978E1EA6049E008078AA /* SpeechSynthesizer.m in Sources */,
 				928604B41E9B8C2F005302E0 /* Utils.m in Sources */,
 				9283D65A1EA7482D00BC2EAA /* MsgCell.m in Sources */,
+				D65635751EAD8529005DCA7F /* RoadsideParkingCtrl.m in Sources */,
 				920C98D91E9C6E8C00B33D21 /* CollectViewController.m in Sources */,
 				D608EDF31E83BD0900848829 /* ZTNetworkClient.m in Sources */,
 				92487E8A1E9F6A8700A1E778 /* BillCell.m in Sources */,
@@ -1399,6 +1422,7 @@
 				920C98CA1E9C6E2D00B33D21 /* EditViewController.m in Sources */,
 				928C3FE11EA73D2400C31324 /* DiscountTableViewController.m in Sources */,
 				920C98DF1E9C6EA700B33D21 /* SetViewController.m in Sources */,
+				D6356EFD1EA99E1500950091 /* ZTVoiceSearchCtrl.m in Sources */,
 				92B3092A1EA0C3D500AF09B2 /* NSDate+Category.m in Sources */,
 				920C98ED1E9DBBF200B33D21 /* UserExtModel.m in Sources */,
 				D619BD451E9E041C00756A55 /* AnnotationModel.m in Sources */,
@@ -1525,11 +1549,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ZSTC/ZSTC.entitlements;
 				DEVELOPMENT_TEAM = X36P6J44B6;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZSTC/Bundle",
 					"${SRCROOT}/ZSTC/Bundle/Alipay",
+					"${SRCROOT}/ZSTC/Bundle/iflyMSC",
+					"$(PROJECT_DIR)/ZSTC/lib",
 				);
 				GCC_PREFIX_HEADER = "${SRCROOT}/ZSTC/Others/Tools/ZTPrefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1572,11 +1598,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ZSTC/ZSTC.entitlements;
 				DEVELOPMENT_TEAM = X36P6J44B6;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZSTC/Bundle",
 					"${SRCROOT}/ZSTC/Bundle/Alipay",
+					"${SRCROOT}/ZSTC/Bundle/iflyMSC",
+					"$(PROJECT_DIR)/ZSTC/lib",
 				);
 				GCC_PREFIX_HEADER = "${SRCROOT}/ZSTC/Others/Tools/ZTPrefix.pch";
 				HEADER_SEARCH_PATHS = (

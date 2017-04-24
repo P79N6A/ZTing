@@ -31,6 +31,8 @@
     
     BOOL _hasCurrLoc; //只有首次定位成功跳到该经纬度位置bool
     
+    CLLocationCoordinate2D _currentLocation;
+    
 }
 
 @property (nonatomic,strong) MAMapView *mapView;
@@ -58,6 +60,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self showHudInView:self.view hint:@""];
     
     [self _initNav];
     
@@ -65,23 +68,41 @@
     
     [self _initView];
     
+    [self _locationSelf];
+    
+}
+
+-(void)_locationSelf
+{
+    AppDelegate *delegate = [[AppDelegate alloc] init];
+    [delegate startLocation];
+    
+    [delegate receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
+        if (isLocationSuccess) {
+            _currentLocation = currentLocation.coordinate;
+        }else
+        {
+            
+        }
+    }];
+
 }
 
 #pragma mark 数据请求
--(void)_loadData
+-(void)_loadData:(CLLocationCoordinate2D)coor
 {
     //获取接入停车场列表
     NSString *urlStr = [NSString stringWithFormat:@"%@park/getParkListByLngAndLat",KDomain];
     
-    float lat = _mapView.userLocation.coordinate.latitude;
-    float lng = _mapView.userLocation.coordinate.longitude;
+    float lat = coor.latitude;
+    float lng = coor.longitude;
     
     NSMutableDictionary *params = @{}.mutableCopy;
     
     [params setObject:@(lng) forKey:@"lng"];
     [params setObject:@(lat) forKey:@"lat"];
     [params setObject:@(30000) forKey:@"radius"];
-    [params setObject:@(20) forKey:@"pageSize"];
+    [params setObject:@(30) forKey:@"pageSize"];
     [params setObject:@(0) forKey:@"start"];
     
     [[ZTNetworkClient sharedInstance] GET:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
@@ -104,6 +125,7 @@
 #pragma mark 添加自定义大头针
 -(void)addAnnotation:(id)data
 {
+    [_mapView removeAnnotations:_locationArray];
     
     if (self.locationArray.count != 0) {
         [self.locationArray removeAllObjects];
@@ -138,7 +160,6 @@
 
 -(void)rightBarBtnAction:(UIButton *)sender
 {
-    NSLog(@"search");
     SearchViewCtrl *searchViewCtrl = [[SearchViewCtrl alloc] init];
     [self.navigationController pushViewController:searchViewCtrl animated:YES];
 }
@@ -297,9 +318,10 @@
      
         [_mapView removeAnnotations:_locationArray];
         
-        [self _loadData];
-        
+        [self _loadData:CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude)];
+        [self hideHud];
     }
+    _currentLocation = userLocation.coordinate;
 }
 
 -(void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated
@@ -307,6 +329,8 @@
     [self.mapView removeFromSuperview];
     [self.view addSubview:self.mapView];
     [self.view insertSubview:self.mapView atIndex:0];
+    
+    [self _loadData:CLLocationCoordinate2DMake(mapView.region.center.latitude, mapView.region.center.longitude)];
 }
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id <MAAnnotation>)annotation
@@ -329,7 +353,6 @@
         annotationView.canShowCallout= NO;       //设置气泡可以弹出，默认为NO
         annotationView.draggable = YES;        //设置标注可以拖动，默认为NO
         
-        
         annotationView.annotation = annotation;
         
         //设置中心点偏移，使得标注底部中间点成为经纬度对应点
@@ -343,7 +366,6 @@
 -(void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
 {
     
-    NSLog(@"latitude = %f   longitude = %f",view.annotation.coordinate.latitude,view.annotation.coordinate.longitude);
     NSString *latiStr = [NSString stringWithFormat:@"%f",view.annotation.coordinate.latitude];
     latiStr = [latiStr stringByReplacingOccurrencesOfString:@"." withString:@""];
     int latNum = [latiStr intValue];
@@ -365,6 +387,7 @@
 {
     AnnotationModel *model = anntation.model;
 //    NSLog(@"%@",model);
+    
     [UIView animateWithDuration:0.3 animations:^{
         _shrinkDownBtn.sd_resetNewLayout
         .bottomSpaceToView(self.view, 220)
@@ -382,13 +405,16 @@
     if (_mapPopView) {
         [_mapPopView disMissView];
         _mapPopView = [[ZTmapPopView alloc] init];
-        [_mapPopView showInView:self.view];
+        _mapPopView.coor = _currentLocation;
         _mapPopView.model = model;
+        [_mapPopView showInView:self.view];
+        
     }else
     {
         _mapPopView = [[ZTmapPopView alloc] init];
-        [_mapPopView showInView:self.view];
+        _mapPopView.coor = _currentLocation;
         _mapPopView.model = model;
+        [_mapPopView showInView:self.view];
     }
     
 }
