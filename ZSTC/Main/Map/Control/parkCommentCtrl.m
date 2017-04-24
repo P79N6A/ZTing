@@ -228,7 +228,7 @@
 
 -(void)determineBtnAction:(UIButton *)sender
 {
-    
+    [self showHudInView:self.view hint:@""];
     if (![TheUserDefaults boolForKey:KLoginState]) {
         LoginViewController *loginViewCtrl = [[LoginViewController alloc] init];
         [self presentViewController:loginViewCtrl animated:YES completion:nil];
@@ -252,6 +252,7 @@
         
 //        NSLog(@"%@",responseObject);
         if([responseObject[@"success"] boolValue]){
+            [self hideHud];
             [self showHint:@"感谢您的评价"];
             [self.navigationController popViewControllerAnimated:YES];
         }

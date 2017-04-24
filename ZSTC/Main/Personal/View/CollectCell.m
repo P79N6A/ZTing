@@ -61,14 +61,62 @@
     _costLabel.attributedText = levelAtrStr;
 }
 
+-(void)setModel:(AnnotationModel *)model
+{
+    _model = model;
+    if(model.parkPhotoid != nil && ![model.parkPhotoid isKindOfClass:[NSNull class]] && model.parkPhotoid.length > 0) {
+        NSString *utf_8UrlString = [model.parkPhotoid stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+        [_parkImageView sd_setImageWithURL:[NSURL URLWithString:utf_8UrlString]];
+    }
+    
+    _parkLabel.text = model.parkName;
+    
+    NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@/%@", model.parkIdle, model.parkCapacity]];
+    [attributeStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, [model.parkIdle stringValue].length)];
+    [attributeStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange([model.parkIdle stringValue].length + 1, [model.parkCapacity stringValue].length)];
+    _numLabel.attributedText = attributeStr;
+    
+    NSString *levelStr;
+    UIColor *levelColor;
+    if([model.parkFeelevel isEqualToString:@"0"]){
+        levelStr = @"便宜";
+        levelColor = [UIColor greenColor];
+    }
+    else if([model.parkFeelevel isEqualToString:@"1"]){
+        levelStr = @"适中";
+        levelColor = [UIColor orangeColor];
+    }
+    else if([model.parkFeelevel isEqualToString:@"2"]){
+        levelStr = @"偏贵";
+        levelColor = [UIColor redColor];
+    }
+    NSMutableAttributedString *levelAtrStr = [[NSMutableAttributedString alloc] initWithString:levelStr];
+    [levelAtrStr addAttribute:NSForegroundColorAttributeName value:levelColor range:NSMakeRange(0, levelStr.length)];
+    _costLabel.attributedText = levelAtrStr;
+}
+
+
 // 路线
 - (IBAction)routeAction:(id)sender {
-    [_delegate routePark:_collectModel.collectParkid];
+    if (_collectModel) {
+        [_delegate routePark:_collectModel.collectParkid];
+    }
+    
+    if (_model) {
+        [_delegate routePark:_model.parkId];
+    }
 }
 
 // 导航
 - (IBAction)navAction:(id)sender {
-    [_delegate navPark:_collectModel.collectParkid];
+    
+    if (_collectModel) {
+        [_delegate navPark:_collectModel.collectParkid];
+    }
+    
+    if (_model) {
+        [_delegate navPark:_model.parkId];
+    }
 }
 
 
