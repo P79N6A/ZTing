@@ -56,7 +56,7 @@
     self.navigationItem.backBarButtonItem = returnButtonItem;
     
     UIButton *billBt = [UIButton buttonWithType:UIButtonTypeCustom];
-    billBt.frame = CGRectMake(0, 0, 60, 50);
+    billBt.frame = CGRectMake(0, 0, 65, 60);
     [billBt setBackgroundImage:[UIImage imageNamed:@"icon_bill_click"] forState:UIControlStateNormal];
     [billBt addTarget:self action:@selector(billAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:billBt];
