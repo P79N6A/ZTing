@@ -135,6 +135,8 @@ static NSString * const parkCellId = @"parkCellId";
     self.headerView = headerView;
     
     UIImageView *imageView = [[UIImageView alloc] init];
+//    imageView.contentMode = UIViewContentModeScaleAspectFill;
+//    imageView.clipsToBounds = YES;
     self.imageView = imageView;
     [headerView addSubview:imageView];
     
@@ -187,12 +189,11 @@ static NSString * const parkCellId = @"parkCellId";
     sepView1.backgroundColor = color(237, 237, 237, 1);
     [headerView addSubview:sepView1];
 
-    
     imageView.sd_layout
     .topSpaceToView(headerView, 0)
     .leftSpaceToView(headerView, 0)
     .rightSpaceToView(headerView, 0)
-    .heightIs(150);
+    .heightIs(180);
     
     parkNameLab.sd_layout
     .topSpaceToView(imageView, 10)
@@ -325,11 +326,13 @@ static NSString * const parkCellId = @"parkCellId";
 #pragma mark 路线规划
 -(void)routeBtnAction:(UIButton *)sender
 {
+    [self showHudInView:self.view hint:@""];
     AppDelegate *delegate = [[AppDelegate alloc] init];
     [delegate startLocation];
     
     [delegate receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
         if (isLocationSuccess) {
+            [self hideHud];
             // 路线规划
             ZTRouteViewCtrl *routeVC = [[ZTRouteViewCtrl alloc] init];
             routeVC.startCoor = CLLocationCoordinate2DMake(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
@@ -545,6 +548,7 @@ static NSString * const parkCellId = @"parkCellId";
             
         }
         
+        
     } failure:^(NSError *error) {
         
     }];
@@ -586,7 +590,7 @@ static NSString * const parkCellId = @"parkCellId";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 300;
+    return 330;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section

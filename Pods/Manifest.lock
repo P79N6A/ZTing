@@ -25,6 +25,7 @@ PODS:
   - AMapSearch-NO-IDFA (4.5.0):
     - AMapFoundation-NO-IDFA (~> 1.2)
   - CYLTableViewPlaceHolder (1.0.8)
+  - DOPDropDownMenu-Enhanced (1.0.0)
   - IQKeyboardManager (4.0.8)
   - JCore (1.1.1)
   - JPush (3.0.2):
@@ -45,6 +46,7 @@ DEPENDENCIES:
   - AMapNavi-NO-IDFA (~> 2.3.0)
   - AMapSearch-NO-IDFA (~> 4.5.0)
   - CYLTableViewPlaceHolder
+  - DOPDropDownMenu-Enhanced (~> 1.0.0)
   - IQKeyboardManager (~> 4.0.4)
   - JPush (~> 3.0.2)
   - MBProgressHUD (~> 1.0.0)
@@ -63,6 +65,7 @@ SPEC CHECKSUMS:
   AMapNavi-NO-IDFA: a54f35c1c1e3e0ba14cf1139a7c7a6e8ff832fae
   AMapSearch-NO-IDFA: c14f82f9f06533b033da001c94077c50d48cee25
   CYLTableViewPlaceHolder: 44075c119aab78bbc514c75d771d6565e19938e8
+  DOPDropDownMenu-Enhanced: 9ec473b16351b5b0b2d6ef87e7f666fe5ff54ad5
   IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
   JCore: 2210a789c8efb7dc2a46b1c24d2209b995b18ad2
   JPush: 5d53c88e32e48b559edc3adb20ade30903a5b9e1
@@ -74,6 +77,6 @@ SPEC CHECKSUMS:
   TZImagePickerController: d09eef6042852a9dd19224ae4e874f7430852a51
   WMPageController: 181bcc9b1fb7c9c3466bff66012552953a547d28
 
-PODFILE CHECKSUM: 4d1e8eecf1573374d77561c0a4df0d3ed8987e28
+PODFILE CHECKSUM: c0d3cbc70846db413fcc05b196c94610f98b9b1f
 
 COCOAPODS: 1.2.0

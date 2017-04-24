@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DOPDropDownMenu-Enhanced.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>IQKeyboardManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,6 +72,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>2D0C5ACBB79D836FB8000BA64498F017</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>34570380B54CF07B477E17BD491D3D17</key>
 		<dict>
 			<key>primary</key>
@@ -107,7 +117,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>AF5B59A6EFE749926CE1AC58D78D41CA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C2CF906E200BD29AB817C2B1B1193D97</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CA1F71158E6B58318262202F744DFA51</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CC7A1BAE873796AC4C5B83210D501FFD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CEE85E50EF4C64B811F5458431E74D8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DAF5C24B925B25C2EB68406A40F84849</key>
 		<dict>
 			<key>primary</key>
 			<true/>

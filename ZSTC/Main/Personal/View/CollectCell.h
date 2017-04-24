@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CollectModel.h"
+#import "AnnotationModel.h"
 
 @protocol ParkDelegate <NSObject>
 
@@ -33,5 +34,7 @@
 
 @property (nonatomic, retain) CollectModel *collectModel;
 @property (nonatomic, assign) id<ParkDelegate> delegate;
+
+@property (nonatomic, retain) AnnotationModel *model;
 
 @end

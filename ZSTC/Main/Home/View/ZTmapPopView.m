@@ -215,10 +215,44 @@
     
     _parkNameLab.text = _model.parkName;
     
-    _distanceLab.text = [NSString stringWithFormat:@"%@m",_model.distance];
     
+    NSString *parklat = [NSString stringWithFormat:@"%@",_model.parkLat];
+    NSMutableString *parkLatStr = [NSMutableString stringWithString:parklat];
+    [parkLatStr insertString:@"." atIndex:2];
+    
+    NSString *parklng = [NSString stringWithFormat:@"%@",_model.parkLng];
+    NSMutableString *parkLngStr = [NSMutableString stringWithString:parklng];
+    [parkLngStr insertString:@"." atIndex:3];
+    
+    double distance = [self distanceBetweenOrderBy:[parkLatStr doubleValue] :_coor.latitude :[parkLngStr doubleValue] :_coor.longitude];
+    _distanceLab.text = [NSString stringWithFormat:@"%.lfm",distance];
+/*
+    AppDelegate *delegate = [[AppDelegate alloc] init];
+    [delegate startLocation];
+    
+    [delegate receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
+        if (isLocationSuccess) {
+            double distance = [self distanceBetweenOrderBy:[parkLatStr doubleValue] :currentLocation.coordinate.latitude :[parkLngStr doubleValue] :currentLocation.coordinate.longitude];
+            _distanceLab.text = [NSString stringWithFormat:@"%.lfm",distance];
+        }else
+        {
+            
+        }
+    }];
+    */
     _troduceLab.text = _model.parkFeedesc;
     
+}
+
+-(double)distanceBetweenOrderBy:(double)lat1 :(double)lat2 :(double)lng1 :(double)lng2{
+    
+    CLLocation *curLocation = [[CLLocation alloc] initWithLatitude:lat1 longitude:lng1];
+    
+    CLLocation *otherLocation = [[CLLocation alloc] initWithLatitude:lat2 longitude:lng2];
+    
+    double  distance  = [curLocation distanceFromLocation:otherLocation];
+    
+    return  distance;
 }
 
 #pragma mark 路线规划

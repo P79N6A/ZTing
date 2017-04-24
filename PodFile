@@ -16,4 +16,5 @@ pod 'AMapSearch-NO-IDFA', '~> 4.5.0'
 pod 'CYLTableViewPlaceHolder'
 pod 'WMPageController'
 pod 'AMapLocation-NO-IDFA', '~> 2.3.0'
+pod 'DOPDropDownMenu-Enhanced', '~> 1.0.0'
 end
