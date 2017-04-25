@@ -57,7 +57,25 @@
         CarInfoView *carInfoView = [[CarInfoView alloc] initWithFrame:CGRectMake(_scrollView.width * idx, 0, _scrollView.width, _scrollView.height)];
         carInfoView.bindCarModel = bindCarModel;
         [_scrollView addSubview:carInfoView];
+        
+        if(idx > 0){
+            [self addLeftView:CGRectMake(_scrollView.width * idx + 10, (_scrollView.height - 56)/2, 33, 56)];
+        }else if (idx < (_carData.count - 1)) {
+            [self addRightView:CGRectMake(_scrollView.width * (idx + 1) - 43, (_scrollView.height - 56)/2, 33, 56)];
+        }
+        
     }];
+}
+
+- (void)addLeftView:(CGRect)frame {
+    UIImageView *leftImgView = [[UIImageView alloc] initWithFrame:frame];
+    leftImgView.image = [UIImage imageNamed:@"index_arrow_left"];
+    [_scrollView addSubview:leftImgView];
+}
+- (void)addRightView:(CGRect)frame {
+    UIImageView *rightImgView = [[UIImageView alloc] initWithFrame:frame];
+    rightImgView.image = [UIImage imageNamed:@"index_arrow_right"];
+    [_scrollView addSubview:rightImgView];
 }
 
 - (void)_createAddCarView {

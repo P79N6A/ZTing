@@ -75,4 +75,8 @@ static const NSString *locationManagerKey = @"locationManagerKey";
     }
 }
 
+- (void)stopLocation {
+    [self.locationManager stopUpdatingLocation];
+}
+
 @end

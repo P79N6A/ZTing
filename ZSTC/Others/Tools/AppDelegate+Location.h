@@ -26,4 +26,7 @@ typedef void (^LocationPosition)(CLLocation *currentLocation,AMapLocationReGeoco
 //接收位置block
 -(void)receiveLocationBlock:(LocationPosition)block;
 
+//停止定位服务
+-(void)stopLocation;
+
 @end

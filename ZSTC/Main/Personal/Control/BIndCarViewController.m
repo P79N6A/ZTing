@@ -8,6 +8,8 @@
 
 #import "BIndCarViewController.h"
 #import <IQKeyboardManager.h>
+#import "InputKeyBoardView.h"
+#include "NumInputView.h"
 
 @interface BIndCarViewController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
 {
@@ -46,6 +48,48 @@
 }
 
 - (void)_initView {
+    
+    // 设置自定义键盘
+    int verticalCount = 5;
+    CGFloat kheight = KScreenWidth/10 + 8;
+    InputKeyBoardView *keyBoardView = [[InputKeyBoardView alloc] initWithFrame:CGRectMake(0, KScreenHeight - kheight * verticalCount, KScreenWidth, kheight * verticalCount) withClickKeyBoard:^(NSString *character) {
+        if(_provinceTF.text.length <= 0){
+            _provinceTF.text = [NSString stringWithFormat:@"%@%@", _provinceTF.text, character];
+        }
+        [_provinceTF resignFirstResponder];
+        [_letterTF becomeFirstResponder];
+    } withDelete:^{
+        if(_provinceTF.text.length > 0){
+            _provinceTF.text = [_provinceTF.text substringWithRange:NSMakeRange(0, _provinceTF.text.length - 1)];
+        }
+    }];
+    _provinceTF.inputView = keyBoardView;
+    
+    NumInputView *letInputView = [[NumInputView alloc] initWithFrame:CGRectMake(0, KScreenHeight - kheight * verticalCount, KScreenWidth, kheight * verticalCount) withClickKeyBoard:^(NSString *character) {
+        if(_letterTF.text.length <= 0){
+            _letterTF.text = [NSString stringWithFormat:@"%@%@", _letterTF.text, character];
+        }
+        [_letterTF resignFirstResponder];
+        [_numTF becomeFirstResponder];
+    } withDelete:^{
+        if(_letterTF.text.length > 0){
+            _letterTF.text = [_letterTF.text substringWithRange:NSMakeRange(0, _letterTF.text.length - 1)];
+        }
+    }];
+    _letterTF.inputView = letInputView;
+    
+    NumInputView *numInputView = [[NumInputView alloc] initWithFrame:CGRectMake(0, KScreenHeight - kheight * verticalCount, KScreenWidth, kheight * verticalCount) withClickKeyBoard:^(NSString *character) {
+        if(_numTF.text.length >= 5){
+            [_numTF resignFirstResponder];
+        }else {
+            _numTF.text = [NSString stringWithFormat:@"%@%@", _numTF.text, character];
+        }
+    } withDelete:^{
+        if(_numTF.text.length > 0){
+            _numTF.text = [_numTF.text substringWithRange:NSMakeRange(0, _numTF.text.length - 1)];
+        }
+    }];
+    _numTF.inputView = numInputView;
     
     _addBt.layer.masksToBounds = YES;
     _addBt.layer.cornerRadius = 4;

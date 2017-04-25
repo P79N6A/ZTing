@@ -95,14 +95,19 @@
     [_titleView addSubview:manyButton];
     
     // 创建选择车辆视图
-    [self _createView];
+//    [self _createView];
 }
 
 - (void)_createView {
+    [_hisCarListView removeFromSuperview];
+    _hisCarListView = nil;
+    
     _hisCarListView = [[HisCarListView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
     _hisCarListView.delegate = self;
     _hisCarListView.hidden = YES;
+    _hisCarListView.bindCarData = _bindCarData;
     [self.view addSubview:_hisCarListView];
+    [self.view bringSubviewToFront:_hisCarListView];
 }
 #pragma mark 选择车牌协议
 - (void)selectBindCar:(BindCarModel *)bindCarModel {
@@ -142,10 +147,9 @@
             }
             if(_bindCarData.count <= 0){
                 [self.tableView cyl_reloadData];
+                [self _createView];
             }
-            
-            
-            _hisCarListView.bindCarData = _bindCarData;
+//            _hisCarListView.bindCarData = _bindCarData;
         }
     } failure:^(NSError *error) {
     }];
@@ -187,6 +191,7 @@
                 [_recordData addObject:historyModel];
             }];
             [self.tableView cyl_reloadData];
+            [self _createView];
         }
     } failure:^(NSError *error) {
         [self hideHud];

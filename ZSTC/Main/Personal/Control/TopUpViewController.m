@@ -56,7 +56,34 @@
 
 #pragma mark 充值
 - (IBAction)topupAction {
-
+    if(_topupAccountTF.text == nil || _topupAccountTF.text.length <= 0){
+        [self showHint:@"请输入充值金额"];
+        return;
+    }
+    
+    NSString *payMoney = [NSString stringWithFormat:@"%.0f", _topupAccountTF.text.floatValue * 100];
+    
+    NSString *topupUrl = [NSString stringWithFormat:@"%@account/memberRecharge", KDomain];
+    NSMutableDictionary *params = @{}.mutableCopy;
+    [params setObject:KToken forKey:@"token"];
+    [params setObject:KMemberId forKey:@"memberId"];
+    [params setObject:payMoney forKey:@"payMoney"];
+    
+    [[ZTNetworkClient sharedInstance] POST:topupUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+        if([responseObject[@"success"] boolValue]){
+            NSLog(@"%@", responseObject);
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
+    
+    if(_ailiSelBt.selected){
+        // 支付宝
+        
+        
+    }else {
+        // 微信
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -17,6 +17,7 @@
     self = [super initWithFrame:frame];
     if(self){
         [self _initView];
+        [self _loadMoneyData];
     }
     return self;
 }
@@ -78,6 +79,24 @@
     }
 }
 
+- (void)_loadMoneyData {
+    NSString *accountUrl = [NSString stringWithFormat:@"%@pay/getMemberAccount", KDomain];
+    NSMutableDictionary *params = @{}.mutableCopy;
+    [params setObject:KToken forKey:@"token"];
+    [params setObject:KMemberId forKey:@"memberId"];
+    [[ZTNetworkClient sharedInstance] POST:accountUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+        if([responseObject[@"success"] boolValue]){
+            float account = [responseObject[@"accountBalanceAmt"] floatValue]/100;
+            UILabel *countLabel = [_bgView viewWithTag:400];
+            countLabel.text = [NSString stringWithFormat:@"(%.2f元)", account];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
+#pragma mark 支付
 - (void)payAction:(UIButton *)payBt {
     self.hidden = YES;
     switch (payBt.tag - 300) {

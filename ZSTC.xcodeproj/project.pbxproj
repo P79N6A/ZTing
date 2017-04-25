@@ -23,6 +23,8 @@
 		920C98F01E9DC54B00B33D21 /* SetNickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920C98EF1E9DC54B00B33D21 /* SetNickViewController.m */; };
 		9211C5251EADEB340085D1AD /* InputKeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9211C5221EADEB340085D1AD /* InputKeyBoardView.m */; };
 		9211C5261EADEB340085D1AD /* NumInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9211C5241EADEB340085D1AD /* NumInputView.m */; };
+		9211C5291EAEDD9D0085D1AD /* AboutOurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9211C5281EAEDD9D0085D1AD /* AboutOurViewController.m */; };
+		9211C5521EAF268D0085D1AD /* PaySucViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9211C5511EAF268D0085D1AD /* PaySucViewController.m */; };
 		92433DC01E9E273000664D80 /* BindCarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92433DBE1E9E273000664D80 /* BindCarCell.m */; };
 		92433DC11E9E273000664D80 /* BindCarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92433DBF1E9E273000664D80 /* BindCarCell.xib */; };
 		92433DC41E9F153B00664D80 /* TopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92433DC31E9F153B00664D80 /* TopUpViewController.m */; };
@@ -200,6 +202,10 @@
 		9211C5221EADEB340085D1AD /* InputKeyBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputKeyBoardView.m; sourceTree = "<group>"; };
 		9211C5231EADEB340085D1AD /* NumInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumInputView.h; sourceTree = "<group>"; };
 		9211C5241EADEB340085D1AD /* NumInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumInputView.m; sourceTree = "<group>"; };
+		9211C5271EAEDD9D0085D1AD /* AboutOurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutOurViewController.h; sourceTree = "<group>"; };
+		9211C5281EAEDD9D0085D1AD /* AboutOurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutOurViewController.m; sourceTree = "<group>"; };
+		9211C5501EAF268D0085D1AD /* PaySucViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySucViewController.h; sourceTree = "<group>"; };
+		9211C5511EAF268D0085D1AD /* PaySucViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySucViewController.m; sourceTree = "<group>"; };
 		92433DBD1E9E273000664D80 /* BindCarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindCarCell.h; sourceTree = "<group>"; };
 		92433DBE1E9E273000664D80 /* BindCarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindCarCell.m; sourceTree = "<group>"; };
 		92433DBF1E9E273000664D80 /* BindCarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BindCarCell.xib; sourceTree = "<group>"; };
@@ -794,6 +800,8 @@
 				D63B78511EA46B0C00D878CF /* ZTRouteViewCtrl.m */,
 				9283D7711EA8652D00BC2EAA /* PaySelfViewController.h */,
 				9283D7721EA8652D00BC2EAA /* PaySelfViewController.m */,
+				9211C5501EAF268D0085D1AD /* PaySucViewController.h */,
+				9211C5511EAF268D0085D1AD /* PaySucViewController.m */,
 				D65635731EAD8529005DCA7F /* RoadsideParkingCtrl.h */,
 				D65635741EAD8529005DCA7F /* RoadsideParkingCtrl.m */,
 				D65635941EADCD88005DCA7F /* ScannerViewCtrl.h */,
@@ -890,12 +898,18 @@
 				9283D7831EA9A84B00BC2EAA /* BillDetailTableViewController.m */,
 				920C98C81E9C6E2D00B33D21 /* EditViewController.h */,
 				920C98C91E9C6E2D00B33D21 /* EditViewController.m */,
+				920C98EE1E9DC54B00B33D21 /* SetNickViewController.h */,
+				920C98EF1E9DC54B00B33D21 /* SetNickViewController.m */,
 				920C98CB1E9C6E3D00B33D21 /* MoneyViewController.h */,
 				920C98CC1E9C6E3D00B33D21 /* MoneyViewController.m */,
+				92433DC21E9F153B00664D80 /* TopUpViewController.h */,
+				92433DC31E9F153B00664D80 /* TopUpViewController.m */,
 				920C98CE1E9C6E4900B33D21 /* CardViewController.h */,
 				920C98CF1E9C6E4900B33D21 /* CardViewController.m */,
 				920C98D11E9C6E5B00B33D21 /* MyCarViewController.h */,
 				920C98D21E9C6E5B00B33D21 /* MyCarViewController.m */,
+				926F17511EA4A50600F106AF /* BIndCarViewController.h */,
+				926F17521EA4A50600F106AF /* BIndCarViewController.m */,
 				920C98D41E9C6E7400B33D21 /* HistoryViewController.h */,
 				920C98D51E9C6E7400B33D21 /* HistoryViewController.m */,
 				92469F391EA5E97600FA1577 /* HisDetailViewController.h */,
@@ -905,12 +919,8 @@
 				928C3FD51EA73CB300C31324 /* Message */,
 				920C98DD1E9C6EA700B33D21 /* SetViewController.h */,
 				920C98DE1E9C6EA700B33D21 /* SetViewController.m */,
-				920C98EE1E9DC54B00B33D21 /* SetNickViewController.h */,
-				920C98EF1E9DC54B00B33D21 /* SetNickViewController.m */,
-				92433DC21E9F153B00664D80 /* TopUpViewController.h */,
-				92433DC31E9F153B00664D80 /* TopUpViewController.m */,
-				926F17511EA4A50600F106AF /* BIndCarViewController.h */,
-				926F17521EA4A50600F106AF /* BIndCarViewController.m */,
+				9211C5271EAEDD9D0085D1AD /* AboutOurViewController.h */,
+				9211C5281EAEDD9D0085D1AD /* AboutOurViewController.m */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -1531,6 +1541,7 @@
 				D6534FD21E9C848E0088D769 /* LoginModel.m in Sources */,
 				D6902E921E8261F400C3196D /* openssl_wrapper.m in Sources */,
 				9211C5251EADEB340085D1AD /* InputKeyBoardView.m in Sources */,
+				9211C5521EAF268D0085D1AD /* PaySucViewController.m in Sources */,
 				92E950491E9B213800A017AC /* ZTMoreMenuView.m in Sources */,
 				9283D6711EA8430F00BC2EAA /* ParkDetailCtrl.m in Sources */,
 				D6902E911E8261F400C3196D /* NSDataEx.m in Sources */,
@@ -1547,6 +1558,7 @@
 				D69EE5D81E9F770A00A8D014 /* UIView+ViewControllerRespond.m in Sources */,
 				D6902E941E8261F400C3196D /* RSADataVerifier.m in Sources */,
 				92E950561E9B21E800A017AC /* BaseModel.m in Sources */,
+				9211C5291EAEDD9D0085D1AD /* AboutOurViewController.m in Sources */,
 				9283D77C1EA8B17500BC2EAA /* PayTypeView.m in Sources */,
 				920C98CA1E9C6E2D00B33D21 /* EditViewController.m in Sources */,
 				928C3FE11EA73D2400C31324 /* DiscountTableViewController.m in Sources */,

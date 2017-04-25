@@ -9,8 +9,12 @@
 #import "CarInfoView.h"
 #import "CarDetailModel.h"
 #import "PaySelfViewController.h"
+#import "ZTMapViewCtrl.h"
 
 @implementation CarInfoView
+{
+    BOOL _isNoData;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -26,9 +30,15 @@
     [self addGestureRecognizer:tap];
 }
 - (void)tapCar {
-    PaySelfViewController *payVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PaySelfViewController"];
-    payVC.carNo = _bindCarModel.carNo;
-    [self.viewController.navigationController pushViewController:payVC animated:YES];
+    if(_isNoData){
+        // 无数据
+        ZTMapViewCtrl *mapViewCtrl = [[ZTMapViewCtrl alloc] init];
+        [self.viewController.navigationController pushViewController:mapViewCtrl animated:YES];
+    }else {
+        PaySelfViewController *payVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PaySelfViewController"];
+        payVC.carNo = _bindCarModel.carNo;
+        [self.viewController.navigationController pushViewController:payVC animated:YES];
+    }
 }
 
 - (void)setBindCarModel:(BindCarModel *)bindCarModel {
@@ -39,7 +49,7 @@
     // 车辆图片
     UIImageView *carImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, self.width/3, self.height/2)];
     carImgView.tag = 201;
-    carImgView.backgroundColor = [UIColor grayColor];
+//    carImgView.backgroundColor = [UIColor grayColor];
     [self addSubview:carImgView];
     
     // 停车场名字
@@ -55,6 +65,7 @@
     // 车牌信息
     UIButton *infoBt = [UIButton buttonWithType:UIButtonTypeCustom];
     infoBt.enabled = NO;
+    infoBt.tag = 200;
     infoBt.frame = CGRectMake(carImgView.right + 10, carImgView.top, 130, 60);
     [infoBt setTitle:bindCarModel.carNo forState:UIControlStateNormal];
     [infoBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -115,12 +126,17 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self uploadViewWithCarDelModel:carDelModel];
             });
+        }else {
+            [self noDataUploadViewWithCarDelModel];
         }
     } failure:^(NSError *error) {
     }];
 }
 
+#pragma mark 有数据加载视图
 - (void)uploadViewWithCarDelModel:(CarDetailModel *)carDetailModel {
+    _isNoData = NO;
+    
     UIImageView *carImgView = [self viewWithTag:201];
     carImgView.contentMode = UIViewContentModeScaleAspectFill;
     carImgView.clipsToBounds = YES;
@@ -143,6 +159,51 @@
     moneyLabel.text = [NSString stringWithFormat:@"停车费用: %.2f元", carDetailModel.fee.floatValue];
     
 }
+
+#pragma mark 无数据加载视图
+- (void)noDataUploadViewWithCarDelModel {
+    _isNoData = YES;
+    
+    UIButton *infoBt = [self viewWithTag:200];
+    infoBt.frame = CGRectMake((self.width - infoBt.width)/2, infoBt.top, infoBt.width, infoBt.height);
+    [infoBt setBackgroundImage:[UIImage imageNamed:@"icon_car_yellow"] forState:UIControlStateNormal];
+    
+    UIImageView *carImgView = [self viewWithTag:201];
+    carImgView.hidden = YES;
+    
+    UILabel *parkNameLabel = [self viewWithTag:202];
+    parkNameLabel.hidden = YES;
+    
+    UILabel *inTimeLabel = [self viewWithTag:203];
+    inTimeLabel.hidden = YES;
+    
+    UILabel *timeLabel = [self viewWithTag:204];
+    timeLabel.hidden = YES;
+    
+    UILabel *moneyLabel = [self viewWithTag:205];
+    moneyLabel.hidden = YES;
+    
+    // 添加视图
+    UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.width - 100)/2, infoBt.bottom + 10, 100, 20)];
+    msgLabel.text = @"无进场记录";
+    msgLabel.textColor = [UIColor grayColor];
+    msgLabel.font = [UIFont systemFontOfSize:16];
+    msgLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:msgLabel];
+
+    UIImageView *findImgView = [[UIImageView alloc] initWithFrame:CGRectMake(self.width/2 - 80, msgLabel.bottom + 8, 60,60)];
+    findImgView.image = [UIImage imageNamed:@"icon_park_no_road_find"];
+    [self addSubview:findImgView];
+    
+    UILabel *findLabel = [[UILabel alloc] initWithFrame:CGRectMake(findImgView.right + 4, msgLabel.bottom + 30, 120, 20)];
+    findLabel.text = @"快速寻找车位";
+    findLabel.textColor = MainColor;
+    findLabel.font = [UIFont systemFontOfSize:17];
+    findLabel.textAlignment = NSTextAlignmentLeft;
+    [self addSubview:findLabel];
+
+}
+
 
 - (NSString *)timeLong:(NSString *)startTime {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
