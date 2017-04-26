@@ -13,6 +13,7 @@
 #import "NoDataView.h"
 #import "InputKeyBoardView.h"
 #import "NumInputView.h"
+#import "PaySucViewController.h"
 
 #import "ZTAliPay.h"
 
@@ -277,7 +278,7 @@
 - (void)selPay:(PayType)payType {
     switch (payType) {
         case AccountPay:
-            
+            [self acountPay];
             break;
             
         case AliPay:
@@ -289,6 +290,26 @@
             break;
             
     }
+}
+
+#pragma mark 余额支付
+- (void)acountPay {
+    NSString *payUrl = [NSString stringWithFormat:@"%@pay/payByMemberAccount", KDomain];
+    NSMutableDictionary *params = @{}.mutableCopy;
+    [params setObject:KToken forKey:@"token"];
+    [params setObject:KMemberId forKey:@"memberId"];
+    [params setObject:_paySelfModel.orderId forKey:@"orderId"];
+    [self showHudInView:self.view hint:@"支付中.."];
+    [[ZTNetworkClient sharedInstance] POST:payUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+        [self hideHud];
+        if([responseObject[@"success"] boolValue]){
+            PaySucViewController *paySucVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PaySucViewController"];
+            [self.navigationController pushViewController:paySucVC animated:YES];
+        }
+    } failure:^(NSError *error) {
+        [self hideHud];
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

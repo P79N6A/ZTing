@@ -81,9 +81,8 @@
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
     [[ZTNetworkClient sharedInstance] POST:bindUrl dict:params progressFloat:nil succeed:^(id responseObject) {
-        if(responseObject[@"success"]){
-            NSArray *datas = responseObject[@"data"][@"carList"]
-            ;
+        if([responseObject[@"success"] boolValue]){
+            NSArray *datas = responseObject[@"data"][@"carList"];
             
             [_carData removeAllObjects];
             [datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -91,6 +90,10 @@
                 [_carData addObject:bindCarModel];
             }];
             [_carTabelView reloadData];
+        }else if ([responseObject[@"statusCode"] integerValue] == 202) {
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KLoginState];
+            // 发送登出通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:KLoginOutNotification object:nil];
         }
     } failure:^(NSError *error) {
     }];

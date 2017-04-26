@@ -17,7 +17,9 @@
 #import "ZTRouteViewCtrl.h"
 #import "ParkDetailCtrl.h"
 
-#import <CoreLocation/CoreLocation.h>
+#import "AppDelegate+Location.h"
+
+//#import <CoreLocation/CoreLocation.h>
 
 @interface CollectViewController ()<CYLTableViewPlaceHolderDelegate, ParkDelegate, CLLocationManagerDelegate>
 {
@@ -28,7 +30,7 @@
     
     CLLocationCoordinate2D _currentLocation;
 }
-@property(strong,nonatomic)CLLocationManager *locationManager;
+//@property(strong,nonatomic)CLLocationManager *locationManager;
 @end
 
 @implementation CollectViewController
@@ -37,13 +39,22 @@
     [super viewDidLoad];
     self.title = @"收藏";
     
-    [self _initLocation];
+//    [self _initLocation];
     
     [self _initView];
     
     [self _loadData];
+    
+    [[AppDelegate shareAppDelegate] startLocation];
+    [[AppDelegate shareAppDelegate] receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
+        if(isLocationSuccess){
+            _currentLocation = currentLocation.coordinate;
+            [[AppDelegate shareAppDelegate] stopLocation];
+        }
+    }];
 }
 
+/*
 - (void)_initLocation {
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
@@ -51,12 +62,14 @@
     _locationManager.distanceFilter = 10;
     [_locationManager startUpdatingLocation];//开启定位
 }
+
 #pragma mark CLLocationManagerDelegate
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
      CLLocation *currLocation=[locations lastObject];
     _currentLocation = currLocation.coordinate;
     [_locationManager stopUpdatingLocation];
 }
+ */
 
 - (void)_initView {
     _collectData = @[].mutableCopy;
