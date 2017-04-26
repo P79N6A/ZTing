@@ -21,6 +21,8 @@
 		920C98EA1E9CD91600B33D21 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 920C98E91E9CD91600B33D21 /* UserInfoModel.m */; };
 		920C98ED1E9DBBF200B33D21 /* UserExtModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 920C98EC1E9DBBF200B33D21 /* UserExtModel.m */; };
 		920C98F01E9DC54B00B33D21 /* SetNickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920C98EF1E9DC54B00B33D21 /* SetNickViewController.m */; };
+		9211C5251EADEB340085D1AD /* InputKeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9211C5221EADEB340085D1AD /* InputKeyBoardView.m */; };
+		9211C5261EADEB340085D1AD /* NumInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9211C5241EADEB340085D1AD /* NumInputView.m */; };
 		92433DC01E9E273000664D80 /* BindCarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92433DBE1E9E273000664D80 /* BindCarCell.m */; };
 		92433DC11E9E273000664D80 /* BindCarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92433DBF1E9E273000664D80 /* BindCarCell.xib */; };
 		92433DC41E9F153B00664D80 /* TopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92433DC31E9F153B00664D80 /* TopUpViewController.m */; };
@@ -194,6 +196,10 @@
 		920C98EC1E9DBBF200B33D21 /* UserExtModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserExtModel.m; sourceTree = "<group>"; };
 		920C98EE1E9DC54B00B33D21 /* SetNickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetNickViewController.h; sourceTree = "<group>"; };
 		920C98EF1E9DC54B00B33D21 /* SetNickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetNickViewController.m; sourceTree = "<group>"; };
+		9211C5211EADEB340085D1AD /* InputKeyBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputKeyBoardView.h; sourceTree = "<group>"; };
+		9211C5221EADEB340085D1AD /* InputKeyBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputKeyBoardView.m; sourceTree = "<group>"; };
+		9211C5231EADEB340085D1AD /* NumInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumInputView.h; sourceTree = "<group>"; };
+		9211C5241EADEB340085D1AD /* NumInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumInputView.m; sourceTree = "<group>"; };
 		92433DBD1E9E273000664D80 /* BindCarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindCarCell.h; sourceTree = "<group>"; };
 		92433DBE1E9E273000664D80 /* BindCarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindCarCell.m; sourceTree = "<group>"; };
 		92433DBF1E9E273000664D80 /* BindCarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BindCarCell.xib; sourceTree = "<group>"; };
@@ -593,6 +599,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		9211C5201EADEB200085D1AD /* KeyBoard */ = {
+			isa = PBXGroup;
+			children = (
+				9211C5211EADEB340085D1AD /* InputKeyBoardView.h */,
+				9211C5221EADEB340085D1AD /* InputKeyBoardView.m */,
+				9211C5231EADEB340085D1AD /* NumInputView.h */,
+				9211C5241EADEB340085D1AD /* NumInputView.m */,
+			);
+			name = KeyBoard;
+			sourceTree = "<group>";
+		};
 		92433DBC1E9E273000664D80 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -920,6 +937,7 @@
 		D614789A1E80CF41001A13D7 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				9211C5201EADEB200085D1AD /* KeyBoard */,
 				92B3092E1EA0C4AB00AF09B2 /* DateTool */,
 				D69EE5D61E9F770A00A8D014 /* UIView+ViewControllerRespond.h */,
 				D69EE5D71E9F770A00A8D014 /* UIView+ViewControllerRespond.m */,
@@ -1506,11 +1524,13 @@
 				928C3FD11EA7388F00C31324 /* AppDelegate.m in Sources */,
 				D65635921EADCD57005DCA7F /* split.c in Sources */,
 				92469F331EA5BD3400FA1577 /* HisCarListView.m in Sources */,
+				9211C5261EADEB340085D1AD /* NumInputView.m in Sources */,
 				D6902E991E8263BD00C3196D /* APAuthV2Info.m in Sources */,
 				92433DD01E9F633500664D80 /* HistoryCell.m in Sources */,
 				D63B78561EA4B3D500D878CF /* UIImage+ScaleImage.m in Sources */,
 				D6534FD21E9C848E0088D769 /* LoginModel.m in Sources */,
 				D6902E921E8261F400C3196D /* openssl_wrapper.m in Sources */,
+				9211C5251EADEB340085D1AD /* InputKeyBoardView.m in Sources */,
 				92E950491E9B213800A017AC /* ZTMoreMenuView.m in Sources */,
 				9283D6711EA8430F00BC2EAA /* ParkDetailCtrl.m in Sources */,
 				D6902E911E8261F400C3196D /* NSDataEx.m in Sources */,
