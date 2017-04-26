@@ -50,7 +50,6 @@ static const NSString *locationManagerKey = @"locationManagerKey";
     // 逆地理请求超时时间，最低2s，此处设置为2s
     self.locationManager.reGeocodeTimeout = 2;
     
-    
     //3.创建定位管理者
     //带逆地理（返回坐标和地址信息。将下面代码中的 YES改成NO,则不会返回地址信息。
     

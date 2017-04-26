@@ -84,27 +84,30 @@ static NSString * const ID = @"CollectionViewCellId";
  */
 - (void)onResult: (NSArray *)resultArray isLast:(BOOL) isLast
 {
-    NSMutableString *result = [NSMutableString new];
-    NSDictionary *dic = [resultArray objectAtIndex:0];
-    NSLog(@"DIC:%@",dic);
-    for (NSString *key in dic) {
-        [result appendFormat:@"%@",key];
+    if (isLast == YES) {
+        NSMutableString *result = [NSMutableString new];
+        NSDictionary *dic = [resultArray objectAtIndex:0];
+        
+        for (NSString *key in dic) {
+            [result appendFormat:@"%@",key];
+        }
+        
+        NSLog(@"result   :    %@",result);
+        
+        _searchTextField.text = result;
+        
+        //创建POI检索引擎
+        _POISearchManager = [[AMapSearchAPI alloc] init];
+        _POISearchManager.delegate = self;
+        
+        //创建地理编码请求
+        AMapGeocodeSearchRequest *geoSearchRequest = [[AMapGeocodeSearchRequest alloc] init];
+        geoSearchRequest.address = result;
+        
+        //发起请求,开始POI的地理编码检索
+        [_POISearchManager AMapGeocodeSearch:geoSearchRequest];
+
     }
-    
-    NSLog(@"result   :    %@",result);
-    
-    _searchTextField.text = result;
-    
-    //创建POI检索引擎
-    _POISearchManager = [[AMapSearchAPI alloc] init];
-    _POISearchManager.delegate = self;
-    
-    //创建地理编码请求
-    AMapGeocodeSearchRequest *geoSearchRequest = [[AMapGeocodeSearchRequest alloc] init];
-    geoSearchRequest.address = result;
-    
-    //发起请求,开始POI的地理编码检索
-    [_POISearchManager AMapGeocodeSearch:geoSearchRequest];
     
 }
 
@@ -139,9 +142,9 @@ static NSString * const ID = @"CollectionViewCellId";
     
     NSArray *locationArr = [location componentsSeparatedByString:@","];
     
-    double lat = [locationArr[0] doubleValue];
+    double lat = [[locationArr[0] stringByReplacingOccurrencesOfString:@"<" withString:@""] doubleValue];
     
-    double lng = [locationArr[1] doubleValue];
+    double lng = [[locationArr[1] stringByReplacingOccurrencesOfString:@">" withString:@""] doubleValue];
     
     CLLocationCoordinate2D Origlecoor = CLLocationCoordinate2DMake(lat, lng);
     
@@ -164,6 +167,10 @@ static NSString * const ID = @"CollectionViewCellId";
 #pragma mark 创建子视图
 -(void)_initSubView
 {
+    
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
+    
     UITextField *searchTextField = [[UITextField alloc] init];
     self.searchTextField = searchTextField;
     searchTextField.placeholder = @"请输入需要查找停车场的地点";
@@ -271,6 +278,7 @@ static NSString * const ID = @"CollectionViewCellId";
 #pragma mark 讯飞语音
 -(void)xfBtnAction:(UIButton *)sender
 {
+    [_searchTextField resignFirstResponder];
     //启动识别服务
     [_iflyRecognizerView start];
 

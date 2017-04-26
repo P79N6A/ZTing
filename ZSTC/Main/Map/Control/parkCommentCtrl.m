@@ -48,9 +48,8 @@
     
     self.title = @"添加评论";
     // 设置返回按钮
-    UIBarButtonItem *returnButtonItem = [[UIBarButtonItem alloc] init];
-    returnButtonItem.title = @"";
-    self.navigationItem.backBarButtonItem = returnButtonItem;
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
     
     UILabel *overallratingLab = [[UILabel alloc] init];
     self.overallratingLab = overallratingLab;
@@ -120,7 +119,6 @@
     parkServiceStarView.hasAnimation = YES;
     [self.view addSubview:parkServiceStarView];
     
-    
     ZTCustomTextView *commentTextView = [[ZTCustomTextView alloc] init];
     self.commentTextView = commentTextView;
     commentTextView.layer.cornerRadius = 2;
@@ -141,7 +139,6 @@
     [determineBtn setTitle:@"确定" forState:UIControlStateNormal];
     [determineBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:determineBtn];
-    
     
     CGSize overallRatingSize = [_overallratingLab.text sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:16]}];
     self.overallratingLab.sd_layout

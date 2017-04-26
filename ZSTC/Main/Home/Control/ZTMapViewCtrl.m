@@ -153,9 +153,12 @@
 {
     self.title = @"找车位";
     
-    UIBarButtonItem *rightBtn = [UIBarButtonItem itemWithImage:@"icon_title_search_nor" highImage:@"icon_title_search_h" target:self action:@selector(rightBarBtnAction:)];
-    self.navigationItem.rightBarButtonItem = rightBtn;
-    
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [rightBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -22)];
+    [rightBtn addTarget:self action:@selector(rightBarBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setImage:[UIImage imageNamed:@"icon_title_search_nor"] forState:UIControlStateNormal];
+    UIBarButtonItem *barBtnItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    self.navigationItem.rightBarButtonItem = barBtnItem;
 }
 
 -(void)rightBarBtnAction:(UIButton *)sender
@@ -183,7 +186,7 @@
     [TrafficStatusBtn addTarget:self action:@selector(showTrafficStatusAction:) forControlEvents:UIControlEventTouchUpInside];
     TrafficStatusBtn.selected = YES;
     [TrafficStatusBtn setImage:[UIImage imageNamed:@"icon_map_traffic_nor"] forState:UIControlStateNormal];
-    [TrafficStatusBtn setImage:[UIImage imageNamed:@"icon_map_traffic_h"] forState:UIControlStateHighlighted];
+    [TrafficStatusBtn setImage:[UIImage imageNamed:@"icon_map_traffic_h"] forState:UIControlStateSelected];
     [self.view addSubview:TrafficStatusBtn];
     
     TrafficStatusBtn.sd_layout
@@ -237,10 +240,10 @@
 -(void)showTrafficStatusAction:(UIButton *)sender
 {
     if (sender.selected) {
-        [self.mapView setShowTraffic:YES];
+        [self.mapView setShowTraffic:NO];
         sender.selected = !sender.selected;
     } else {
-        [self.mapView setShowTraffic:NO];
+        [self.mapView setShowTraffic:YES];
         sender.selected = !sender.selected;
     }
 }
@@ -284,6 +287,7 @@
         [self.view addSubview:self.mapView];
 
         [mapView setDelegate:self];
+        mapView.showTraffic = YES;
         
         //缩放等级
         [mapView setZoomLevel:18 animated:YES];
@@ -379,6 +383,7 @@
             
             [self presentDetailView:_locationArray[i]];
             _currentSelectedIndex = i;
+            
         }
     }
 }
@@ -386,7 +391,6 @@
 -(void)presentDetailView:(ZTAnnotation *)anntation
 {
     AnnotationModel *model = anntation.model;
-//    NSLog(@"%@",model);
     
     [UIView animateWithDuration:0.3 animations:^{
         _shrinkDownBtn.sd_resetNewLayout

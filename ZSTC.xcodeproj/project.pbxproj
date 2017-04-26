@@ -136,6 +136,18 @@
 		D65384FC1EA88691004335E9 /* ZTCustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D65384FB1EA88691004335E9 /* ZTCustomTextView.m */; };
 		D65385021EA897C3004335E9 /* AppDelegate+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = D65385011EA897C3004335E9 /* AppDelegate+Location.m */; };
 		D65635751EAD8529005DCA7F /* RoadsideParkingCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = D65635741EAD8529005DCA7F /* RoadsideParkingCtrl.m */; };
+		D656358B1EADCD57005DCA7F /* QRCScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = D65635781EADCD57005DCA7F /* QRCScanner.m */; };
+		D656358C1EADCD57005DCA7F /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = D656357B1EADCD57005DCA7F /* bitstream.c */; };
+		D656358D1EADCD57005DCA7F /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = D656357D1EADCD57005DCA7F /* mask.c */; };
+		D656358E1EADCD57005DCA7F /* qrencode.c in Sources */ = {isa = PBXBuildFile; fileRef = D656357F1EADCD57005DCA7F /* qrencode.c */; };
+		D656358F1EADCD57005DCA7F /* qrinput.c in Sources */ = {isa = PBXBuildFile; fileRef = D65635811EADCD57005DCA7F /* qrinput.c */; };
+		D65635901EADCD57005DCA7F /* qrspec.c in Sources */ = {isa = PBXBuildFile; fileRef = D65635831EADCD57005DCA7F /* qrspec.c */; };
+		D65635911EADCD57005DCA7F /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = D65635851EADCD57005DCA7F /* rscode.c */; };
+		D65635921EADCD57005DCA7F /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = D65635871EADCD57005DCA7F /* split.c */; };
+		D65635931EADCD57005DCA7F /* UIImage+MDQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = D656358A1EADCD57005DCA7F /* UIImage+MDQRCode.m */; };
+		D65635961EADCD88005DCA7F /* ScannerViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = D65635951EADCD88005DCA7F /* ScannerViewCtrl.m */; };
+		D65635991EADE83E005DCA7F /* RoadParkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D65635981EADE83E005DCA7F /* RoadParkModel.m */; };
+		D656359F1EADF0FE005DCA7F /* StartRoadParkView.m in Sources */ = {isa = PBXBuildFile; fileRef = D656359E1EADF0FE005DCA7F /* StartRoadParkView.m */; };
 		D67F781E1E9F28EC00BFD023 /* ZTmapPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = D67F781D1E9F28EC00BFD023 /* ZTmapPopView.m */; };
 		D6902E2C1E825CCC00C3196D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D61478941E80CCB5001A13D7 /* libz.tbd */; };
 		D6902E2D1E825CDB00C3196D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D6902D8F1E81FEBE00C3196D /* libc++.tbd */; };
@@ -151,6 +163,7 @@
 		D69EE5D81E9F770A00A8D014 /* UIView+ViewControllerRespond.m in Sources */ = {isa = PBXBuildFile; fileRef = D69EE5D71E9F770A00A8D014 /* UIView+ViewControllerRespond.m */; };
 		D6E925B31E792D2F003AECFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E925B21E792D2F003AECFB /* main.m */; };
 		D6E925C11E792D2F003AECFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6E925BF1E792D2F003AECFB /* LaunchScreen.storyboard */; };
+		D6EB13041EAF227D006DBB3A /* BillingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB13031EAF227D006DBB3A /* BillingModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -383,6 +396,30 @@
 		D65385011EA897C3004335E9 /* AppDelegate+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Location.m"; sourceTree = "<group>"; };
 		D65635731EAD8529005DCA7F /* RoadsideParkingCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoadsideParkingCtrl.h; sourceTree = "<group>"; };
 		D65635741EAD8529005DCA7F /* RoadsideParkingCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoadsideParkingCtrl.m; sourceTree = "<group>"; };
+		D65635771EADCD57005DCA7F /* QRCScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCScanner.h; sourceTree = "<group>"; };
+		D65635781EADCD57005DCA7F /* QRCScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCScanner.m; sourceTree = "<group>"; };
+		D656357B1EADCD57005DCA7F /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
+		D656357C1EADCD57005DCA7F /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		D656357D1EADCD57005DCA7F /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
+		D656357E1EADCD57005DCA7F /* mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mask.h; sourceTree = "<group>"; };
+		D656357F1EADCD57005DCA7F /* qrencode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrencode.c; sourceTree = "<group>"; };
+		D65635801EADCD57005DCA7F /* qrencode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrencode.h; sourceTree = "<group>"; };
+		D65635811EADCD57005DCA7F /* qrinput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrinput.c; sourceTree = "<group>"; };
+		D65635821EADCD57005DCA7F /* qrinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrinput.h; sourceTree = "<group>"; };
+		D65635831EADCD57005DCA7F /* qrspec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrspec.c; sourceTree = "<group>"; };
+		D65635841EADCD57005DCA7F /* qrspec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrspec.h; sourceTree = "<group>"; };
+		D65635851EADCD57005DCA7F /* rscode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rscode.c; sourceTree = "<group>"; };
+		D65635861EADCD57005DCA7F /* rscode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rscode.h; sourceTree = "<group>"; };
+		D65635871EADCD57005DCA7F /* split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = split.c; sourceTree = "<group>"; };
+		D65635881EADCD57005DCA7F /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
+		D65635891EADCD57005DCA7F /* UIImage+MDQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MDQRCode.h"; sourceTree = "<group>"; };
+		D656358A1EADCD57005DCA7F /* UIImage+MDQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MDQRCode.m"; sourceTree = "<group>"; };
+		D65635941EADCD88005DCA7F /* ScannerViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerViewCtrl.h; sourceTree = "<group>"; };
+		D65635951EADCD88005DCA7F /* ScannerViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerViewCtrl.m; sourceTree = "<group>"; };
+		D65635971EADE83E005DCA7F /* RoadParkModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoadParkModel.h; sourceTree = "<group>"; };
+		D65635981EADE83E005DCA7F /* RoadParkModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoadParkModel.m; sourceTree = "<group>"; };
+		D656359D1EADF0FE005DCA7F /* StartRoadParkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartRoadParkView.h; sourceTree = "<group>"; };
+		D656359E1EADF0FE005DCA7F /* StartRoadParkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartRoadParkView.m; sourceTree = "<group>"; };
 		D67D4F2F1E81017C00664332 /* ZTPrefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTPrefix.pch; sourceTree = "<group>"; };
 		D67F781C1E9F28EC00BFD023 /* ZTmapPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTmapPopView.h; sourceTree = "<group>"; };
 		D67F781D1E9F28EC00BFD023 /* ZTmapPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTmapPopView.m; sourceTree = "<group>"; };
@@ -489,6 +526,8 @@
 		D6E925B21E792D2F003AECFB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D6E925C01E792D2F003AECFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6E925C21E792D2F003AECFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6EB13021EAF227D006DBB3A /* BillingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillingModel.h; sourceTree = "<group>"; };
+		D6EB13031EAF227D006DBB3A /* BillingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillingModel.m; sourceTree = "<group>"; };
 		E23A8D7BDDCD78A9D61A0294 /* libPods-ZSTC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZSTC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -600,6 +639,8 @@
 				9283D77D1EA8B3D100BC2EAA /* CarCell.h */,
 				9283D77E1EA8B3D100BC2EAA /* CarCell.m */,
 				9283D77F1EA8B3D100BC2EAA /* CarCell.xib */,
+				D656359D1EADF0FE005DCA7F /* StartRoadParkView.h */,
+				D656359E1EADF0FE005DCA7F /* StartRoadParkView.m */,
 			);
 			name = home;
 			sourceTree = "<group>";
@@ -648,6 +689,7 @@
 		9283D6751EA8436E00BC2EAA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D65635761EADCD57005DCA7F /* QRCodeScanner */,
 				9283D6761EA8436E00BC2EAA /* StarView */,
 				D65384FA1EA88691004335E9 /* ZTCustomTextView.h */,
 				D65384FB1EA88691004335E9 /* ZTCustomTextView.m */,
@@ -737,6 +779,8 @@
 				9283D7721EA8652D00BC2EAA /* PaySelfViewController.m */,
 				D65635731EAD8529005DCA7F /* RoadsideParkingCtrl.h */,
 				D65635741EAD8529005DCA7F /* RoadsideParkingCtrl.m */,
+				D65635941EADCD88005DCA7F /* ScannerViewCtrl.h */,
+				D65635951EADCD88005DCA7F /* ScannerViewCtrl.m */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -756,6 +800,10 @@
 				9283D76F1EA85DE800BC2EAA /* CarDetailModel.m */,
 				9283D7741EA8A31F00BC2EAA /* PaySelfModel.h */,
 				9283D7751EA8A31F00BC2EAA /* PaySelfModel.m */,
+				D65635971EADE83E005DCA7F /* RoadParkModel.h */,
+				D65635981EADE83E005DCA7F /* RoadParkModel.m */,
+				D6EB13021EAF227D006DBB3A /* BillingModel.h */,
+				D6EB13031EAF227D006DBB3A /* BillingModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -947,6 +995,47 @@
 				D62697721EA5C111008078AA /* HotSearchCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D65635761EADCD57005DCA7F /* QRCodeScanner */ = {
+			isa = PBXGroup;
+			children = (
+				D65635771EADCD57005DCA7F /* QRCScanner.h */,
+				D65635781EADCD57005DCA7F /* QRCScanner.m */,
+				D65635791EADCD57005DCA7F /* resource */,
+			);
+			path = QRCodeScanner;
+			sourceTree = "<group>";
+		};
+		D65635791EADCD57005DCA7F /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				D656357A1EADCD57005DCA7F /* libqrencode */,
+				D65635891EADCD57005DCA7F /* UIImage+MDQRCode.h */,
+				D656358A1EADCD57005DCA7F /* UIImage+MDQRCode.m */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
+		D656357A1EADCD57005DCA7F /* libqrencode */ = {
+			isa = PBXGroup;
+			children = (
+				D656357B1EADCD57005DCA7F /* bitstream.c */,
+				D656357C1EADCD57005DCA7F /* bitstream.h */,
+				D656357D1EADCD57005DCA7F /* mask.c */,
+				D656357E1EADCD57005DCA7F /* mask.h */,
+				D656357F1EADCD57005DCA7F /* qrencode.c */,
+				D65635801EADCD57005DCA7F /* qrencode.h */,
+				D65635811EADCD57005DCA7F /* qrinput.c */,
+				D65635821EADCD57005DCA7F /* qrinput.h */,
+				D65635831EADCD57005DCA7F /* qrspec.c */,
+				D65635841EADCD57005DCA7F /* qrspec.h */,
+				D65635851EADCD57005DCA7F /* rscode.c */,
+				D65635861EADCD57005DCA7F /* rscode.h */,
+				D65635871EADCD57005DCA7F /* split.c */,
+				D65635881EADCD57005DCA7F /* split.h */,
+			);
+			path = libqrencode;
 			sourceTree = "<group>";
 		};
 		D67F781B1E9F272900BFD023 /* Map */ = {
@@ -1368,6 +1457,7 @@
 				920C98DC1E9C6E9B00B33D21 /* MessageViewController.m in Sources */,
 				925391F51E9B78C60020F7E7 /* CarInfoView.m in Sources */,
 				925391E91E9B5D8E0020F7E7 /* UIViewExt.m in Sources */,
+				D65635931EADCD57005DCA7F /* UIImage+MDQRCode.m in Sources */,
 				D6902E901E8261F400C3196D /* base64.m in Sources */,
 				9283D7791EA8B16100BC2EAA /* SelCarNoView.m in Sources */,
 				925391E61E9B5D2B0020F7E7 /* TopScrollView.m in Sources */,
@@ -1380,10 +1470,12 @@
 				92469F4A1EA6F81E00FA1577 /* CardCell.m in Sources */,
 				920C98EA1E9CD91600B33D21 /* UserInfoModel.m in Sources */,
 				928C3FD31EA7388F00C31324 /* ZTBaseNavCtrl.m in Sources */,
+				D656358E1EADCD57005DCA7F /* qrencode.c in Sources */,
 				92E950411E9B213800A017AC /* UserGuiderViewController.m in Sources */,
 				9283D7761EA8A31F00BC2EAA /* PaySelfModel.m in Sources */,
 				920C98F01E9DC54B00B33D21 /* SetNickViewController.m in Sources */,
 				D61478A01E80D1D0001A13D7 /* AppDelegate+ZTJPushSdk.m in Sources */,
+				D65635961EADCD88005DCA7F /* ScannerViewCtrl.m in Sources */,
 				92469F371EA5C33C00FA1577 /* HisCarCell.m in Sources */,
 				920C98E21E9CBFF800B33D21 /* UIViewController+HUD.m in Sources */,
 				D626978E1EA6049E008078AA /* SpeechSynthesizer.m in Sources */,
@@ -1395,20 +1487,24 @@
 				92487E8A1E9F6A8700A1E778 /* BillCell.m in Sources */,
 				D6412CF41E9B949100305CC1 /* PersonalViewController.m in Sources */,
 				9283D7801EA8B3D100BC2EAA /* CarCell.m in Sources */,
+				D656358D1EADCD57005DCA7F /* mask.c in Sources */,
 				92469F3E1EA5FD8A00FA1577 /* CollectModel.m in Sources */,
 				92B309341EA0C87100AF09B2 /* BindCardModel.m in Sources */,
 				D67F781E1E9F28EC00BFD023 /* ZTmapPopView.m in Sources */,
 				920C98C71E9C6E1900B33D21 /* BillViewController.m in Sources */,
 				D608EDE51E83B28800848829 /* FLAlipayManager.m in Sources */,
+				D65635911EADCD57005DCA7F /* rscode.c in Sources */,
 				9283D6791EA8436E00BC2EAA /* CWStarRateView.m in Sources */,
 				9283D6611EA74D3C00BC2EAA /* MsgDetailViewController.m in Sources */,
 				9283D7871EA9DFC300BC2EAA /* ZTAliPay.m in Sources */,
 				928C3FD81EA73CE100C31324 /* InOutTableViewController.m in Sources */,
+				D6EB13041EAF227D006DBB3A /* BillingModel.m in Sources */,
 				920C98CD1E9C6E3D00B33D21 /* MoneyViewController.m in Sources */,
 				92E950481E9B213800A017AC /* ZTCustomCalloutView.m in Sources */,
 				9283D65E1EA74A7600BC2EAA /* MsgModel.m in Sources */,
 				926F17531EA4A50600F106AF /* BIndCarViewController.m in Sources */,
 				928C3FD11EA7388F00C31324 /* AppDelegate.m in Sources */,
+				D65635921EADCD57005DCA7F /* split.c in Sources */,
 				92469F331EA5BD3400FA1577 /* HisCarListView.m in Sources */,
 				D6902E991E8263BD00C3196D /* APAuthV2Info.m in Sources */,
 				92433DD01E9F633500664D80 /* HistoryCell.m in Sources */,
@@ -1423,6 +1519,7 @@
 				D62697731EA5C111008078AA /* HotSearchCell.m in Sources */,
 				925391EC1E9B5EC20020F7E7 /* CarStateView.m in Sources */,
 				D63B78531EA46B0C00D878CF /* ZTRouteViewCtrl.m in Sources */,
+				D65635991EADE83E005DCA7F /* RoadParkModel.m in Sources */,
 				920C98D31E9C6E5B00B33D21 /* MyCarViewController.m in Sources */,
 				92487E8E1E9F7A5700A1E778 /* BillModel.m in Sources */,
 				92E950471E9B213800A017AC /* ZTCustomAntionView.m in Sources */,
@@ -1435,15 +1532,20 @@
 				928C3FE11EA73D2400C31324 /* DiscountTableViewController.m in Sources */,
 				920C98DF1E9C6EA700B33D21 /* SetViewController.m in Sources */,
 				D6356EFD1EA99E1500950091 /* ZTVoiceSearchCtrl.m in Sources */,
+				D656358C1EADCD57005DCA7F /* bitstream.c in Sources */,
 				92B3092A1EA0C3D500AF09B2 /* NSDate+Category.m in Sources */,
 				920C98ED1E9DBBF200B33D21 /* UserExtModel.m in Sources */,
 				D619BD451E9E041C00756A55 /* AnnotationModel.m in Sources */,
 				925391F21E9B72B50020F7E7 /* BindCarModel.m in Sources */,
 				92469F421EA601E500FA1577 /* CollectCell.m in Sources */,
+				D656358F1EADCD57005DCA7F /* qrinput.c in Sources */,
 				D614789D1E80CF64001A13D7 /* ZTJPushTools.m in Sources */,
 				9283D6641EA842BB00BC2EAA /* NSString+Date.m in Sources */,
+				D656358B1EADCD57005DCA7F /* QRCScanner.m in Sources */,
+				D65635901EADCD57005DCA7F /* qrspec.c in Sources */,
 				D619BD481E9E208E00756A55 /* ZTAnnotation.m in Sources */,
 				925391EF1E9B6C010020F7E7 /* AdvModel.m in Sources */,
+				D656359F1EADF0FE005DCA7F /* StartRoadParkView.m in Sources */,
 				9283D6721EA8430F00BC2EAA /* parkCommentModel.m in Sources */,
 				D6902E931E8261F400C3196D /* RSADataSigner.m in Sources */,
 				9283D6731EA8430F00BC2EAA /* parkDetailModel.m in Sources */,
