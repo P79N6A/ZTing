@@ -13,6 +13,7 @@
 #import "AnnotationModel.h"
 #import "parkCommentCtrl.h"
 #import "ZTRouteViewCtrl.h"
+#import "LoginViewController.h"
 
 @interface ParkDetailCtrl ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -91,9 +92,8 @@ static NSString * const parkCellId = @"parkCellId";
     self.title = @"停车场详情";
     
     // 设置返回按钮
-    UIBarButtonItem *returnButtonItem = [[UIBarButtonItem alloc] init];
-    returnButtonItem.title = @"";
-    self.navigationItem.backBarButtonItem = returnButtonItem;
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
     
     self.automaticallyAdjustsScrollViewInsets = YES;
     
@@ -352,65 +352,78 @@ static NSString * const parkCellId = @"parkCellId";
 #pragma mark 收藏
 -(void)collectionBtnAction:(UIButton *)sender
 {
-    
-    if (sender.selected) {
-        [self showHudInView:self.view hint:@""];
-        
-        NSString *cancalCollectUrl = [NSString stringWithFormat:@"%@collect/cancel",KDomain];
-        
-        NSMutableDictionary *cancalCollectParams = @{}.mutableCopy;
-        [cancalCollectParams setValue:self.parkId forKey:@"parkId"];
-        [cancalCollectParams setValue:KMemberId forKey:@"memberId"];
-        [cancalCollectParams setValue:KToken forKey:@"token"];
-        
-        [[ZTNetworkClient sharedInstance] POST:cancalCollectUrl dict:cancalCollectParams progressFloat:nil succeed:^(id responseObject) {
-//            NSLog(@"%@",responseObject);
-            [self hideHud];
-            if([responseObject[@"success"] boolValue]){
-                [_collectionBtn setTitle:@"收藏" forState:UIControlStateNormal];
-                [_collectionBtn setImage:[UIImage imageNamed:@"icon_park_collect_nor"] forState:UIControlStateNormal];
-                sender.selected = !sender.selected;
-            }
+    if ([TheUserDefaults boolForKey:KLoginState]) {
+        if (sender.selected) {
+            [self showHudInView:self.view hint:@""];
             
-        } failure:^(NSError *error) {
-            NSLog(@"%@",error);
-            [self hideHud];
-        }];
-        
+            NSString *cancalCollectUrl = [NSString stringWithFormat:@"%@collect/cancel",KDomain];
+            
+            NSMutableDictionary *cancalCollectParams = @{}.mutableCopy;
+            [cancalCollectParams setValue:self.parkId forKey:@"parkId"];
+            [cancalCollectParams setValue:KMemberId forKey:@"memberId"];
+            [cancalCollectParams setValue:KToken forKey:@"token"];
+            
+            [[ZTNetworkClient sharedInstance] POST:cancalCollectUrl dict:cancalCollectParams progressFloat:nil succeed:^(id responseObject) {
+                //            NSLog(@"%@",responseObject);
+                [self hideHud];
+                if([responseObject[@"success"] boolValue]){
+                    [_collectionBtn setTitle:@"收藏" forState:UIControlStateNormal];
+                    [_collectionBtn setImage:[UIImage imageNamed:@"icon_park_collect_nor"] forState:UIControlStateNormal];
+                    sender.selected = !sender.selected;
+                }
+                
+            } failure:^(NSError *error) {
+                NSLog(@"%@",error);
+                [self hideHud];
+            }];
+            
+        }else
+        {
+            [self showHudInView:self.view hint:@""];
+            
+            NSString *addCollectUrl = [NSString stringWithFormat:@"%@collect/add",KDomain];
+            NSMutableDictionary *addCollectParams = @{}.mutableCopy;
+            
+            [addCollectParams setValue:self.parkId forKey:@"parkId"];
+            [addCollectParams setValue:self.model.parkName forKey:@"parkName"];
+            [addCollectParams setValue:KToken forKey:@"token"];
+            [addCollectParams setValue:KMemberId forKey:@"memberId"];
+            
+            [[ZTNetworkClient sharedInstance] POST:addCollectUrl dict:addCollectParams progressFloat:nil succeed:^(id responseObject) {
+                //            NSLog(@"%@",responseObject);
+                [self hideHud];
+                if([responseObject[@"success"] boolValue]){
+                    [_collectionBtn setTitle:@"已收藏" forState:UIControlStateNormal];
+                    [_collectionBtn setImage:[UIImage imageNamed:@"icon_park_collect_h"] forState:UIControlStateNormal];
+                    sender.selected = !sender.selected;
+                }
+                
+            } failure:^(NSError *error) {
+                NSLog(@"%@",error);
+                [self hideHud];
+            }];
+        }
+
     }else
     {
-        [self showHudInView:self.view hint:@""];
-        
-        NSString *addCollectUrl = [NSString stringWithFormat:@"%@collect/add",KDomain];
-        NSMutableDictionary *addCollectParams = @{}.mutableCopy;
-        
-        [addCollectParams setValue:self.parkId forKey:@"parkId"];
-        [addCollectParams setValue:self.model.parkName forKey:@"parkName"];
-        [addCollectParams setValue:KToken forKey:@"token"];
-        [addCollectParams setValue:KMemberId forKey:@"memberId"];
-        
-        [[ZTNetworkClient sharedInstance] POST:addCollectUrl dict:addCollectParams progressFloat:nil succeed:^(id responseObject) {
-//            NSLog(@"%@",responseObject);
-            [self hideHud];
-            if([responseObject[@"success"] boolValue]){
-                [_collectionBtn setTitle:@"已收藏" forState:UIControlStateNormal];
-                [_collectionBtn setImage:[UIImage imageNamed:@"icon_park_collect_h"] forState:UIControlStateNormal];
-                sender.selected = !sender.selected;
-            }
-
-        } failure:^(NSError *error) {
-            NSLog(@"%@",error);
-            [self hideHud];
-        }];
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        [self presentViewController:loginVC animated:YES completion:nil];
     }
+    
 }
 
 #pragma mark 评论
 -(void)commentBtnAction:(UIButton *)sender
 {
-    parkCommentCtrl *commentCtrl = [[parkCommentCtrl alloc] init];
-    commentCtrl.parkId = self.parkId;
-    [self.navigationController pushViewController:commentCtrl animated:YES];
+    if ([TheUserDefaults boolForKey:KLoginState]) {
+        parkCommentCtrl *commentCtrl = [[parkCommentCtrl alloc] init];
+        commentCtrl.parkId = self.parkId;
+        [self.navigationController pushViewController:commentCtrl animated:YES];
+    }else
+    {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        [self presentViewController:loginVC animated:YES completion:nil];
+    }
 }
 
 #pragma mark 加载停车场详情

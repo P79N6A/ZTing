@@ -225,21 +225,13 @@
     [parkLngStr insertString:@"." atIndex:3];
     
     double distance = [self distanceBetweenOrderBy:[parkLatStr doubleValue] :_coor.latitude :[parkLngStr doubleValue] :_coor.longitude];
-    _distanceLab.text = [NSString stringWithFormat:@"%.lfm",distance];
-/*
-    AppDelegate *delegate = [[AppDelegate alloc] init];
-    [delegate startLocation];
+    if (distance < 1000) {
+        _distanceLab.text = [NSString stringWithFormat:@"%.lfm",distance];
+    }else
+    {
+        _distanceLab.text = [NSString stringWithFormat:@"%.2lfkm",distance/1000.0];
+    }
     
-    [delegate receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
-        if (isLocationSuccess) {
-            double distance = [self distanceBetweenOrderBy:[parkLatStr doubleValue] :currentLocation.coordinate.latitude :[parkLngStr doubleValue] :currentLocation.coordinate.longitude];
-            _distanceLab.text = [NSString stringWithFormat:@"%.lfm",distance];
-        }else
-        {
-            
-        }
-    }];
-    */
     _troduceLab.text = _model.parkFeedesc;
     
 }

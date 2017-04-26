@@ -63,9 +63,14 @@
     _page = 0;
     _length = 10;
     
+    self.view.backgroundColor = color(237, 237, 237, 1);
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"CollectCell" bundle:nil] forCellReuseIdentifier:@"CollectCell"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [[UIView alloc] init];
+
+//    self.tableView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.1];
+
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
     
     //下拉刷新

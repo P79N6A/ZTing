@@ -45,12 +45,23 @@
 - (void)setupAnnotation:(AnnotationModel *)model {
     
     NSString *mask;
-    if ([model.parkIdle floatValue]/[model.parkCapacity floatValue]<0.3) {
-        mask = @"icon_map_icon_park_pay_busy";
+    if ([model.parkType isEqualToString:@"2"]) {
+        if ([model.parkIdle floatValue]/[model.parkCapacity floatValue]<0.3) {
+            mask = @"icon_map_icon_park_pay_busy";
+        }else
+        {
+            mask = @"icon_map_icon_park_pay_idle";
+        }
     }else
     {
-        mask = @"icon_map_icon_park_pay_idle";
+        if ([model.parkIdle floatValue]/[model.parkCapacity floatValue]<0.3) {
+            mask = @"icon_map_icon_road_busy";
+        }else
+        {
+            mask = @"icon_map_icon_road_idle";
+        }
     }
+    
     
     CGRect frame = CGRectMake(0, 0, 30, 30);
     

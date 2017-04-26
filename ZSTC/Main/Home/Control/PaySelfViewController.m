@@ -64,6 +64,10 @@
     self.title = @"自助缴费";
     self.view.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
     
+
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
+
     // 设置自定义键盘
     int verticalCount = 5;
     CGFloat kheight = KScreenWidth/10 + 8;

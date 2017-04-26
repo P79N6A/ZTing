@@ -19,8 +19,11 @@
 #define color(r,g,b,a)     [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
 #define KAppScheme @"ZTAlipayScheme"
-
+//登录状态
 #define KLoginState @"lognState"
+//路边停车
+#define KRoadParkState @"roadParkState"
+
 #define KLoginNotification @"loginNotification"
 #define KLoginOutNotification @"loginOutNotification"
 #define KAddCarNotification @"addCarNotification"

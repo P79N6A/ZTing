@@ -28,8 +28,6 @@
 {
     [super viewDidLoad];
     
-    //    [self setNavigationBackItem];
-    
     [self initProperties];
     
     [self initDriveView];
