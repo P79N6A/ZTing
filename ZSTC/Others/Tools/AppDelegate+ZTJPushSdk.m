@@ -11,14 +11,23 @@
 #import <JPUSHService.h>
 #import <AlipaySDK/AlipaySDK.h>
 
-#define JPushSDK_AppKey  @"21234a323674a3471009cc12"
-#define isProduction     NO
+
+static NSString *JPushAppKey  = @"21234a323674a3471009cc12";
+static NSString *JPushChannel = @"Publish channel";
+// static BOOL JPushIsProduction = NO;
+#ifdef DEBUG
+// 开发 极光FALSE为开发环境
+static BOOL const JPushIsProduction = FALSE;
+#else
+// 生产 极光TRUE为生产环境
+static BOOL const JPushIsProduction = TRUE;
+#endif
 
 @implementation AppDelegate (ZTJPushSdk)
 
 -(void)JPushApplication:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     
-    [ZTJPushTools setupWithOption:launchOptions appKey:JPushSDK_AppKey channel:nil apsForProduction:isProduction advertisingIdentifier:nil];
+    [ZTJPushTools setupWithOption:launchOptions appKey:JPushAppKey channel:JPushChannel apsForProduction:JPushIsProduction advertisingIdentifier:nil];
     
     [self initAPServiceWithOptions:launchOptions];
     
@@ -34,7 +43,6 @@
     [defaultCenter addObserver:self selector:@selector(networkDidLogin:) name:kJPFNetworkDidLoginNotification object:nil];
     
     [defaultCenter addObserver:self selector:@selector(networkIsConnecting:) name:kJPFNetworkIsConnectingNotification object:nil];
-    
     
 }
 

@@ -128,7 +128,7 @@
     [self.view bringSubviewToFront:_selCarNoView];
     
     //开始路边停车
-    _startRoadParkView = [[StartRoadParkView alloc] initWithFrame:CGRectMake(0, 64, KScreenWidth, KScreenHeight-64)];
+    _startRoadParkView = [[StartRoadParkView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-64)];
     _startRoadParkView.hidden = YES;
     [self.view addSubview:_startRoadParkView];
     
@@ -192,7 +192,7 @@
     [self.headerView addSubview:inquireBtn];
     
     self.headerView.sd_layout
-    .topSpaceToView(self.view, 64)
+    .topSpaceToView(self.view, 0)
     .leftSpaceToView(self.view, 0)
     .rightSpaceToView(self.view, 0)
     .heightIs(120);

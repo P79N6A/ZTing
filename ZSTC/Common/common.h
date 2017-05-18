@@ -10,7 +10,9 @@
 #define common_h
 
 //#define KDomain @"http://115.29.51.72:9080/park-service/"
+
 #define KDomain @"http://www.hnzhangting.cn/park-service/"
+//#define KDomain @"http://192.168.6.101:8080/park-service/"
 
 #define KScreenWidth [UIScreen mainScreen].bounds.size.width
 #define KScreenHeight [UIScreen mainScreen].bounds.size.height

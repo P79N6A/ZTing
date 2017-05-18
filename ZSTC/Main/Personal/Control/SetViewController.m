@@ -112,6 +112,7 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
         // 发送登出通知
         [[NSNotificationCenter defaultCenter] postNotificationName:KLoginOutNotification object:nil];
+        
     }];
     
     [alertCon addAction:cancelAction];

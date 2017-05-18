@@ -124,6 +124,9 @@
     NSMutableDictionary *params = @{}.mutableCopy;
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
+    
+    [self showHudInView:self.view hint:@""];
+    
     [[ZTNetworkClient sharedInstance] POST:bindUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         if(responseObject[@"success"]){
             NSArray *datas = responseObject[@"data"][@"carList"];
@@ -171,7 +174,7 @@
     [params setObject:nowDateStr forKey:@"traceEnd"];
     [params setObject:[NSNumber numberWithInt:_page*_length] forKey:@"start"];
     [params setObject:[NSNumber numberWithInt:_length] forKey:@"length"];
-    [self showHudInView:self.view hint:@""];
+    
     [[ZTNetworkClient sharedInstance] POST:hisUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
         [self.tableView.mj_header endRefreshing];
@@ -206,7 +209,7 @@
     if(_bindCarData.count > 1){
         _hisCarListView.hidden = !_hisCarListView.hidden;
         if(!_hisCarListView.hidden){
-            [self.tableView setContentOffset:CGPointMake(0, -64) animated:YES];
+//            [self.tableView setContentOffset:CGPointMake(0, -64) animated:YES];
             self.tableView.scrollEnabled = NO;
         }else {
             self.tableView.scrollEnabled = YES;

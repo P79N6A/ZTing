@@ -62,11 +62,13 @@
 
 - (void)_loadData {
     NSString *billUrl = [NSString stringWithFormat:@"%@member/getConsumption", KDomain];
+    
     NSMutableDictionary *params = @{}.mutableCopy;
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
     [params setObject:[NSNumber numberWithInt:_page*_length] forKey:@"start"];
     [params setObject:[NSNumber numberWithInt:_length] forKey:@"length"];
+    
     [self showHudInView:self.view hint:@""];
     [[ZTNetworkClient sharedInstance] POST:billUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
@@ -97,6 +99,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _billData.count;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 80;
 }

@@ -80,6 +80,7 @@
     [delegate receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
         if (isLocationSuccess) {
             _currentLocation = currentLocation.coordinate;
+            [delegate stopLocation];
         }else
         {
             
@@ -177,7 +178,7 @@
     [self.view addSubview:locationBtn];
     
     locationBtn.sd_layout
-    .topSpaceToView(self.view, 79)
+    .topSpaceToView(self.view, 15)
     .rightSpaceToView(self.view, 10)
     .widthIs(40)
     .heightIs(40);
@@ -282,7 +283,7 @@
 {
     if (self.mapView == nil)
     {
-        MAMapView *mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
+        MAMapView *mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, KScreenHeight)];
         self.mapView = mapView;
         [self.view addSubview:self.mapView];
 
@@ -290,19 +291,17 @@
         mapView.showTraffic = YES;
         
         //缩放等级
-        [mapView setZoomLevel:18 animated:YES];
+        [mapView setZoomLevel:12 animated:YES];
         
         //设置定位精度
         mapView.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-        //    设置定位距离
-        mapView.distanceFilter = 5.0f;
-        //普通样式
-        _mapView.mapType = MAMapTypeStandard;
+        //设置定位距离
+        mapView.distanceFilter = 50.0f;
         
-        // 显示指南针
+        //显示指南针
         mapView.showsCompass = NO;
         
-        // 显示标尺(单位：mi 英尺)
+        //显示标尺(单位：mi 英尺)
         mapView.showsScale = YES;
 
     }
@@ -317,15 +316,18 @@
         _userLocation = userLocation;
         _hasCurrLoc = YES;
         
+        [self.mapView setZoomLevel:12 animated:YES];
+        
         [self.mapView setCenterCoordinate:userLocation.coordinate];
-        [self.mapView setZoomLevel:12 animated:NO];
-     
+        
         [_mapView removeAnnotations:_locationArray];
         
         [self _loadData:CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude)];
         [self hideHud];
     }
     _currentLocation = userLocation.coordinate;
+    
+    
 }
 
 -(void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated
@@ -349,12 +351,13 @@
         static NSString *reuseIndetifier = @"annotationReuseIndetifier";
         
         ZTCustomAntionView *annotationView = (ZTCustomAntionView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
+        
         if (annotationView == nil)
         {
             annotationView = [[ZTCustomAntionView alloc] initWithAnnotation:annotation
                                                           reuseIdentifier:reuseIndetifier];
         }
-        annotationView.canShowCallout= NO;       //设置气泡可以弹出，默认为NO
+        annotationView.canShowCallout= NO;     //设置气泡可以弹出，默认为NO
         annotationView.draggable = YES;        //设置标注可以拖动，默认为NO
         
         annotationView.annotation = annotation;
@@ -369,6 +372,7 @@
 
 -(void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
 {
+    [mapView deselectAnnotation:view.annotation animated:YES];
     
     NSString *latiStr = [NSString stringWithFormat:@"%f",view.annotation.coordinate.latitude];
     latiStr = [latiStr stringByReplacingOccurrencesOfString:@"." withString:@""];

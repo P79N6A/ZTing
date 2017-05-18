@@ -14,7 +14,7 @@
 #import <AMapSearchKit/AMapSearchKit.h>
 #import "ZTVoiceSearchCtrl.h"
 
-@interface SearchViewCtrl ()<UICollectionViewDelegate,UICollectionViewDataSource,IFlyRecognizerViewDelegate,AMapSearchDelegate>
+@interface SearchViewCtrl ()<UICollectionViewDelegate,UICollectionViewDataSource,IFlyRecognizerViewDelegate,AMapSearchDelegate,UITextFieldDelegate>
 {
     IFlyRecognizerView      *_iflyRecognizerView;
 }
@@ -32,9 +32,6 @@
 @property (nonatomic,strong) NSMutableArray *dataArr;
 
 @property (nonatomic, strong)AMapSearchAPI *POISearchManager;     //POI检索引擎
-@property (strong, nonatomic)UILabel *currentAddressLabel;        //当前地址
-@property (strong, nonatomic)UITextView *currentGeocodeView;      //当前地址编码后的信息
-@property (strong, nonatomic)NSMutableString *stringM;            //存储编码信息
 
 @end
 
@@ -178,11 +175,12 @@ static NSString * const ID = @"CollectionViewCellId";
     searchTextField.layer.borderWidth = 0.5;
     searchTextField.font = [UIFont systemFontOfSize:15];
     searchTextField.layer.cornerRadius = 5;
+    searchTextField.delegate = self;
     searchTextField.returnKeyType = UIReturnKeySearch;
     [self.view addSubview:searchTextField];
     
     self.searchTextField.sd_layout
-    .topSpaceToView(self.view, 80)
+    .topSpaceToView(self.view, 16)
     .leftSpaceToView(self.view, 10)
     .rightSpaceToView(self.view, 10)
     .heightIs(40);
@@ -249,6 +247,20 @@ static NSString * const ID = @"CollectionViewCellId";
     .rightSpaceToView(self.view, 10)
     .heightIs(40);
     
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    if(textField.returnKeyType==UIReturnKeySearch)
+    {
+        if ([_searchTextField.text length] > 0)
+        {
+            NSLog(@"123");
+        }
+    }
+    return YES;
 }
 
 -(UICollectionView *)areaCollection

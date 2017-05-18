@@ -132,14 +132,14 @@
     
     if(hidden) {
         [UIView animateWithDuration:0.2 animations:^{
-            _carTabelView.frame = CGRectMake(0, self.height, _carTabelView.width, _carTabelView.height);
+            _carTabelView.frame = CGRectMake(0, self.height-64, _carTabelView.width, _carTabelView.height);
         } completion:^(BOOL finished) {
             [super setHidden:hidden];
         }];
     }else {
         [super setHidden:hidden];
         [UIView animateWithDuration:0.2 animations:^{
-            _carTabelView.frame = CGRectMake(0, self.height - 300, _carTabelView.width, _carTabelView.height);
+            _carTabelView.frame = CGRectMake(0, self.height - 300-64, _carTabelView.width, _carTabelView.height);
         }];
     }
 }

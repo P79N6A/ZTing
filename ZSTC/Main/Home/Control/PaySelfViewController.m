@@ -65,7 +65,6 @@
     self.title = @"自助缴费";
     self.view.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
     
-
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
 
@@ -169,7 +168,7 @@
     [self.view addSubview:_selCarNoView];
     
     // 缴费视图
-    _payTypeView = [[PayTypeView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+    _payTypeView = [[PayTypeView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-64)];
     _payTypeView.hidden = YES;
     _payTypeView.delegate = self;
     [self.view addSubview:_payTypeView];
@@ -183,11 +182,13 @@
 - (void)_loadData:(NSString *)carNo {
     _carStateView.hidden = YES;
     NSString *findCarUrl = [NSString stringWithFormat:@"%@pay/findFeeByCarNo", KDomain];
+    
     NSMutableDictionary *params = @{}.mutableCopy;
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
     [params setObject:carNo forKey:@"carNo"];
     [params setObject:@"0" forKey:@"carType"];
+    
     [self showHudInView:self.view hint:@""];
     [[ZTNetworkClient sharedInstance] POST:findCarUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
@@ -295,11 +296,14 @@
 #pragma mark 余额支付
 - (void)acountPay {
     NSString *payUrl = [NSString stringWithFormat:@"%@pay/payByMemberAccount", KDomain];
+    
     NSMutableDictionary *params = @{}.mutableCopy;
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
     [params setObject:_paySelfModel.orderId forKey:@"orderId"];
+    
     [self showHudInView:self.view hint:@"支付中.."];
+    
     [[ZTNetworkClient sharedInstance] POST:payUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
         if([responseObject[@"success"] boolValue]){

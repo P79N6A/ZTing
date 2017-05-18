@@ -267,6 +267,7 @@
     {
         return nil;
     }
+    
     NSMutableArray *polylines = [NSMutableArray array];
     [path.steps enumerateObjectsUsingBlock:^(AMapStep *step, NSUInteger idx, BOOL *stop) {
         NSUInteger count = 0;
@@ -274,10 +275,9 @@
                                                          coordinateCount:&count
                                                               parseToken:@";"];
         
-        
         MAPolyline *polyline = [MAPolyline polylineWithCoordinates:coordinates count:count];
         
-        //          MAPolygon *polygon = [MAPolygon polygonWithCoordinates:coordinates count:count];
+//        MAPolygon *polygon = [MAPolygon polygonWithCoordinates:coordinates count:count];
         
         [polylines addObject:polyline];
         free(coordinates), coordinates = NULL;

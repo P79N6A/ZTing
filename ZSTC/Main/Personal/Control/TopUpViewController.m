@@ -64,14 +64,17 @@
     NSString *payMoney = [NSString stringWithFormat:@"%.0f", _topupAccountTF.text.floatValue * 100];
     
     NSString *topupUrl = [NSString stringWithFormat:@"%@account/memberRecharge", KDomain];
+    
     NSMutableDictionary *params = @{}.mutableCopy;
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
     [params setObject:payMoney forKey:@"payMoney"];
     
-    [[ZTNetworkClient sharedInstance] POST:topupUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+    [[ZTNetworkClient sharedInstance] GET:topupUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         if([responseObject[@"success"] boolValue]){
+            
             NSLog(@"%@", responseObject);
+            
         }
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
@@ -83,6 +86,8 @@
         
     }else {
         // 微信
+        
+        
     }
 }
 

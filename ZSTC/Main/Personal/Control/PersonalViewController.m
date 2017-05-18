@@ -70,9 +70,11 @@
     // 个人信息
     [self showHudInView:self.view hint:@""];
     NSString *infoUrl = [NSString stringWithFormat:@"%@member/getMemberExtInfo", KDomain];
+    
     NSMutableDictionary *params = @{}.mutableCopy;
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
+    
     [[ZTNetworkClient sharedInstance] POST:infoUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
         if([responseObject[@"success"] boolValue]){
@@ -96,9 +98,11 @@
     
     // 车辆、卡卷等信息
     NSString *extUrl = [NSString stringWithFormat:@"%@member/getMemberInfos", KDomain];
+    
     NSMutableDictionary *extParams = @{}.mutableCopy;
     [extParams setObject:KMemberId forKey:@"memberId"];
     [extParams setObject:KToken forKey:@"token"];
+    
     [[ZTNetworkClient sharedInstance] POST:extUrl dict:extParams progressFloat:nil succeed:^(id responseObject) {
         if([responseObject[@"success"] boolValue]){
             UserExtModel *userExtModel = [[UserExtModel alloc] initWithDataDic:responseObject[@"data"]];

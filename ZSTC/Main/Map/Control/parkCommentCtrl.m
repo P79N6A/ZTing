@@ -47,6 +47,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.title = @"添加评论";
+    
     // 设置返回按钮
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
@@ -235,7 +236,6 @@
     NSString *commentUrl = [NSString stringWithFormat:@"%@comment/addComment",KDomain];
     
     NSMutableDictionary *params = @{}.mutableCopy;
-    
     [params setValue:KMemberId forKey:@"memberId"];
     [params setValue:KToken forKey:@"token"];
     [params setValue:self.parkId forKey:@"parkId"];

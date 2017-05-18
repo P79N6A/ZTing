@@ -43,6 +43,7 @@
         
     }
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 #pragma mark - 从相册获取二维码图片

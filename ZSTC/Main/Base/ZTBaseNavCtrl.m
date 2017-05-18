@@ -17,6 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UINavigationBar *bar = [UINavigationBar appearance];
+    bar.barTintColor = MainColor;
+    bar.translucent = NO;
 }
 
 - (void)didReceiveMemoryWarning {

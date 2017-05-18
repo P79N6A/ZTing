@@ -57,6 +57,7 @@
     }];
     self.tableView.mj_footer.automaticallyHidden = YES;
 }
+
 - (void)_loadData {
     NSString *msgUrl = [NSString stringWithFormat:@"%@member/getMessagePushList", KDomain];
     NSMutableDictionary *params = @{}.mutableCopy;
@@ -89,6 +90,7 @@
         [self.tableView.mj_footer endRefreshing];
     }];
 }
+
 #pragma mark 无数据协议
 - (UIView *)makePlaceHolderView {
     NoDataView *noDateView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
@@ -100,14 +102,17 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _countData.count;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 80;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MsgCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InOutMsgCell" forIndexPath:indexPath];
     cell.msgModel = _countData[indexPath.row];
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

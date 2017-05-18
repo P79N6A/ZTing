@@ -69,7 +69,7 @@
     self.sortsArr = @[@"智能排序",@"距离排序",@"价格排序"];
     
     // 添加下拉菜单
-    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
+    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:44];
     menu.delegate = self;
     menu.dataSource = self;
     [self.view addSubview:menu];
@@ -277,6 +277,7 @@
             } failure:^(NSError *error) {
                 [self hideHud];
             }];
+            [delegate stopLocation];
 
         }else
         {

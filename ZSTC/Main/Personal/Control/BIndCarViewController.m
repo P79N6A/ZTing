@@ -114,7 +114,7 @@
     tap.delegate = self;
     [_carTypeView addGestureRecognizer:tap];
     
-    UITableView *typeTableView = [[UITableView alloc] initWithFrame:CGRectMake(_typeLabel.left, 180, _typeLabel.width, 120) style:UITableViewStylePlain];
+    UITableView *typeTableView = [[UITableView alloc] initWithFrame:CGRectMake(_typeLabel.left, 180-60, _typeLabel.width, 120) style:UITableViewStylePlain];
     typeTableView.delegate = self;
     typeTableView.dataSource = self;
 //    typeTableView.backgroundColor = MainColor;
@@ -221,6 +221,9 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     _carTypeView.hidden = YES;
     switch (indexPath.row) {
         case 0:
