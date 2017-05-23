@@ -24,7 +24,7 @@
 - (void)_initView {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveNick)];
     
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 20 + 64, KScreenWidth - 40, 40)];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 20, KScreenWidth - 40, 40)];
     textField.tag = 101;
     textField.borderStyle = UITextBorderStyleRoundedRect;
     textField.placeholder = _nick;

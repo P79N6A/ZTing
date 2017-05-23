@@ -404,10 +404,7 @@
     [params setValue:KToken forKey:@"token"];
     [params setValue:KMemberId forKey:@"memberId"];
     
-    __weak typeof(self) weakSelf = self;
-    
     [[ZTNetworkClient sharedInstance] GET:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
-        NSLog(@"%@",responseObject);
         
         if([responseObject[@"success"] boolValue]){
             _startRoadParkView.hidden = NO;

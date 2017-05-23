@@ -61,7 +61,6 @@
     parkNameLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:parkNameLabel];
 
-    
     // 车牌信息
     UIButton *infoBt = [UIButton buttonWithType:UIButtonTypeCustom];
     infoBt.enabled = NO;
@@ -77,7 +76,7 @@
     carNameBt.enabled = NO;
     carNameBt.layer.masksToBounds = YES;
     carNameBt.layer.cornerRadius = 8;
-    carNameBt.frame = CGRectMake(self.width - 60, carImgView.top, 68, 30);
+    carNameBt.frame = CGRectMake(self.width - 60, carImgView.top, 60, 30);
     if(bindCarModel.carNike != nil && ![bindCarModel.carNike isKindOfClass:[NSNull class]] && bindCarModel.carNike.length > 0) {
         [carNameBt setTitle:bindCarModel.carNike forState:UIControlStateNormal];
     }else {

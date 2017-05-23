@@ -64,29 +64,25 @@
     
     [self _initNav];
     
-    [self initMapView];
+    [self.view addSubview:self.mapView];
     
     [self _initView];
     
-    [self _locationSelf];
-    
 }
 
--(void)_locationSelf
+-(MAMapView *)mapView
 {
-    AppDelegate *delegate = [[AppDelegate alloc] init];
-    [delegate startLocation];
-    
-    [delegate receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
-        if (isLocationSuccess) {
-            _currentLocation = currentLocation.coordinate;
-            [delegate stopLocation];
-        }else
-        {
-            
-        }
-    }];
-
+    if (_mapView == nil) {
+        _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+        
+        _mapView.delegate = self;
+        _mapView.showsScale = NO;
+        _mapView.showsUserLocation = YES;
+        _mapView.distanceFilter = 50.f;
+        //设置定位精度
+        _mapView.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    }
+    return _mapView;
 }
 
 #pragma mark 数据请求
@@ -119,7 +115,7 @@
         }
         
     } failure:^(NSError *error) {
-        [self showHint:@"操作失败"];
+        [self showHint:@"网络不给力,请稍后重试!"];
     }];
 }
 
@@ -277,34 +273,6 @@
     // 显示定位大头针，默认是显示的
     self.mapView.showsUserLocation = YES;
 
-}
-
-- (void)initMapView
-{
-    if (self.mapView == nil)
-    {
-        MAMapView *mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, KScreenHeight)];
-        self.mapView = mapView;
-        [self.view addSubview:self.mapView];
-
-        [mapView setDelegate:self];
-        mapView.showTraffic = YES;
-        
-        //缩放等级
-        [mapView setZoomLevel:12 animated:YES];
-        
-        //设置定位精度
-        mapView.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-        //设置定位距离
-        mapView.distanceFilter = 50.0f;
-        
-        //显示指南针
-        mapView.showsCompass = NO;
-        
-        //显示标尺(单位：mi 英尺)
-        mapView.showsScale = YES;
-
-    }
 }
 
 #pragma mark - MapView Delegate

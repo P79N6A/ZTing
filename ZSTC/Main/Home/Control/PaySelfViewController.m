@@ -16,6 +16,8 @@
 #import "PaySucViewController.h"
 
 #import "ZTAliPay.h"
+#import "ZTWeChatPayTools.h"
+#import "WXApi.h"
 
 @interface PaySelfViewController ()<SelCarNoDelegate, SelPayDelegate>
 {
@@ -277,16 +279,34 @@
 
 #pragma mark 选择支付协议
 - (void)selPay:(PayType)payType {
+    
     switch (payType) {
         case AccountPay:
             [self acountPay];
             break;
             
         case AliPay:
-            [ZTAliPay aliPayWithOrderId:_paySelfModel.orderId];
+            [self showHudInView:self.view hint:@""];
+            if(_paySelfModel.orderId != nil && ![_paySelfModel.orderId isKindOfClass:[NSNull class]] && _paySelfModel.orderId.length > 0){
+                [ZTAliPay aliPayWithOrderId:_paySelfModel.orderId withComplete:^(NSString *stateCode) {
+                    [self hideHud];
+                    if ([stateCode isEqualToString:@"6001"]) {
+                        [self showHint:@"您取消了支付"];
+                    }
+                    
+                }];
+            }
             break;
-            
         case WeChatPay:
+            [self showHudInView:self.view hint:@""];
+            if(_paySelfModel.orderId != nil && ![_paySelfModel.orderId isKindOfClass:[NSNull class]] && _paySelfModel.orderId.length > 0){
+                if([WXApi isWXAppInstalled]){
+                    [ZTWeChatPayTools weChatPayWithOrderId:_paySelfModel.orderId];
+                }else {
+                    [self hideHud];
+                    [self showHint:@"未安装微信应用"];
+                }
+            }
             
             break;
             

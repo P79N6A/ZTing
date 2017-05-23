@@ -12,7 +12,7 @@
 //#define KDomain @"http://115.29.51.72:9080/park-service/"
 
 #define KDomain @"http://www.hnzhangting.cn/park-service/"
-//#define KDomain @"http://192.168.6.101:8080/park-service/"
+//#define KDomain @"http://192.168.7.36:8080/yunservice/"
 
 #define KScreenWidth [UIScreen mainScreen].bounds.size.width
 #define KScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -30,6 +30,9 @@
 #define KLoginOutNotification @"loginOutNotification"
 #define KAddCarNotification @"addCarNotification"
 #define KDeleteCarNotification @"deleteCarNotification"
+
+#define KReceiveMsgNotification @"receiveMsgNotification"
+
 #define KToken [TheUserDefaults objectForKey:@"token"]
 #define KMemberId [TheUserDefaults objectForKey:@"memberId"]
 

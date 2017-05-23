@@ -96,6 +96,8 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:KLoginOutNotification object:nil];
         }
     } failure:^(NSError *error) {
+        [self.viewController showHint:@"网络不给力,请稍后重试!"];
+        
     }];
 }
 

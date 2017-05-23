@@ -112,7 +112,6 @@
 		D61478971E80CD03001A13D7 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61478961E80CD03001A13D7 /* UserNotifications.framework */; };
 		D61478991E80CD13001A13D7 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D61478981E80CD13001A13D7 /* libresolv.tbd */; };
 		D614789D1E80CF64001A13D7 /* ZTJPushTools.m in Sources */ = {isa = PBXBuildFile; fileRef = D614789C1E80CF64001A13D7 /* ZTJPushTools.m */; };
-		D61478A01E80D1D0001A13D7 /* AppDelegate+ZTJPushSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = D614789F1E80D1D0001A13D7 /* AppDelegate+ZTJPushSdk.m */; };
 		D619BD421E9DB97300756A55 /* UIBarButtonItem+JExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = D619BD411E9DB97300756A55 /* UIBarButtonItem+JExtension.m */; };
 		D619BD451E9E041C00756A55 /* AnnotationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D619BD441E9E041C00756A55 /* AnnotationModel.m */; };
 		D619BD481E9E208E00756A55 /* ZTAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D619BD471E9E208E00756A55 /* ZTAnnotation.m */; };
@@ -152,6 +151,11 @@
 		D65635961EADCD88005DCA7F /* ScannerViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = D65635951EADCD88005DCA7F /* ScannerViewCtrl.m */; };
 		D65635991EADE83E005DCA7F /* RoadParkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D65635981EADE83E005DCA7F /* RoadParkModel.m */; };
 		D656359F1EADF0FE005DCA7F /* StartRoadParkView.m in Sources */ = {isa = PBXBuildFile; fileRef = D656359E1EADF0FE005DCA7F /* StartRoadParkView.m */; };
+		D65E9F121ED3CB34009CF10E /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D65E9F0D1ED3CB34009CF10E /* libWeChatSDK.a */; };
+		D65E9F131ED3CB34009CF10E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = D65E9F0E1ED3CB34009CF10E /* README.txt */; };
+		D65E9F151ED3CBE5009CF10E /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D65E9F141ED3CBE5009CF10E /* libsqlite3.0.tbd */; };
+		D65E9F181ED3D7C2009CF10E /* ZTWeChatPayTools.m in Sources */ = {isa = PBXBuildFile; fileRef = D65E9F171ED3D7C2009CF10E /* ZTWeChatPayTools.m */; };
+		D65E9F1B1ED41B14009CF10E /* NoNetWorkView.m in Sources */ = {isa = PBXBuildFile; fileRef = D65E9F1A1ED41B14009CF10E /* NoNetWorkView.m */; };
 		D67F781E1E9F28EC00BFD023 /* ZTmapPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = D67F781D1E9F28EC00BFD023 /* ZTmapPopView.m */; };
 		D6902E2C1E825CCC00C3196D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D61478941E80CCB5001A13D7 /* libz.tbd */; };
 		D6902E2D1E825CDB00C3196D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D6902D8F1E81FEBE00C3196D /* libc++.tbd */; };
@@ -360,8 +364,6 @@
 		D61478981E80CD13001A13D7 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		D614789B1E80CF64001A13D7 /* ZTJPushTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTJPushTools.h; sourceTree = "<group>"; };
 		D614789C1E80CF64001A13D7 /* ZTJPushTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTJPushTools.m; sourceTree = "<group>"; };
-		D614789E1E80D1D0001A13D7 /* AppDelegate+ZTJPushSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+ZTJPushSdk.h"; sourceTree = "<group>"; };
-		D614789F1E80D1D0001A13D7 /* AppDelegate+ZTJPushSdk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+ZTJPushSdk.m"; sourceTree = "<group>"; };
 		D619BD401E9DB97300756A55 /* UIBarButtonItem+JExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+JExtension.h"; sourceTree = "<group>"; };
 		D619BD411E9DB97300756A55 /* UIBarButtonItem+JExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+JExtension.m"; sourceTree = "<group>"; };
 		D619BD431E9E041C00756A55 /* AnnotationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationModel.h; sourceTree = "<group>"; };
@@ -432,6 +434,16 @@
 		D65635981EADE83E005DCA7F /* RoadParkModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoadParkModel.m; sourceTree = "<group>"; };
 		D656359D1EADF0FE005DCA7F /* StartRoadParkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartRoadParkView.h; sourceTree = "<group>"; };
 		D656359E1EADF0FE005DCA7F /* StartRoadParkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartRoadParkView.m; sourceTree = "<group>"; };
+		D65E9F0D1ED3CB34009CF10E /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		D65E9F0E1ED3CB34009CF10E /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		D65E9F0F1ED3CB34009CF10E /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		D65E9F101ED3CB34009CF10E /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		D65E9F111ED3CB34009CF10E /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		D65E9F141ED3CBE5009CF10E /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		D65E9F161ED3D7C2009CF10E /* ZTWeChatPayTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTWeChatPayTools.h; sourceTree = "<group>"; };
+		D65E9F171ED3D7C2009CF10E /* ZTWeChatPayTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTWeChatPayTools.m; sourceTree = "<group>"; };
+		D65E9F191ED41B14009CF10E /* NoNetWorkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoNetWorkView.h; sourceTree = "<group>"; };
+		D65E9F1A1ED41B14009CF10E /* NoNetWorkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoNetWorkView.m; sourceTree = "<group>"; };
 		D67D4F2F1E81017C00664332 /* ZTPrefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTPrefix.pch; sourceTree = "<group>"; };
 		D67F781C1E9F28EC00BFD023 /* ZTmapPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTmapPopView.h; sourceTree = "<group>"; };
 		D67F781D1E9F28EC00BFD023 /* ZTmapPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTmapPopView.m; sourceTree = "<group>"; };
@@ -548,6 +560,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D65E9F151ED3CBE5009CF10E /* libsqlite3.0.tbd in Frameworks */,
 				D6356EF71EA993F000950091 /* Contacts.framework in Frameworks */,
 				D6356EF51EA993E500950091 /* ContactsUI.framework in Frameworks */,
 				D6356EF31EA9932E00950091 /* iflyMSC.framework in Frameworks */,
@@ -568,6 +581,7 @@
 				D61478931E80CCA4001A13D7 /* Security.framework in Frameworks */,
 				D61478911E80CC99001A13D7 /* UIKit.framework in Frameworks */,
 				D614788F1E80CC88001A13D7 /* Foundation.framework in Frameworks */,
+				D65E9F121ED3CB34009CF10E /* libWeChatSDK.a in Frameworks */,
 				D614788D1E80CC7B001A13D7 /* CoreGraphics.framework in Frameworks */,
 				D614788B1E80CC72001A13D7 /* SystemConfiguration.framework in Frameworks */,
 				D61478891E80CC5C001A13D7 /* CoreTelephony.framework in Frameworks */,
@@ -963,8 +977,6 @@
 				D608EDE71E83B8BD00848829 /* Reachability.m */,
 				D614789B1E80CF64001A13D7 /* ZTJPushTools.h */,
 				D614789C1E80CF64001A13D7 /* ZTJPushTools.m */,
-				D614789E1E80D1D0001A13D7 /* AppDelegate+ZTJPushSdk.h */,
-				D614789F1E80D1D0001A13D7 /* AppDelegate+ZTJPushSdk.m */,
 				D67D4F2F1E81017C00664332 /* ZTPrefix.pch */,
 				D608EDF11E83BD0900848829 /* ZTNetworkClient.h */,
 				D608EDF21E83BD0900848829 /* ZTNetworkClient.m */,
@@ -984,6 +996,10 @@
 				D65385011EA897C3004335E9 /* AppDelegate+Location.m */,
 				9283D7851EA9DFC300BC2EAA /* ZTAliPay.h */,
 				9283D7861EA9DFC300BC2EAA /* ZTAliPay.m */,
+				D65E9F161ED3D7C2009CF10E /* ZTWeChatPayTools.h */,
+				D65E9F171ED3D7C2009CF10E /* ZTWeChatPayTools.m */,
+				D65E9F191ED41B14009CF10E /* NoNetWorkView.h */,
+				D65E9F1A1ED41B14009CF10E /* NoNetWorkView.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1066,6 +1082,18 @@
 			path = libqrencode;
 			sourceTree = "<group>";
 		};
+		D65E9F0C1ED3CB34009CF10E /* Wechat */ = {
+			isa = PBXGroup;
+			children = (
+				D65E9F0D1ED3CB34009CF10E /* libWeChatSDK.a */,
+				D65E9F0E1ED3CB34009CF10E /* README.txt */,
+				D65E9F0F1ED3CB34009CF10E /* WechatAuthSDK.h */,
+				D65E9F101ED3CB34009CF10E /* WXApi.h */,
+				D65E9F111ED3CB34009CF10E /* WXApiObject.h */,
+			);
+			path = Wechat;
+			sourceTree = "<group>";
+		};
 		D67F781B1E9F272900BFD023 /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -1094,6 +1122,7 @@
 		D6902E241E824F5500C3196D /* Bundle */ = {
 			isa = PBXGroup;
 			children = (
+				D65E9F0C1ED3CB34009CF10E /* Wechat */,
 				D6902E271E825C3600C3196D /* Alipay */,
 			);
 			name = Bundle;
@@ -1286,6 +1315,7 @@
 		E1105E1E46BF690B928E71D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D65E9F141ED3CBE5009CF10E /* libsqlite3.0.tbd */,
 				D6356EF61EA993F000950091 /* Contacts.framework */,
 				D6356EF41EA993E500950091 /* ContactsUI.framework */,
 				D6356EF21EA9932E00950091 /* iflyMSC.framework */,
@@ -1393,6 +1423,7 @@
 				9283D65B1EA7482D00BC2EAA /* MsgCell.xib in Resources */,
 				92B309311EA0C55500AF09B2 /* EaseUIResource.bundle in Resources */,
 				92469F381EA5C33C00FA1577 /* HisCarCell.xib in Resources */,
+				D65E9F131ED3CB34009CF10E /* README.txt in Resources */,
 				928C3FD21EA7388F00C31324 /* Main.storyboard in Resources */,
 				D6E925C11E792D2F003AECFB /* LaunchScreen.storyboard in Resources */,
 				92469F431EA601E500FA1577 /* CollectCell.xib in Resources */,
@@ -1475,6 +1506,7 @@
 				92433DC01E9E273000664D80 /* BindCarCell.m in Sources */,
 				92469F4E1EA7011F00FA1577 /* NoDataView.m in Sources */,
 				9283D7731EA8652D00BC2EAA /* PaySelfViewController.m in Sources */,
+				D65E9F1B1ED41B14009CF10E /* NoNetWorkView.m in Sources */,
 				D63B78521EA46B0C00D878CF /* ZTDriveNavViewCtrl.m in Sources */,
 				D65384F91EA8569D004335E9 /* parkCommentCtrl.m in Sources */,
 				92469F3B1EA5E97600FA1577 /* HisDetailViewController.m in Sources */,
@@ -1502,7 +1534,6 @@
 				92E950411E9B213800A017AC /* UserGuiderViewController.m in Sources */,
 				9283D7761EA8A31F00BC2EAA /* PaySelfModel.m in Sources */,
 				920C98F01E9DC54B00B33D21 /* SetNickViewController.m in Sources */,
-				D61478A01E80D1D0001A13D7 /* AppDelegate+ZTJPushSdk.m in Sources */,
 				D65635961EADCD88005DCA7F /* ScannerViewCtrl.m in Sources */,
 				92469F371EA5C33C00FA1577 /* HisCarCell.m in Sources */,
 				920C98E21E9CBFF800B33D21 /* UIViewController+HUD.m in Sources */,
@@ -1519,6 +1550,7 @@
 				92469F3E1EA5FD8A00FA1577 /* CollectModel.m in Sources */,
 				92B309341EA0C87100AF09B2 /* BindCardModel.m in Sources */,
 				D67F781E1E9F28EC00BFD023 /* ZTmapPopView.m in Sources */,
+				D65E9F181ED3D7C2009CF10E /* ZTWeChatPayTools.m in Sources */,
 				920C98C71E9C6E1900B33D21 /* BillViewController.m in Sources */,
 				D608EDE51E83B28800848829 /* FLAlipayManager.m in Sources */,
 				D65635911EADCD57005DCA7F /* rscode.c in Sources */,
@@ -1727,6 +1759,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZSTC/Bundle/Alipay",
+					"$(PROJECT_DIR)/ZSTC/Bundle/Wechat",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunrise.zhangting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1776,6 +1809,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZSTC/Bundle/Alipay",
+					"$(PROJECT_DIR)/ZSTC/Bundle/Wechat",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunrise.zhangting;
 				PRODUCT_NAME = "$(TARGET_NAME)";

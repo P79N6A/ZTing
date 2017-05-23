@@ -25,10 +25,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self _initView];
 }
 
 - (void)_initView {
+    
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
+    
     UITapGestureRecognizer *ailiTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ailiSel)];
     _ailiPayView.userInteractionEnabled = YES;
     [_ailiPayView addGestureRecognizer:ailiTap];
@@ -40,6 +45,8 @@
     _topupBt.layer.masksToBounds = YES;
     _topupBt.layer.cornerRadius = 4;
     _topupBt.backgroundColor = MainColor;
+    
+    self.title = @"充值";
 }
 
 #pragma mark 选择支付方式
@@ -70,7 +77,7 @@
     [params setObject:KMemberId forKey:@"memberId"];
     [params setObject:payMoney forKey:@"payMoney"];
     
-    [[ZTNetworkClient sharedInstance] GET:topupUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+    [[ZTNetworkClient sharedInstance] POST:topupUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         if([responseObject[@"success"] boolValue]){
             
             NSLog(@"%@", responseObject);

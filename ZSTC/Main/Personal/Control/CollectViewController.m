@@ -18,6 +18,7 @@
 #import "ParkDetailCtrl.h"
 
 #import "AppDelegate+Location.h"
+#import "NoNetWorkView.h"
 
 //#import <CoreLocation/CoreLocation.h>
 
@@ -29,6 +30,8 @@
     int _length;
     
     CLLocationCoordinate2D _currentLocation;
+    
+    NoNetWorkView *_notNetworkView;
 }
 //@property(strong,nonatomic)CLLocationManager *locationManager;
 @end
@@ -98,6 +101,13 @@
     }];
     self.tableView.mj_footer.automaticallyHidden = YES;
     
+    //无网络
+    _notNetworkView = [[NoNetWorkView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64)];
+    _notNetworkView.hidden = YES;
+    UITapGestureRecognizer *reloadTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_loadData)];
+    _notNetworkView.userInteractionEnabled = YES;
+    [_notNetworkView addGestureRecognizer:reloadTap];
+    [self.view addSubview:_notNetworkView];
 }
 
 - (void)_loadData {
@@ -107,7 +117,11 @@
     [params setObject:KMemberId forKey:@"memberId"];
     [params setObject:[NSNumber numberWithInt:_page*_length] forKey:@"start"];
     [params setObject:[NSNumber numberWithInt:_length] forKey:@"length"];
+    
+    [self showHudInView:self.view hint:@""];
+    
     [[ZTNetworkClient sharedInstance] POST:collectUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+        [self hideHud];
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
         if([responseObject[@"success"] boolValue]){
@@ -126,10 +140,14 @@
             }];
             [self.tableView cyl_reloadData];
         }
-        
+        _notNetworkView.hidden = YES;
     } failure:^(NSError *error) {
+        [self hideHud];
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self showHint:@"网络不给力,请稍后重试!"];
+        [self.view bringSubviewToFront:_notNetworkView];
+        _notNetworkView.hidden = NO;
     }];
 }
 

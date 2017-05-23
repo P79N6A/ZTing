@@ -161,7 +161,8 @@
             _topView.imgData = _advData;
         }
     } failure:^(NSError *error) {
-        NSLog(@"%@", error.description);
+
+        [self showHint:@"网络不给力,请稍后重试!"];
     }];
     
     [self loadBindCars];
@@ -192,6 +193,7 @@
         }];
     }else {
         _carStateView.carData = @[];
+        
     }
 
 }

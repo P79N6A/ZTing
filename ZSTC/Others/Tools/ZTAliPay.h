@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^PayCompleteBlock)(NSString *stateCode);
+
 @interface ZTAliPay : NSObject
 
-+ (void)aliPayWithOrderId:(NSString *)orderId;  // 订单号
++ (void)aliPayWithOrderId:(NSString *)orderId withComplete:(PayCompleteBlock)payCompleteBlock;  // 订单号
+
+@property (nonatomic, assign) PayCompleteBlock payCompleteBlock;
 
 @end

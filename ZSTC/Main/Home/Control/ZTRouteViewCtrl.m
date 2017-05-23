@@ -69,7 +69,7 @@
     [self.view addSubview:locationBtn];
     
     locationBtn.sd_layout
-    .topSpaceToView(self.view, 79)
+    .topSpaceToView(self.view, 15)
     .rightSpaceToView(self.view, 10)
     .widthIs(40)
     .heightIs(40);
@@ -163,7 +163,7 @@
 -(ZTparkMessageView *)parkMessageView
 {
     if (!_parkMessageView) {
-        _parkMessageView = [[ZTparkMessageView alloc] initWithFrame:CGRectMake(10, KScreenHeight - 140, KScreenWidth - 20, 130)];
+        _parkMessageView = [[ZTparkMessageView alloc] initWithFrame:CGRectMake(10, KScreenHeight-204, KScreenWidth - 20, 130)];
         _parkMessageView.backgroundColor = [UIColor whiteColor];
     }
     
@@ -194,7 +194,7 @@
 - (MAMapView *)mapView
 {
     if (!_mapView) {
-        _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-64)];
+        _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
         _mapView.delegate = self;
         _mapView.showsUserLocation = YES;    //YES 为打开定位，NO为关闭定位
         _mapView.showsScale = NO;
