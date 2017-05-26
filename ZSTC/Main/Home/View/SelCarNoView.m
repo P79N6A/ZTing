@@ -77,9 +77,11 @@
 - (void)_loadData {
     // 获取所有绑定车辆
     NSString *bindUrl = [NSString stringWithFormat:@"%@member/getMemberCards", KDomain];
+    
     NSMutableDictionary *params = @{}.mutableCopy;
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
+    
     [[ZTNetworkClient sharedInstance] POST:bindUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         if([responseObject[@"success"] boolValue]){
             NSArray *datas = responseObject[@"data"][@"carList"];

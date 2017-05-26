@@ -60,7 +60,6 @@
     _weChatSelBt.selected = YES;
 }
 
-
 #pragma mark 充值
 - (IBAction)topupAction {
     if(_topupAccountTF.text == nil || _topupAccountTF.text.length <= 0){

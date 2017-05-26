@@ -93,7 +93,9 @@
             }
         }
     } failure:^(NSError *error) {
+        
         [self hideHud];
+        [self showHint:@"网络不给力,请稍后重试!"];
     }];
     
     // 车辆、卡卷等信息

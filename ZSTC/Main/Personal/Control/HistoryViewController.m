@@ -126,7 +126,6 @@
 #pragma mark 选择车牌协议
 - (void)selectBindCar:(BindCarModel *)bindCarModel selectedIndex:(int)index{
     
-    NSLog(@"%d",index);
     [self showHudInView:self.view hint:@""];
     _selectedIndex = index;
     
@@ -142,6 +141,7 @@
     // 获取所有绑定车辆
     NSString *bindUrl = [NSString stringWithFormat:@"%@member/getMemberCards", KDomain];
     NSMutableDictionary *params = @{}.mutableCopy;
+    
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
     

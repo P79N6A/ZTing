@@ -62,6 +62,9 @@
 #pragma mark 创建视图
 -(void)_initView
 {
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
+    
     locationBtn = [[UIButton alloc] init];
     [locationBtn addTarget:self action:@selector(showSelfLocationAction:) forControlEvents:UIControlEventTouchUpInside];
     [locationBtn setImage:[UIImage imageNamed:@"icon_map_locate_nor"] forState:UIControlStateNormal];

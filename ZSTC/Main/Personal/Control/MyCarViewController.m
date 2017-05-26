@@ -69,6 +69,7 @@
         }
     } failure:^(NSError *error) {
         [self hideHud];
+        [self showHint:@"网络不给力,请稍后重试!"];
     }];
 }
 
