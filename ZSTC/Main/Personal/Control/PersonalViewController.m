@@ -96,6 +96,7 @@
         
         [self hideHud];
         [self showHint:@"网络不给力,请稍后重试!"];
+        
     }];
     
     // 车辆、卡卷等信息
@@ -124,6 +125,7 @@
 #pragma makr tableView协议
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.1;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

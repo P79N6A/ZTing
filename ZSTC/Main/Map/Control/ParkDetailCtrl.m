@@ -328,16 +328,42 @@ static NSString * const parkCellId = @"parkCellId";
     [delegate receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
         if (isLocationSuccess) {
             
-            [self hideHud];
-            // 路线规划
-            ZTRouteViewCtrl *routeVC = [[ZTRouteViewCtrl alloc] init];
-            routeVC.startCoor = CLLocationCoordinate2DMake(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
-            CLLocationCoordinate2D coor = CLLocationCoordinate2DMake(_model.parkLat.floatValue/1000000.6f, _model.parkLng.floatValue/1000000.6f);
-            routeVC.coor = coor;
-            routeVC.model = self.model;
-            [self.navigationController pushViewController:routeVC animated:YES];
+            NSString *parkUrl = [NSString stringWithFormat:@"%@park/detail", KDomain];
+            NSMutableDictionary *params = @{}.mutableCopy;
+            [params setObject:KToken forKey:@"token"];
+            [params setObject:KMemberId forKey:@"memberId"];
+            [params setObject:_parkId forKey:@"parkId"];
             
-            [delegate stopLocation];
+            [[ZTNetworkClient sharedInstance] POST:parkUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+                
+                [self hideHud];
+                
+                if([responseObject[@"success"] boolValue]){
+                    AnnotationModel *annModel = [[AnnotationModel alloc] initWithDataDic:responseObject[@"data"][@"park"]];
+                    CLLocationCoordinate2D coor = CLLocationCoordinate2DMake(annModel.parkLat.floatValue/1000000.6f, annModel.parkLng.floatValue/1000000.6f);
+                        // 路线规划
+                        ZTRouteViewCtrl *routeVC = [[ZTRouteViewCtrl alloc] init];
+                        routeVC.startCoor = CLLocationCoordinate2DMake(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
+                        routeVC.coor = coor;
+                        routeVC.model = annModel;
+                        [self.navigationController pushViewController:routeVC animated:YES];
+                    
+                }
+
+                [delegate stopLocation];
+            } failure:^(NSError *error) {
+                
+            }];
+            
+//            // 路线规划
+//            ZTRouteViewCtrl *routeVC = [[ZTRouteViewCtrl alloc] init];
+//            routeVC.startCoor = CLLocationCoordinate2DMake(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
+//            CLLocationCoordinate2D coor = CLLocationCoordinate2DMake(_model.parkLat.floatValue/1000000.6f, _model.parkLng.floatValue/1000000.6f);
+//            routeVC.coor = coor;
+//            routeVC.model = self.model;
+//            [self.navigationController pushViewController:routeVC animated:YES];
+            
+//            [delegate stopLocation];
         }else
         {
             [self showHint:@"路线规划失败"];
@@ -365,13 +391,13 @@ static NSString * const parkCellId = @"parkCellId";
                 //            NSLog(@"%@",responseObject);
                 [self hideHud];
                 if([responseObject[@"success"] boolValue]){
-                    [_collectionBtn setTitle:@"收藏" forState:UIControlStateNormal];
+                    [_collectionBtn setTitle:@"收藏" forState:UIControlStateNormal] ;
                     [_collectionBtn setImage:[UIImage imageNamed:@"icon_park_collect_nor"] forState:UIControlStateNormal];
                     sender.selected = !sender.selected;
                 }
                 
             } failure:^(NSError *error) {
-                NSLog(@"%@",error);
+                
                 [self hideHud];
             }];
             
@@ -397,7 +423,7 @@ static NSString * const parkCellId = @"parkCellId";
                 }
                 
             } failure:^(NSError *error) {
-                NSLog(@"%@",error);
+                
                 [self hideHud];
             }];
         }
