@@ -351,6 +351,7 @@ static NSString * const parkCellId = @"parkCellId";
                 }
 
                 [delegate stopLocation];
+                
             } failure:^(NSError *error) {
                 
             }];

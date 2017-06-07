@@ -12,8 +12,15 @@
 #import "AnnotationModel.h"
 #import "ZTRouteViewCtrl.h"
 #import "ZTDriveNavViewCtrl.h"
+#import "ParkDetailCtrl.h"
+#import "CYLTableViewPlaceHolder.h"
+#import "NoDataView.h"
+#import "NoNetWorkView.h"
 
-@interface ZTVoiceSearchCtrl ()<DOPDropDownMenuDelegate,DOPDropDownMenuDataSource,UITableViewDelegate,UITableViewDataSource,ParkDelegate>
+@interface ZTVoiceSearchCtrl ()<DOPDropDownMenuDelegate,DOPDropDownMenuDataSource,UITableViewDelegate,UITableViewDataSource,ParkDelegate,CYLTableViewPlaceHolderDelegate>
+{
+    NoNetWorkView *_notNetworkView;
+}
 
 @property (nonatomic, strong) DOPDropDownMenu *menu;
 
@@ -87,6 +94,12 @@
     .bottomSpaceToView(self.view, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"CollectCell" bundle:nil] forCellReuseIdentifier:@"searchCell"];
     
+    _notNetworkView = [[NoNetWorkView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64)];
+    _notNetworkView.hidden = YES;
+    UITapGestureRecognizer *reloadTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_loadData)];
+    _notNetworkView.userInteractionEnabled = YES;
+    [_notNetworkView addGestureRecognizer:reloadTap];
+    [self.view addSubview:_notNetworkView];
 }
 
 #pragma mark 附近停车场
@@ -97,20 +110,27 @@
     
     [params setObject:@(_origleCoor.longitude) forKey:@"lng"];
     [params setObject:@(_origleCoor.latitude) forKey:@"lat"];
-    [params setObject:@(30000) forKey:@"radius"];
+    [params setObject:@(2000) forKey:@"radius"];
     [params setObject:@(30) forKey:@"pageSize"];
     [params setObject:@(0) forKey:@"start"];
     
+    [self showHudInView:self.view hint:@""];
+    
     [[ZTNetworkClient sharedInstance] GET:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
         NSLog(@"%@",responseObject);
+        [self hideHud];
         NSArray *arr = responseObject[@"data"];
         for (int i = 0; i < arr.count; i++) {
             AnnotationModel *model = [[AnnotationModel alloc] initWithDataDic:arr[i]];
             [self.dataArr addObject:model];
         }
-        [self.tableView reloadData];
+        [self.tableView cyl_reloadData];
+        _notNetworkView.hidden = YES;
     } failure:^(NSError *error) {
-        
+        [self hideHud];
+        [self showHint:@"网络不给力,请稍后重试!"];
+        [self.view bringSubviewToFront:_notNetworkView];
+        _notNetworkView.hidden = NO;
     }];
 }
 
@@ -290,6 +310,29 @@
             
         }
     }];
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    NSLog(@"%ld",indexPath.row);
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    AnnotationModel *model = _dataArr[indexPath.row];
+    
+    ParkDetailCtrl *parkDeail = [[ParkDetailCtrl alloc] init];
+    
+    parkDeail.parkId = model.parkId;
+    
+    [self.navigationController pushViewController:parkDeail animated:YES];
+    
+}
+
+#pragma mark 无数据协议
+- (UIView *)makePlaceHolderView {
+    NoDataView *noDateView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+    return noDateView;
 }
 
 - (void)didReceiveMemoryWarning {
