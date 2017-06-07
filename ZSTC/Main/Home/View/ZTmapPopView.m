@@ -49,7 +49,7 @@
 
 - (void)initContent
 {
-    self.frame = CGRectMake(0, KScreenHeight-200, KScreenWidth, 200);
+    self.frame = CGRectMake(0, KScreenHeight-200-64, KScreenWidth, 200);
     
     //alpha 0.0  白色   alpha 1 ：黑色   alpha 0～1 ：遮罩颜色，逐渐
     self.backgroundColor = [UIColor clearColor];
@@ -58,7 +58,7 @@
     
     if (_contentView == nil)
     {
-        _contentView = [[UIView alloc]initWithFrame:CGRectMake(10, KScreenHeight - 200, KScreenWidth-20, 190)];
+        _contentView = [[UIView alloc]initWithFrame:CGRectMake(10, KScreenHeight - 200-64, KScreenWidth-20, 190)];
         _contentView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_contentView];
         
@@ -215,10 +215,36 @@
     
     _parkNameLab.text = _model.parkName;
     
-    _distanceLab.text = [NSString stringWithFormat:@"%@m",_model.distance];
+    
+    NSString *parklat = [NSString stringWithFormat:@"%@",_model.parkLat];
+    NSMutableString *parkLatStr = [NSMutableString stringWithString:parklat];
+    [parkLatStr insertString:@"." atIndex:2];
+    
+    NSString *parklng = [NSString stringWithFormat:@"%@",_model.parkLng];
+    NSMutableString *parkLngStr = [NSMutableString stringWithString:parklng];
+    [parkLngStr insertString:@"." atIndex:3];
+    
+    double distance = [self distanceBetweenOrderBy:[parkLatStr doubleValue] :_coor.latitude :[parkLngStr doubleValue] :_coor.longitude];
+    if (distance < 1000) {
+        _distanceLab.text = [NSString stringWithFormat:@"%.lfm",distance];
+    }else
+    {
+        _distanceLab.text = [NSString stringWithFormat:@"%.2lfkm",distance/1000.0];
+    }
     
     _troduceLab.text = _model.parkFeedesc;
     
+}
+
+-(double)distanceBetweenOrderBy:(double)lat1 :(double)lat2 :(double)lng1 :(double)lng2{
+    
+    CLLocation *curLocation = [[CLLocation alloc] initWithLatitude:lat1 longitude:lng1];
+    
+    CLLocation *otherLocation = [[CLLocation alloc] initWithLatitude:lat2 longitude:lng2];
+    
+    double  distance  = [curLocation distanceFromLocation:otherLocation];
+    
+    return  distance;
 }
 
 #pragma mark 路线规划
@@ -273,13 +299,13 @@
     [view addSubview:self];
     [view addSubview:_contentView];
     
-    [_contentView setFrame:CGRectMake(10, KScreenHeight, KScreenWidth-20, 190)];
+    [_contentView setFrame:CGRectMake(10, KScreenHeight-64, KScreenWidth-20, 190)];
     
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         
         self.alpha = 1.0;
         
-        [_contentView setFrame:CGRectMake(10, KScreenHeight - 200, KScreenWidth-20, 190)];
+        [_contentView setFrame:CGRectMake(10, KScreenHeight - 200-64, KScreenWidth-20, 190)];
         
     } completion:nil];
 }
@@ -287,13 +313,13 @@
 //移除从上向底部弹下去的UIView
 - (void)disMissView
 {
-    [_contentView setFrame:CGRectMake(10, KScreenHeight - 200, KScreenWidth-20, 190)];
-    [UIView animateWithDuration:0
+    [_contentView setFrame:CGRectMake(10, KScreenHeight - 200-64, KScreenWidth-20, 190)];
+    [UIView animateWithDuration:0.2
                      animations:^{
                          
                          self.alpha = 0.0;
                          
-                         [_contentView setFrame:CGRectMake(10, KScreenHeight, KScreenWidth-20, 190)];
+                         [_contentView setFrame:CGRectMake(10, KScreenHeight-64, KScreenWidth-20, 190)];
                      }
                      completion:^(BOOL finished){
                          

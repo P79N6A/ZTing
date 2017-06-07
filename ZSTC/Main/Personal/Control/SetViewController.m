@@ -7,6 +7,7 @@
 //
 
 #import "SetViewController.h"
+#import "AboutOurViewController.h"
 
 @interface SetViewController ()
 {
@@ -25,6 +26,10 @@
 }
 
 - (void)_initView {
+    UIBarButtonItem *returnButtonItem = [[UIBarButtonItem alloc] init];
+    returnButtonItem.title = @"";
+    self.navigationItem.backBarButtonItem = returnButtonItem;
+    
     float allCache = [self caculateCache];
     NSString *clearCacheName = allCache >= 1 ? [NSString stringWithFormat:@"%.2fM",allCache] : [NSString stringWithFormat:@"%.2fK",allCache * 1024];
     _cancelLabel.text = clearCacheName;
@@ -36,6 +41,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     switch (indexPath.section) {
@@ -89,12 +95,13 @@
 
 #pragma mark 检查更新
 - (void)updateApp {
-    
+//    [self showHint:@"最新版本"];
 }
 
 #pragma mark 关于我们
 - (void)aboutOur {
-    
+    AboutOurViewController *aboutVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"AboutOurViewController"];
+    [self.navigationController pushViewController:aboutVC animated:YES];
 }
 
 #pragma mark 退出
@@ -106,6 +113,7 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
         // 发送登出通知
         [[NSNotificationCenter defaultCenter] postNotificationName:KLoginOutNotification object:nil];
+        
     }];
     
     [alertCon addAction:cancelAction];

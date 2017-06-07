@@ -23,6 +23,8 @@
 
 #import "ZTMapViewCtrl.h"
 
+#import "RoadsideParkingCtrl.h"
+
 @interface HomeViewController ()
 {
     __weak IBOutlet TopScrollView *_topView;
@@ -159,9 +161,9 @@
             _topView.imgData = _advData;
         }
     } failure:^(NSError *error) {
-        NSLog(@"%@", error.description);
+
+        [self showHint:@"网络不给力,请稍后重试!"];
     }];
-    
     
     [self loadBindCars];
 }
@@ -191,6 +193,7 @@
         }];
     }else {
         _carStateView.carData = @[];
+        
     }
 
 }
@@ -205,12 +208,25 @@
 #pragma mark 路边停车
 - (void)roadsideAction {
     
+    if([[NSUserDefaults standardUserDefaults] boolForKey:KLoginState]){
+        RoadsideParkingCtrl *roadParkingCtrl = [[RoadsideParkingCtrl alloc] init];
+        [self.navigationController pushViewController:roadParkingCtrl animated:YES];
+    }else {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        [self presentViewController:loginVC animated:YES completion:nil];
+    }
 }
 
 #pragma mark 自助缴费
 - (void)payExpenseAction {
-    PaySelfViewController *payVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PaySelfViewController"];
-    [self.navigationController pushViewController:payVC animated:YES];
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:KLoginState]){
+        PaySelfViewController *payVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PaySelfViewController"];
+        [self.navigationController pushViewController:payVC animated:YES];
+    }else {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        [self presentViewController:loginVC animated:YES completion:nil];
+    }
 }
 
 #pragma mark 菜单按钮

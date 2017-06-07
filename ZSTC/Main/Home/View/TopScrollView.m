@@ -148,6 +148,7 @@
 - (void)doScroll {
     
     [_scrollView setContentOffset:CGPointMake(_scrollView.contentOffset.x + KScreenWidth, 0) animated:YES];
+    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

@@ -12,7 +12,7 @@
 
 @protocol SelectBindCarDelegate <NSObject>
 
-- (void)selectBindCar:(BindCarModel *)bindCarModel;
+- (void)selectBindCar:(BindCarModel *)bindCarModel selectedIndex:(int)index;
 
 @end
 

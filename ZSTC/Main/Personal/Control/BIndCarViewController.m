@@ -8,8 +8,10 @@
 
 #import "BIndCarViewController.h"
 #import <IQKeyboardManager.h>
+#import "InputKeyBoardView.h"
+#include "NumInputView.h"
 
-@interface BIndCarViewController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface BIndCarViewController ()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
 {
     __weak IBOutlet UITextField *_provinceTF;
     __weak IBOutlet UITextField *_letterTF;
@@ -33,7 +35,62 @@
     [self _initView];
 }
 
+- (void)hidView {
+    _carTypeView.hidden = YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if(touch.view == _carTypeView){
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
 - (void)_initView {
+    
+    // 设置自定义键盘
+    int verticalCount = 5;
+    CGFloat kheight = KScreenWidth/10 + 8;
+    InputKeyBoardView *keyBoardView = [[InputKeyBoardView alloc] initWithFrame:CGRectMake(0, KScreenHeight - kheight * verticalCount, KScreenWidth, kheight * verticalCount) withClickKeyBoard:^(NSString *character) {
+        if(_provinceTF.text.length <= 0){
+            _provinceTF.text = [NSString stringWithFormat:@"%@%@", _provinceTF.text, character];
+        }
+        [_provinceTF resignFirstResponder];
+        [_letterTF becomeFirstResponder];
+    } withDelete:^{
+        if(_provinceTF.text.length > 0){
+            _provinceTF.text = [_provinceTF.text substringWithRange:NSMakeRange(0, _provinceTF.text.length - 1)];
+        }
+    }];
+    _provinceTF.inputView = keyBoardView;
+    
+    NumInputView *letInputView = [[NumInputView alloc] initWithFrame:CGRectMake(0, KScreenHeight - kheight * verticalCount, KScreenWidth, kheight * verticalCount) withClickKeyBoard:^(NSString *character) {
+        if(_letterTF.text.length <= 0){
+            _letterTF.text = [NSString stringWithFormat:@"%@%@", _letterTF.text, character];
+        }
+        [_letterTF resignFirstResponder];
+        [_numTF becomeFirstResponder];
+    } withDelete:^{
+        if(_letterTF.text.length > 0){
+            _letterTF.text = [_letterTF.text substringWithRange:NSMakeRange(0, _letterTF.text.length - 1)];
+        }
+    }];
+    _letterTF.inputView = letInputView;
+    
+    NumInputView *numInputView = [[NumInputView alloc] initWithFrame:CGRectMake(0, KScreenHeight - kheight * verticalCount, KScreenWidth, kheight * verticalCount) withClickKeyBoard:^(NSString *character) {
+        if(_numTF.text.length >= 5){
+            [_numTF resignFirstResponder];
+        }else {
+            _numTF.text = [NSString stringWithFormat:@"%@%@", _numTF.text, character];
+        }
+    } withDelete:^{
+        if(_numTF.text.length > 0){
+            _numTF.text = [_numTF.text substringWithRange:NSMakeRange(0, _numTF.text.length - 1)];
+        }
+    }];
+    _numTF.inputView = numInputView;
+    
     _addBt.layer.masksToBounds = YES;
     _addBt.layer.cornerRadius = 4;
     
@@ -52,11 +109,12 @@
     _carTypeView.hidden = YES;
     _carTypeView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.2];
     [self.view addSubview:_carTypeView];
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidCarTypeView)];
-//    _carTypeView.userInteractionEnabled = YES;
-//    [_carTypeView addGestureRecognizer:tap];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidView)];
+    _carTypeView.userInteractionEnabled = YES;
+    tap.delegate = self;
+    [_carTypeView addGestureRecognizer:tap];
     
-    UITableView *typeTableView = [[UITableView alloc] initWithFrame:CGRectMake(_typeLabel.left, 180, _typeLabel.width, 120) style:UITableViewStylePlain];
+    UITableView *typeTableView = [[UITableView alloc] initWithFrame:CGRectMake(_typeLabel.left, 180-60, _typeLabel.width, 120) style:UITableViewStylePlain];
     typeTableView.delegate = self;
     typeTableView.dataSource = self;
 //    typeTableView.backgroundColor = MainColor;
@@ -80,7 +138,7 @@
         [self showHint:@"请检查车牌号码"];
         return;
     }
-    if(_provinceTF.text == nil && _provinceTF.text.length < 5){
+    if(_numTF.text == nil && _numTF.text.length < 5){
         [self showHint:@"请检查车牌号码"];
         return;
     }
@@ -163,6 +221,9 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     _carTypeView.hidden = YES;
     switch (indexPath.row) {
         case 0:

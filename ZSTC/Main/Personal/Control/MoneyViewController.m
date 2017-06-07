@@ -62,7 +62,7 @@
             _accountLabel.text = [NSString stringWithFormat:@"%.2f", account];
         }
     } failure:^(NSError *error) {
-        
+        [self showHint:@"网络不给力,请稍后重试!"];
     }];
     
 }

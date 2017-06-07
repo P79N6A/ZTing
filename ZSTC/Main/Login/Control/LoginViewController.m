@@ -164,6 +164,7 @@
         [self showHint:responseObject[@"message"]];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
+        [self showHint:@"网络不给力,请稍后重试!"];
     }];
     
 }
@@ -207,6 +208,7 @@
 
 - (void)stopCountdown {
     [_timer invalidate];
+    _timer = nil;
     _isError = NO;
     _getVerifyCodeBtn.enabled = YES;
     [_getVerifyCodeBtn setBackgroundColor:MainColor];
@@ -304,15 +306,6 @@
     [params setValue:[TheUserDefaults objectForKey:@"registrationID"] forKey:@"equid"];
     [params setValue:@"1" forKey:@"pushEquipType"];
     [params setValue:KToken forKey:@"token"];
-
-    /*
-    [[NetRequestClient sharedInstance] postWithURLString:urlStr parameters:params success:^(id responseObject) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
-        NSLog(@"%@",dic);
-    } failure:^(NSError *error) {
-        
-    }];
-     */
     
     [[ZTNetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
 //        NSLog(@"%@",responseObject);

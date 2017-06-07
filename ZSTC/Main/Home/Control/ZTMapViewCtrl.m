@@ -31,6 +31,8 @@
     
     BOOL _hasCurrLoc; //只有首次定位成功跳到该经纬度位置bool
     
+    CLLocationCoordinate2D _currentLocation;
+    
 }
 
 @property (nonatomic,strong) MAMapView *mapView;
@@ -58,30 +60,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self showHudInView:self.view hint:@""];
     
     [self _initNav];
     
-    [self initMapView];
+    [self.view addSubview:self.mapView];
     
     [self _initView];
     
 }
 
+-(MAMapView *)mapView
+{
+    if (_mapView == nil) {
+        _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+        
+        _mapView.delegate = self;
+        _mapView.showsScale = NO;
+        _mapView.showsUserLocation = YES;
+        _mapView.distanceFilter = 50.f;
+        //设置定位精度
+        _mapView.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    }
+    return _mapView;
+}
+
 #pragma mark 数据请求
--(void)_loadData
+-(void)_loadData:(CLLocationCoordinate2D)coor
 {
     //获取接入停车场列表
     NSString *urlStr = [NSString stringWithFormat:@"%@park/getParkListByLngAndLat",KDomain];
     
-    float lat = _mapView.userLocation.coordinate.latitude;
-    float lng = _mapView.userLocation.coordinate.longitude;
+    float lat = coor.latitude;
+    float lng = coor.longitude;
     
     NSMutableDictionary *params = @{}.mutableCopy;
     
     [params setObject:@(lng) forKey:@"lng"];
     [params setObject:@(lat) forKey:@"lat"];
     [params setObject:@(30000) forKey:@"radius"];
-    [params setObject:@(20) forKey:@"pageSize"];
+    [params setObject:@(30) forKey:@"pageSize"];
     [params setObject:@(0) forKey:@"start"];
     
     [[ZTNetworkClient sharedInstance] GET:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
@@ -97,13 +115,14 @@
         }
         
     } failure:^(NSError *error) {
-        [self showHint:@"操作失败"];
+        [self showHint:@"网络不给力,请稍后重试!"];
     }];
 }
 
 #pragma mark 添加自定义大头针
 -(void)addAnnotation:(id)data
 {
+    [_mapView removeAnnotations:_locationArray];
     
     if (self.locationArray.count != 0) {
         [self.locationArray removeAllObjects];
@@ -131,14 +150,16 @@
 {
     self.title = @"找车位";
     
-    UIBarButtonItem *rightBtn = [UIBarButtonItem itemWithImage:@"icon_title_search_nor" highImage:@"icon_title_search_h" target:self action:@selector(rightBarBtnAction:)];
-    self.navigationItem.rightBarButtonItem = rightBtn;
-    
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [rightBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -22)];
+    [rightBtn addTarget:self action:@selector(rightBarBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setImage:[UIImage imageNamed:@"icon_title_search_nor"] forState:UIControlStateNormal];
+    UIBarButtonItem *barBtnItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    self.navigationItem.rightBarButtonItem = barBtnItem;
 }
 
 -(void)rightBarBtnAction:(UIButton *)sender
 {
-    NSLog(@"search");
     SearchViewCtrl *searchViewCtrl = [[SearchViewCtrl alloc] init];
     [self.navigationController pushViewController:searchViewCtrl animated:YES];
 }
@@ -153,7 +174,7 @@
     [self.view addSubview:locationBtn];
     
     locationBtn.sd_layout
-    .topSpaceToView(self.view, 79)
+    .topSpaceToView(self.view, 15)
     .rightSpaceToView(self.view, 10)
     .widthIs(40)
     .heightIs(40);
@@ -162,7 +183,7 @@
     [TrafficStatusBtn addTarget:self action:@selector(showTrafficStatusAction:) forControlEvents:UIControlEventTouchUpInside];
     TrafficStatusBtn.selected = YES;
     [TrafficStatusBtn setImage:[UIImage imageNamed:@"icon_map_traffic_nor"] forState:UIControlStateNormal];
-    [TrafficStatusBtn setImage:[UIImage imageNamed:@"icon_map_traffic_h"] forState:UIControlStateHighlighted];
+    [TrafficStatusBtn setImage:[UIImage imageNamed:@"icon_map_traffic_h"] forState:UIControlStateSelected];
     [self.view addSubview:TrafficStatusBtn];
     
     TrafficStatusBtn.sd_layout
@@ -216,10 +237,10 @@
 -(void)showTrafficStatusAction:(UIButton *)sender
 {
     if (sender.selected) {
-        [self.mapView setShowTraffic:YES];
+        [self.mapView setShowTraffic:NO];
         sender.selected = !sender.selected;
     } else {
-        [self.mapView setShowTraffic:NO];
+        [self.mapView setShowTraffic:YES];
         sender.selected = !sender.selected;
     }
 }
@@ -254,35 +275,6 @@
 
 }
 
-- (void)initMapView
-{
-    if (self.mapView == nil)
-    {
-        MAMapView *mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
-        self.mapView = mapView;
-        [self.view addSubview:self.mapView];
-
-        [mapView setDelegate:self];
-        
-        //缩放等级
-        [mapView setZoomLevel:18 animated:YES];
-        
-        //设置定位精度
-        mapView.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-        //    设置定位距离
-        mapView.distanceFilter = 5.0f;
-        //普通样式
-        _mapView.mapType = MAMapTypeStandard;
-        
-        // 显示指南针
-        mapView.showsCompass = NO;
-        
-        // 显示标尺(单位：mi 英尺)
-        mapView.showsScale = YES;
-
-    }
-}
-
 #pragma mark - MapView Delegate
 
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
@@ -292,14 +284,18 @@
         _userLocation = userLocation;
         _hasCurrLoc = YES;
         
+        [self.mapView setZoomLevel:12 animated:YES];
+        
         [self.mapView setCenterCoordinate:userLocation.coordinate];
-        [self.mapView setZoomLevel:12 animated:NO];
-     
+        
         [_mapView removeAnnotations:_locationArray];
         
-        [self _loadData];
-        
+        [self _loadData:CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude)];
+        [self hideHud];
     }
+    _currentLocation = userLocation.coordinate;
+    
+    
 }
 
 -(void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated
@@ -307,6 +303,8 @@
     [self.mapView removeFromSuperview];
     [self.view addSubview:self.mapView];
     [self.view insertSubview:self.mapView atIndex:0];
+    
+    [self _loadData:CLLocationCoordinate2DMake(mapView.region.center.latitude, mapView.region.center.longitude)];
 }
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id <MAAnnotation>)annotation
@@ -321,14 +319,14 @@
         static NSString *reuseIndetifier = @"annotationReuseIndetifier";
         
         ZTCustomAntionView *annotationView = (ZTCustomAntionView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
+        
         if (annotationView == nil)
         {
             annotationView = [[ZTCustomAntionView alloc] initWithAnnotation:annotation
                                                           reuseIdentifier:reuseIndetifier];
         }
-        annotationView.canShowCallout= NO;       //设置气泡可以弹出，默认为NO
+        annotationView.canShowCallout= NO;     //设置气泡可以弹出，默认为NO
         annotationView.draggable = YES;        //设置标注可以拖动，默认为NO
-        
         
         annotationView.annotation = annotation;
         
@@ -342,8 +340,8 @@
 
 -(void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
 {
+    [mapView deselectAnnotation:view.annotation animated:YES];
     
-    NSLog(@"latitude = %f   longitude = %f",view.annotation.coordinate.latitude,view.annotation.coordinate.longitude);
     NSString *latiStr = [NSString stringWithFormat:@"%f",view.annotation.coordinate.latitude];
     latiStr = [latiStr stringByReplacingOccurrencesOfString:@"." withString:@""];
     int latNum = [latiStr intValue];
@@ -357,6 +355,7 @@
             
             [self presentDetailView:_locationArray[i]];
             _currentSelectedIndex = i;
+            
         }
     }
 }
@@ -364,7 +363,7 @@
 -(void)presentDetailView:(ZTAnnotation *)anntation
 {
     AnnotationModel *model = anntation.model;
-//    NSLog(@"%@",model);
+    
     [UIView animateWithDuration:0.3 animations:^{
         _shrinkDownBtn.sd_resetNewLayout
         .bottomSpaceToView(self.view, 220)
@@ -382,13 +381,16 @@
     if (_mapPopView) {
         [_mapPopView disMissView];
         _mapPopView = [[ZTmapPopView alloc] init];
-        [_mapPopView showInView:self.view];
+        _mapPopView.coor = _currentLocation;
         _mapPopView.model = model;
+        [_mapPopView showInView:self.view];
+        
     }else
     {
         _mapPopView = [[ZTmapPopView alloc] init];
-        [_mapPopView showInView:self.view];
+        _mapPopView.coor = _currentLocation;
         _mapPopView.model = model;
+        [_mapPopView showInView:self.view];
     }
     
 }

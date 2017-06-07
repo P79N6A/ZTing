@@ -15,6 +15,8 @@
 
 @property (nonatomic,strong) AnnotationModel *model;
 
+@property (nonatomic,assign) CLLocationCoordinate2D coor;
+
 //展示从底部向上弹出的UIView
 - (void)showInView:(UIView *)view;
 

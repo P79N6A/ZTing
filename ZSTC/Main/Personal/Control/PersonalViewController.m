@@ -56,7 +56,7 @@
     self.navigationItem.backBarButtonItem = returnButtonItem;
     
     UIButton *billBt = [UIButton buttonWithType:UIButtonTypeCustom];
-    billBt.frame = CGRectMake(0, 0, 60, 50);
+    billBt.frame = CGRectMake(0, 0, 65, 60);
     [billBt setBackgroundImage:[UIImage imageNamed:@"icon_bill_click"] forState:UIControlStateNormal];
     [billBt addTarget:self action:@selector(billAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:billBt];
@@ -70,9 +70,11 @@
     // 个人信息
     [self showHudInView:self.view hint:@""];
     NSString *infoUrl = [NSString stringWithFormat:@"%@member/getMemberExtInfo", KDomain];
+    
     NSMutableDictionary *params = @{}.mutableCopy;
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
+    
     [[ZTNetworkClient sharedInstance] POST:infoUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
         if([responseObject[@"success"] boolValue]){
@@ -91,14 +93,19 @@
             }
         }
     } failure:^(NSError *error) {
+        
         [self hideHud];
+        [self showHint:@"网络不给力,请稍后重试!"];
+        
     }];
     
     // 车辆、卡卷等信息
     NSString *extUrl = [NSString stringWithFormat:@"%@member/getMemberInfos", KDomain];
+    
     NSMutableDictionary *extParams = @{}.mutableCopy;
     [extParams setObject:KMemberId forKey:@"memberId"];
     [extParams setObject:KToken forKey:@"token"];
+    
     [[ZTNetworkClient sharedInstance] POST:extUrl dict:extParams progressFloat:nil succeed:^(id responseObject) {
         if([responseObject[@"success"] boolValue]){
             UserExtModel *userExtModel = [[UserExtModel alloc] initWithDataDic:responseObject[@"data"]];
@@ -118,6 +125,7 @@
 #pragma makr tableView协议
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.1;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

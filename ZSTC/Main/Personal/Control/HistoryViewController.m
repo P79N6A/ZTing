@@ -15,6 +15,7 @@
 #import "HisDetailViewController.h"
 #import <CYLTableViewPlaceHolder.h>
 #import "NoDataView.h"
+#import "NoNetWorkView.h"
 
 @interface HistoryViewController ()<SelectBindCarDelegate, CYLTableViewPlaceHolderDelegate>
 {
@@ -29,6 +30,10 @@
     
     // 车牌选择视图(绑定多辆车时)
     HisCarListView *_hisCarListView;
+    
+    NoNetWorkView *_notNetworkView;
+    
+    int _selectedIndex;
 }
 @end
 
@@ -47,6 +52,8 @@
     UIBarButtonItem *returnButtonItem = [[UIBarButtonItem alloc] init];
     returnButtonItem.title = @"";
     self.navigationItem.backBarButtonItem = returnButtonItem;
+    
+    _selectedIndex = 0;
     
     self.title = @"停车历史";
     _page = 0;
@@ -95,30 +102,51 @@
     [_titleView addSubview:manyButton];
     
     // 创建选择车辆视图
-    [self _createView];
+//    [self _createView];
+    
+    _notNetworkView = [[NoNetWorkView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64)];
+    _notNetworkView.hidden = YES;
+    UITapGestureRecognizer *reloadTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_loadData)];
+    _notNetworkView.userInteractionEnabled = YES;
+    [_notNetworkView addGestureRecognizer:reloadTap];
+    [self.view addSubview:_notNetworkView];
 }
 
 - (void)_createView {
+    [_hisCarListView removeFromSuperview];
+    _hisCarListView = nil;
+    
     _hisCarListView = [[HisCarListView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
     _hisCarListView.delegate = self;
     _hisCarListView.hidden = YES;
+    _hisCarListView.bindCarData = _bindCarData;
     [self.view addSubview:_hisCarListView];
+    [self.view bringSubviewToFront:_hisCarListView];
 }
 #pragma mark 选择车牌协议
-- (void)selectBindCar:(BindCarModel *)bindCarModel {
+- (void)selectBindCar:(BindCarModel *)bindCarModel selectedIndex:(int)index{
+    
+    [self showHudInView:self.view hint:@""];
+    _selectedIndex = index;
+    
     self.tableView.scrollEnabled = YES;
     _page = 0;
     UILabel *titleLabel = [_titleView viewWithTag:101];
     titleLabel.text = bindCarModel.carNo;
     [self _loadCarNoHistory:bindCarModel];
+    [self hideHud];
 }
 
 - (void)_loadData {
     // 获取所有绑定车辆
     NSString *bindUrl = [NSString stringWithFormat:@"%@member/getMemberCards", KDomain];
     NSMutableDictionary *params = @{}.mutableCopy;
+    
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
+    
+    [self showHudInView:self.view hint:@""];
+    
     [[ZTNetworkClient sharedInstance] POST:bindUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         if(responseObject[@"success"]){
             NSArray *datas = responseObject[@"data"][@"carList"];
@@ -129,25 +157,36 @@
             }];
             // 加载绑定第一辆车历史
             if(_bindCarData.count > 0) {
-                [self _loadCarNoHistory:_bindCarData.firstObject];
+                
+                [self _loadCarNoHistory:_bindCarData[_selectedIndex]];
                 
                 UILabel *titleLabel = [_titleView viewWithTag:101];
-                BindCarModel *bindCarModel = _bindCarData.firstObject;
+                BindCarModel *bindCarModel = _bindCarData[_selectedIndex];
                 titleLabel.text = bindCarModel.carNo;
+                
             }
             
             if(_bindCarData.count > 1){
                 UIButton *manyBt = [_titleView viewWithTag:102];
                 manyBt.hidden = NO;
             }
+            
             if(_bindCarData.count <= 0){
                 [self.tableView cyl_reloadData];
+                [self _createView];
             }
-            
-            
-            _hisCarListView.bindCarData = _bindCarData;
+//            _hisCarListView.bindCarData = _bindCarData;
         }
+        _notNetworkView.hidden = YES;
     } failure:^(NSError *error) {
+        
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        [self hideHud];
+        [self showHint:@"网络不给力,请稍后重试!"];
+        [self.view bringSubviewToFront:_notNetworkView];
+        _notNetworkView.hidden = NO;
+        
     }];
 }
 
@@ -167,7 +206,7 @@
     [params setObject:nowDateStr forKey:@"traceEnd"];
     [params setObject:[NSNumber numberWithInt:_page*_length] forKey:@"start"];
     [params setObject:[NSNumber numberWithInt:_length] forKey:@"length"];
-    [self showHudInView:self.view hint:@""];
+    
     [[ZTNetworkClient sharedInstance] POST:hisUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
         [self.tableView.mj_header endRefreshing];
@@ -187,6 +226,7 @@
                 [_recordData addObject:historyModel];
             }];
             [self.tableView cyl_reloadData];
+            [self _createView];
         }
     } failure:^(NSError *error) {
         [self hideHud];
@@ -201,7 +241,7 @@
     if(_bindCarData.count > 1){
         _hisCarListView.hidden = !_hisCarListView.hidden;
         if(!_hisCarListView.hidden){
-            [self.tableView setContentOffset:CGPointMake(0, -64) animated:YES];
+            [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
             self.tableView.scrollEnabled = NO;
         }else {
             self.tableView.scrollEnabled = YES;

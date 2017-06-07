@@ -6,33 +6,33 @@
 		<key>areaName</key>
 		<string>五一广场</string>
 		<key>areaLat</key>
-		<string>28.196453</string>
+		<string>28.196452</string>
 		<key>areaLng</key>
-		<string>112.977316</string>
+		<string>112.977308</string>
 	</dict>
 	<dict>
 		<key>areaName</key>
 		<string>万家丽广场</string>
 		<key>areaLat</key>
-		<string>28.190429</string>
+		<string>28.190461</string>
 		<key>areaLng</key>
-		<string>113.031841</string>
+		<string>113.033153</string>
 	</dict>
 	<dict>
 		<key>areaName</key>
 		<string>万达广场</string>
 		<key>areaLat</key>
-		<string>28.198819</string>
+		<string>28.198715</string>
 		<key>areaLng</key>
-		<string>112.970879</string>
+		<string>112.971019</string>
 	</dict>
 	<dict>
 		<key>areaName</key>
 		<string>长沙火车站</string>
 		<key>areaLat</key>
-		<string>28.193961</string>
+		<string>28.193989</string>
 		<key>areaLng</key>
-		<string>113.013055</string>
+		<string>113.013045</string>
 	</dict>
 </array>
 </plist>

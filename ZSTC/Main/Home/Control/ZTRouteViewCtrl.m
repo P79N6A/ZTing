@@ -62,6 +62,9 @@
 #pragma mark 创建视图
 -(void)_initView
 {
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
+    
     locationBtn = [[UIButton alloc] init];
     [locationBtn addTarget:self action:@selector(showSelfLocationAction:) forControlEvents:UIControlEventTouchUpInside];
     [locationBtn setImage:[UIImage imageNamed:@"icon_map_locate_nor"] forState:UIControlStateNormal];
@@ -69,7 +72,7 @@
     [self.view addSubview:locationBtn];
     
     locationBtn.sd_layout
-    .topSpaceToView(self.view, 79)
+    .topSpaceToView(self.view, 15)
     .rightSpaceToView(self.view, 10)
     .widthIs(40)
     .heightIs(40);
@@ -78,7 +81,7 @@
     [TrafficStatusBtn addTarget:self action:@selector(showTrafficStatusAction:) forControlEvents:UIControlEventTouchUpInside];
     TrafficStatusBtn.selected = YES;
     [TrafficStatusBtn setImage:[UIImage imageNamed:@"icon_map_traffic_nor"] forState:UIControlStateNormal];
-    [TrafficStatusBtn setImage:[UIImage imageNamed:@"icon_map_traffic_h"] forState:UIControlStateHighlighted];
+    [TrafficStatusBtn setImage:[UIImage imageNamed:@"icon_map_traffic_h"] forState:UIControlStateSelected];
     [self.view addSubview:TrafficStatusBtn];
     
     TrafficStatusBtn.sd_layout
@@ -132,10 +135,10 @@
 -(void)showTrafficStatusAction:(UIButton *)sender
 {
     if (sender.selected) {
-        [self.mapView setShowTraffic:YES];
+        [self.mapView setShowTraffic:NO];
         sender.selected = !sender.selected;
     } else {
-        [self.mapView setShowTraffic:NO];
+        [self.mapView setShowTraffic:YES];
         sender.selected = !sender.selected;
     }
 }
@@ -163,7 +166,7 @@
 -(ZTparkMessageView *)parkMessageView
 {
     if (!_parkMessageView) {
-        _parkMessageView = [[ZTparkMessageView alloc] initWithFrame:CGRectMake(10, KScreenHeight - 140, KScreenWidth - 20, 130)];
+        _parkMessageView = [[ZTparkMessageView alloc] initWithFrame:CGRectMake(10, KScreenHeight-204, KScreenWidth - 20, 130)];
         _parkMessageView.backgroundColor = [UIColor whiteColor];
     }
     
@@ -190,23 +193,25 @@
     [_SearchManager AMapDrivingRouteSearch:carRouteRequest];
 }
 
+#pragma mark 地图初始化
 - (MAMapView *)mapView
 {
     if (!_mapView) {
-        _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-64)];
+        _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
         _mapView.delegate = self;
         _mapView.showsUserLocation = YES;    //YES 为打开定位，NO为关闭定位
-//
+        _mapView.showsScale = NO;
+        _mapView.showTraffic = YES;
+        _mapView.showsCompass = NO;
         [_mapView setUserTrackingMode: MAUserTrackingModeFollow animated:NO]; //地图跟着位置移动
         _mapView.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+        
         //自定义定位经度圈样式
         _mapView.customizeUserLocationAccuracyCircleRepresentation = NO;
-        
         _mapView.userTrackingMode = MAUserTrackingModeFollow;
         
 //        后台定位
         _mapView.pausesLocationUpdatesAutomatically = NO;
-        
         _mapView.allowsBackgroundLocationUpdates = YES;//iOS9以上系统必须配置
         
     }
@@ -251,7 +256,7 @@
         [_mapView addOverlays:_pathPolylines];
     }
     
-    [_mapView setZoomLevel:14 animated:YES];
+    [_mapView showOverlays:_pathPolylines edgePadding:UIEdgeInsetsMake(50, 30, 150, 30) animated:YES];
     
     [self initAnnotations];
 
@@ -265,6 +270,7 @@
     {
         return nil;
     }
+    
     NSMutableArray *polylines = [NSMutableArray array];
     [path.steps enumerateObjectsUsingBlock:^(AMapStep *step, NSUInteger idx, BOOL *stop) {
         NSUInteger count = 0;
@@ -272,10 +278,9 @@
                                                          coordinateCount:&count
                                                               parseToken:@";"];
         
-        
         MAPolyline *polyline = [MAPolyline polylineWithCoordinates:coordinates count:count];
         
-        //          MAPolygon *polygon = [MAPolygon polygonWithCoordinates:coordinates count:count];
+//        MAPolygon *polygon = [MAPolygon polygonWithCoordinates:coordinates count:count];
         
         [polylines addObject:polyline];
         free(coordinates), coordinates = NULL;

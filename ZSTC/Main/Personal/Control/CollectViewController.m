@@ -17,7 +17,10 @@
 #import "ZTRouteViewCtrl.h"
 #import "ParkDetailCtrl.h"
 
-#import <CoreLocation/CoreLocation.h>
+#import "AppDelegate+Location.h"
+#import "NoNetWorkView.h"
+
+//#import <CoreLocation/CoreLocation.h>
 
 @interface CollectViewController ()<CYLTableViewPlaceHolderDelegate, ParkDelegate, CLLocationManagerDelegate>
 {
@@ -27,8 +30,10 @@
     int _length;
     
     CLLocationCoordinate2D _currentLocation;
+    
+    NoNetWorkView *_notNetworkView;
 }
-@property(strong,nonatomic)CLLocationManager *locationManager;
+//@property(strong,nonatomic)CLLocationManager *locationManager;
 @end
 
 @implementation CollectViewController
@@ -37,13 +42,22 @@
     [super viewDidLoad];
     self.title = @"收藏";
     
-    [self _initLocation];
+//    [self _initLocation];
     
     [self _initView];
     
     [self _loadData];
+    
+    [[AppDelegate shareAppDelegate] startLocation];
+    [[AppDelegate shareAppDelegate] receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
+        if(isLocationSuccess){
+            _currentLocation = currentLocation.coordinate;
+            [[AppDelegate shareAppDelegate] stopLocation];
+        }
+    }];
 }
 
+/*
 - (void)_initLocation {
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
@@ -51,22 +65,29 @@
     _locationManager.distanceFilter = 10;
     [_locationManager startUpdatingLocation];//开启定位
 }
+
 #pragma mark CLLocationManagerDelegate
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
      CLLocation *currLocation=[locations lastObject];
     _currentLocation = currLocation.coordinate;
     [_locationManager stopUpdatingLocation];
 }
+ */
 
 - (void)_initView {
     _collectData = @[].mutableCopy;
     _page = 0;
     _length = 10;
     
+    self.view.backgroundColor = color(237, 237, 237, 1);
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"CollectCell" bundle:nil] forCellReuseIdentifier:@"CollectCell"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [[UIView alloc] init];
-    self.tableView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.1];
+
+//    self.tableView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.1];
+
+    self.tableView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
     
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -80,6 +101,13 @@
     }];
     self.tableView.mj_footer.automaticallyHidden = YES;
     
+    //无网络
+    _notNetworkView = [[NoNetWorkView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64)];
+    _notNetworkView.hidden = YES;
+    UITapGestureRecognizer *reloadTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_loadData)];
+    _notNetworkView.userInteractionEnabled = YES;
+    [_notNetworkView addGestureRecognizer:reloadTap];
+    [self.view addSubview:_notNetworkView];
 }
 
 - (void)_loadData {
@@ -89,7 +117,11 @@
     [params setObject:KMemberId forKey:@"memberId"];
     [params setObject:[NSNumber numberWithInt:_page*_length] forKey:@"start"];
     [params setObject:[NSNumber numberWithInt:_length] forKey:@"length"];
+    
+    [self showHudInView:self.view hint:@""];
+    
     [[ZTNetworkClient sharedInstance] POST:collectUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+        [self hideHud];
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
         if([responseObject[@"success"] boolValue]){
@@ -108,10 +140,14 @@
             }];
             [self.tableView cyl_reloadData];
         }
-        
+        _notNetworkView.hidden = YES;
     } failure:^(NSError *error) {
+        [self hideHud];
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self showHint:@"网络不给力,请稍后重试!"];
+        [self.view bringSubviewToFront:_notNetworkView];
+        _notNetworkView.hidden = NO;
     }];
 }
 
@@ -147,9 +183,11 @@
 - (void)routePark:(NSString *)parkId {
     [self loadPardDetail:parkId withType:0];
 }
+
 - (void)navPark:(NSString *)parkId {
     [self loadPardDetail:parkId withType:1];
 }
+
 - (void)loadPardDetail:(NSString *)parkId withType:(int)type {   // type: 类型，0：路线规划； 1：导航
     NSString *parkUrl = [NSString stringWithFormat:@"%@park/detail", KDomain];
     NSMutableDictionary *params = @{}.mutableCopy;

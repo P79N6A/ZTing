@@ -101,7 +101,8 @@
     } else if (isEmpty) {
         // Make sure it is still above all siblings.
         [self.placeHolderView removeFromSuperview];
-        [self addSubview:self.placeHolderView];
+//        [self addSubview:self.placeHolderView];
+        [self insertSubview:self.placeHolderView atIndex:0];
     }
 }
 

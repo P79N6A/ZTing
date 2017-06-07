@@ -60,7 +60,9 @@
     
     self.hidden = YES;
     
-    [_delegate selectBindCar:_bindCarData[indexPath.row]];
+    int index = (int)indexPath.row;
+    
+    [_delegate selectBindCar:_bindCarData[indexPath.row] selectedIndex:index];
 }
 
 @end

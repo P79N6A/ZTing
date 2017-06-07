@@ -8,8 +8,16 @@
 
 #import "SearchViewCtrl.h"
 #import "HotSearchCell.h"
+#import <iflyMSC/IFlyRecognizerViewDelegate.h>
+#import <iflyMSC/IFlyRecognizerView.h>
+#import <iflyMSC/iflyMSC.h>
+#import <AMapSearchKit/AMapSearchKit.h>
+#import "ZTVoiceSearchCtrl.h"
 
-@interface SearchViewCtrl ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface SearchViewCtrl ()<UICollectionViewDelegate,UICollectionViewDataSource,IFlyRecognizerViewDelegate,AMapSearchDelegate,UITextFieldDelegate>
+{
+    IFlyRecognizerView      *_iflyRecognizerView;
+}
 
 @property (nonatomic,strong) UITextField *searchTextField;
 
@@ -22,6 +30,8 @@
 @property (nonatomic,strong) UICollectionView *areaCollection;
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
+
+@property (nonatomic, strong)AMapSearchAPI *POISearchManager;     //POI检索引擎
 
 @end
 
@@ -46,7 +56,100 @@ static NSString * const ID = @"CollectionViewCellId";
     [self _initData];
     
     [self _initSubView];
+    
+    [self _initIFlyRecognizerView];
+    
 }
+
+#pragma mark 讯飞语音
+-(void)_initIFlyRecognizerView
+{
+    _iflyRecognizerView = [[IFlyRecognizerView alloc]initWithCenter:self.view.center];
+    _iflyRecognizerView.delegate = self;
+
+    [_iflyRecognizerView setParameter: @"iat" forKey:[IFlySpeechConstant IFLY_DOMAIN]];
+    //asr_audio_path保存录音文件名,默认目录是documents
+    [_iflyRecognizerView setParameter:nil forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
+    //设置返回的数据格式为默认plain
+    [_iflyRecognizerView setParameter:@"plain" forKey:[IFlySpeechConstant RESULT_TYPE]];
+    
+}
+
+/*识别结果返回代理
+ @param resultArray 识别结果
+ @ param isLast 表示是否最后一次结果
+ */
+- (void)onResult: (NSArray *)resultArray isLast:(BOOL) isLast
+{
+    if (isLast == YES) {
+        NSMutableString *result = [NSMutableString new];
+        NSDictionary *dic = [resultArray objectAtIndex:0];
+        
+        for (NSString *key in dic) {
+            [result appendFormat:@"%@",key];
+        }
+        
+        NSLog(@"result   :    %@",result);
+        
+        _searchTextField.text = result;
+        
+        //创建POI检索引擎
+        _POISearchManager = [[AMapSearchAPI alloc] init];
+        _POISearchManager.delegate = self;
+        
+        //创建地理编码请求
+        AMapGeocodeSearchRequest *geoSearchRequest = [[AMapGeocodeSearchRequest alloc] init];
+        geoSearchRequest.address = result;
+        
+        //发起请求,开始POI的地理编码检索
+        [_POISearchManager AMapGeocodeSearch:geoSearchRequest];
+
+    }
+    
+}
+
+/*识别会话错误返回代理
+ @ param  error 错误码
+ */
+- (void)onError: (IFlySpeechError *) error
+{
+    NSLog(@"%@",error);
+}
+
+#pragma mark 检索失败
+-(void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error{
+    NSLog(@"%@",error);
+}
+
+
+#pragma mark 收集地理编码检索到的目标
+- (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:(AMapGeocodeSearchResponse *)response{
+    
+    if (response.geocodes.count == 0)  return;
+    
+    [response.geocodes enumerateObjectsUsingBlock:^(AMapGeocode * _Nonnull geo, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self showGeocodeInformation:geo];
+    }];
+}
+
+#pragma mark 显示编码信息
+-(void)showGeocodeInformation:(AMapGeocode * _Nonnull) geo{
+    
+    NSString *location = [NSString stringWithFormat:@"%@",geo.location];
+    
+    NSArray *locationArr = [location componentsSeparatedByString:@","];
+    
+    double lat = [[locationArr[0] stringByReplacingOccurrencesOfString:@"<" withString:@""] doubleValue];
+    
+    double lng = [[locationArr[1] stringByReplacingOccurrencesOfString:@">" withString:@""] doubleValue];
+    
+    CLLocationCoordinate2D Origlecoor = CLLocationCoordinate2DMake(lat, lng);
+    
+    ZTVoiceSearchCtrl *voiceSearchCtrl = [[ZTVoiceSearchCtrl alloc] init];
+    voiceSearchCtrl.origleCoor = Origlecoor;
+    [self.navigationController pushViewController:voiceSearchCtrl animated:YES];
+}
+
 
 #pragma mark 数据源
 -(void)_initData
@@ -61,6 +164,10 @@ static NSString * const ID = @"CollectionViewCellId";
 #pragma mark 创建子视图
 -(void)_initSubView
 {
+    
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
+    
     UITextField *searchTextField = [[UITextField alloc] init];
     self.searchTextField = searchTextField;
     searchTextField.placeholder = @"请输入需要查找停车场的地点";
@@ -68,11 +175,12 @@ static NSString * const ID = @"CollectionViewCellId";
     searchTextField.layer.borderWidth = 0.5;
     searchTextField.font = [UIFont systemFontOfSize:15];
     searchTextField.layer.cornerRadius = 5;
+    searchTextField.delegate = self;
     searchTextField.returnKeyType = UIReturnKeySearch;
     [self.view addSubview:searchTextField];
     
     self.searchTextField.sd_layout
-    .topSpaceToView(self.view, 80)
+    .topSpaceToView(self.view, 16)
     .leftSpaceToView(self.view, 10)
     .rightSpaceToView(self.view, 10)
     .heightIs(40);
@@ -141,6 +249,20 @@ static NSString * const ID = @"CollectionViewCellId";
     
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    if(textField.returnKeyType==UIReturnKeySearch)
+    {
+        if ([_searchTextField.text length] > 0)
+        {
+            NSLog(@"123");
+        }
+    }
+    return YES;
+}
+
 -(UICollectionView *)areaCollection
 {
     if (_areaCollection == nil) {
@@ -168,9 +290,10 @@ static NSString * const ID = @"CollectionViewCellId";
 #pragma mark 讯飞语音
 -(void)xfBtnAction:(UIButton *)sender
 {
-    NSLog(@"%@",NSStringFromClass([sender class]));
-    
-    
+    [_searchTextField resignFirstResponder];
+    //启动识别服务
+    [_iflyRecognizerView start];
+
 }
 
 #pragma mark collectionView delegate
@@ -179,6 +302,13 @@ static NSString * const ID = @"CollectionViewCellId";
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     NSLog(@"%@   %@   %@",_dataArr[indexPath.row][@"areaName"],_dataArr[indexPath.row][@"areaLat"],_dataArr[indexPath.row][@"areaLng"]);
+    
+    ZTVoiceSearchCtrl *searchViewCtrl = [[ZTVoiceSearchCtrl alloc] init];
+    
+    NSString *lat = _dataArr[indexPath.row][@"areaLat"];
+    NSString *lng = _dataArr[indexPath.row][@"areaLng"];
+    searchViewCtrl.origleCoor = CLLocationCoordinate2DMake([lat doubleValue], [lng doubleValue]);
+    [self.navigationController pushViewController:searchViewCtrl animated:YES];
     
 }
 
