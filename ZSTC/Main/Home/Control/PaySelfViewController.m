@@ -174,6 +174,65 @@
     _payTypeView.hidden = YES;
     _payTypeView.delegate = self;
     [self.view addSubview:_payTypeView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipaySuccess:) name:@"alipaySuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipayfa) name:@"alipayfa" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipayDidntFinsh) name:@"alipayDidntFinsh" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipayNetWor) name:@"alipayNetWor" object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipaySuccess:) name:@"wechatPaySuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wechatF) name:@"wechatPayFalu" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wechatDidntFinsh) name:@"wechatPaydidntFinsh" object:nil];
+}
+
+-(void)hudHud
+{
+    [self hideHud];
+}
+
+-(void)alipaySuccess:(id)sender
+{
+    [self hudHud];
+    //    RechageSuccessCtrl *rechageSuccessCtrl = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RechageSuccessCtrl"];
+    //    rechageSuccessCtrl.orderId = _rechageModel.orderId;
+    //    [self.navigationController pushViewController:rechageSuccessCtrl animated:YES];
+    PaySucViewController *paySucVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PaySucViewController"];
+    [self.navigationController pushViewController:paySucVC animated:YES];
+    
+}
+
+#pragma mark 微信支付失败
+-(void)wechatF
+{
+    [self hudHud];
+    [self showHint:@"微信支付失败"];
+}
+
+#pragma mark 微信支付用户退出支付  支付失败
+-(void)wechatDidntFinsh
+{
+    [self hudHud];
+    [self showHint:@"您取消了支付！"];
+}
+
+#pragma mark 支付宝支付失败
+-(void)alipayfa
+{
+    [self hudHud];
+    [self showHint:@"支付失败，请重新尝试！"];
+}
+
+-(void)alipayDidntFinsh
+{
+    [self hudHud];
+    [self showHint:@"您取消了支付！"];
+}
+
+-(void)alipayNetWor
+{
+    [self hudHud];
+    [self showHint:@"网络连接出错！"];
 }
 
 - (void)closeRule {
@@ -288,6 +347,8 @@
         case AliPay:
             [self showHudInView:self.view hint:@""];
             if(_paySelfModel.orderId != nil && ![_paySelfModel.orderId isKindOfClass:[NSNull class]] && _paySelfModel.orderId.length > 0){
+                
+                NSLog(@"%@",_paySelfModel.orderId);
                 [ZTAliPay aliPayWithOrderId:_paySelfModel.orderId withComplete:^(NSString *stateCode) {
                     [self hideHud];
                     if ([stateCode isEqualToString:@"6001"]) {
@@ -301,6 +362,7 @@
             [self showHudInView:self.view hint:@""];
             if(_paySelfModel.orderId != nil && ![_paySelfModel.orderId isKindOfClass:[NSNull class]] && _paySelfModel.orderId.length > 0){
                 if([WXApi isWXAppInstalled]){
+                    NSLog(@"%@",_paySelfModel.orderId);
                     [ZTWeChatPayTools weChatPayWithOrderId:_paySelfModel.orderId];
                 }else {
                     [self hideHud];
@@ -333,6 +395,15 @@
     } failure:^(NSError *error) {
         [self hideHud];
     }];
+    
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"alipaySuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"wechatPaySuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"wechatPayFalu" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"wechatPaydidntFinsh" object:nil];
     
 }
 

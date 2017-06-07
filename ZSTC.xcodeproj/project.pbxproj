@@ -169,6 +169,7 @@
 		D6902E991E8263BD00C3196D /* APAuthV2Info.m in Sources */ = {isa = PBXBuildFile; fileRef = D6902E961E8263BD00C3196D /* APAuthV2Info.m */; };
 		D6902E9A1E8263BD00C3196D /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = D6902E981E8263BD00C3196D /* Order.m */; };
 		D69EE5D81E9F770A00A8D014 /* UIView+ViewControllerRespond.m in Sources */ = {isa = PBXBuildFile; fileRef = D69EE5D71E9F770A00A8D014 /* UIView+ViewControllerRespond.m */; };
+		D6A3240B1EE7A9D900FFEF7B /* RechageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A3240A1EE7A9D900FFEF7B /* RechageModel.m */; };
 		D6E925B31E792D2F003AECFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E925B21E792D2F003AECFB /* main.m */; };
 		D6E925C11E792D2F003AECFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6E925BF1E792D2F003AECFB /* LaunchScreen.storyboard */; };
 		D6EB13041EAF227D006DBB3A /* BillingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB13031EAF227D006DBB3A /* BillingModel.m */; };
@@ -546,6 +547,8 @@
 		D6902E9B1E8267B600C3196D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D69EE5D61E9F770A00A8D014 /* UIView+ViewControllerRespond.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ViewControllerRespond.h"; sourceTree = "<group>"; };
 		D69EE5D71E9F770A00A8D014 /* UIView+ViewControllerRespond.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ViewControllerRespond.m"; sourceTree = "<group>"; };
+		D6A324091EE7A9D900FFEF7B /* RechageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechageModel.h; sourceTree = "<group>"; };
+		D6A3240A1EE7A9D900FFEF7B /* RechageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechageModel.m; sourceTree = "<group>"; };
 		D6E925AE1E792D2F003AECFB /* ZSTC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZSTC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E925B21E792D2F003AECFB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D6E925C01E792D2F003AECFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -615,6 +618,8 @@
 				92469F451EA6F72E00FA1577 /* CardModel.m */,
 				9283D65C1EA74A7600BC2EAA /* MsgModel.h */,
 				9283D65D1EA74A7600BC2EAA /* MsgModel.m */,
+				D6A324091EE7A9D900FFEF7B /* RechageModel.h */,
+				D6A3240A1EE7A9D900FFEF7B /* RechageModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1600,6 +1605,7 @@
 				92B3092A1EA0C3D500AF09B2 /* NSDate+Category.m in Sources */,
 				920C98ED1E9DBBF200B33D21 /* UserExtModel.m in Sources */,
 				D619BD451E9E041C00756A55 /* AnnotationModel.m in Sources */,
+				D6A3240B1EE7A9D900FFEF7B /* RechageModel.m in Sources */,
 				925391F21E9B72B50020F7E7 /* BindCarModel.m in Sources */,
 				92469F421EA601E500FA1577 /* CollectCell.m in Sources */,
 				D656358F1EADCD57005DCA7F /* qrinput.c in Sources */,

@@ -43,10 +43,10 @@
         type = @"支付宝";
     }else if([_billInfoModel.payType isEqualToString:@"01"]) {
         type = @"微信";
-    }else if([_billInfoModel.payType isEqualToString:@"02"]) {
-        type = @"余额";
     }else if([_billInfoModel.payType isEqualToString:@"04"]) {
         type = @"现金";
+    }else{
+        type = @"余额";
     }
     _payType.text = type;
     // 会员ID：4028e489559725280155972528a30000 自助缴费：17.0元

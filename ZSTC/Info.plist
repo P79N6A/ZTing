@@ -42,7 +42,7 @@
 			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ZTWeChatPaySchemes</string>
+				<string>wx37f08037003f60d1</string>
 			</array>
 		</dict>
 	</array>

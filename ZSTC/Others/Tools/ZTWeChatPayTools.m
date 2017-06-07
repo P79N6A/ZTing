@@ -24,6 +24,9 @@
             
             [self weChatPay:responseObject];
         }
+        
+        
+        NSLog(@"%@",responseObject[@"message"]);
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];

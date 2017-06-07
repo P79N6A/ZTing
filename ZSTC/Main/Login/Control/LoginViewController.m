@@ -164,6 +164,7 @@
         [self showHint:responseObject[@"message"]];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
+        [self showHint:@"网络不给力,请稍后重试!"];
     }];
     
 }

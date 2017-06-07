@@ -20,6 +20,9 @@
     
     [[ZTNetworkClient sharedInstance] POST:aliPayUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         if([responseObject[@"success"] boolValue]){
+            
+            NSLog(@"%@",responseObject[@"message"]);
+            
             NSString *payInfo = responseObject[@"payInfo"];
             
             [[AlipaySDK defaultService] payOrder:payInfo fromScheme:KAppScheme callback:^(NSDictionary *resultDic) {
