@@ -64,14 +64,37 @@ static NSString * const ID = @"CollectionViewCellId";
 #pragma mark 讯飞语音
 -(void)_initIFlyRecognizerView
 {
-    _iflyRecognizerView = [[IFlyRecognizerView alloc]initWithCenter:self.view.center];
-    _iflyRecognizerView.delegate = self;
-
-    [_iflyRecognizerView setParameter: @"iat" forKey:[IFlySpeechConstant IFLY_DOMAIN]];
-    //asr_audio_path保存录音文件名,默认目录是documents
-    [_iflyRecognizerView setParameter:nil forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
-    //设置返回的数据格式为默认plain
-    [_iflyRecognizerView setParameter:@"plain" forKey:[IFlySpeechConstant RESULT_TYPE]];
+    
+    if (_iflyRecognizerView == nil) {
+        _iflyRecognizerView = [[IFlyRecognizerView alloc] initWithCenter:self.view.center];
+        _iflyRecognizerView.delegate = self;
+    }
+    
+    // 设置参数
+    if (_iflyRecognizerView != nil) {
+        //扩展参数
+        [_iflyRecognizerView setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
+        //设置听写模式
+        [_iflyRecognizerView setParameter:@"iat" forKey:[IFlySpeechConstant IFLY_DOMAIN]];
+        //设置最长录音时间
+        [_iflyRecognizerView setParameter:@"30000" forKey:[IFlySpeechConstant SPEECH_TIMEOUT]];
+        //设置后端点
+        [_iflyRecognizerView setParameter:@"1800" forKey:[IFlySpeechConstant VAD_EOS]];
+        //设置前端点
+        [_iflyRecognizerView setParameter:@"1800" forKey:[IFlySpeechConstant VAD_BOS]];
+        //网络等待时间
+        [_iflyRecognizerView setParameter:@"20000" forKey:[IFlySpeechConstant NET_TIMEOUT]];
+        //设置采样率，推荐使用16K
+        [_iflyRecognizerView setParameter:@"16000" forKey:[IFlySpeechConstant SAMPLE_RATE]];
+        //设置语言
+        [_iflyRecognizerView setParameter:@"zh_cn" forKey:[IFlySpeechConstant LANGUAGE]];
+        //设置方言
+        [_iflyRecognizerView setParameter:@"mandarin" forKey:[IFlySpeechConstant ACCENT]];
+        //设置是否返回标点符号
+        [_iflyRecognizerView setParameter:@"1" forKey:[IFlySpeechConstant ASR_PTT]];
+        //设置数据返回格式
+        [_iflyRecognizerView setParameter:@"plain" forKey:[IFlySpeechConstant RESULT_TYPE]];
+    }
     
 }
 
@@ -81,7 +104,7 @@ static NSString * const ID = @"CollectionViewCellId";
  */
 - (void)onResult: (NSArray *)resultArray isLast:(BOOL) isLast
 {
-    if (isLast == YES) {
+    if (isLast == NO) {
         NSMutableString *result = [NSMutableString new];
         NSDictionary *dic = [resultArray objectAtIndex:0];
         
