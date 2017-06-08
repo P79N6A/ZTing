@@ -37,6 +37,7 @@
     NSMutableArray *_advData;
     // 绑定车辆信息数据
     NSMutableArray *_bindCarData;
+
 }
 @end
 
@@ -94,7 +95,6 @@
     roadsideLabel.textAlignment = NSTextAlignmentLeft;
     [roadsideView addSubview:roadsideLabel];
 
-    
     // 自助缴费
     UIView *payExpenseView = [[UIView alloc] initWithFrame:CGRectMake(KScreenWidth/2, 0, KScreenWidth/2, _stopCarView.height)];
     UITapGestureRecognizer *payExpenseTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(payExpenseAction)];
@@ -142,7 +142,6 @@
         label.textAlignment = NSTextAlignmentCenter;
         [itemView addSubview:label];
 
-        
     }];
     
 }
