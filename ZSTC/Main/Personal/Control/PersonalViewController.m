@@ -47,17 +47,28 @@
     
     // 接收登录完成通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_loadData) name:KLoginNotification object:nil];
+    
+    //删除车辆通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_loadData) name:KDeleteCarNotification object:nil];
+    
+    //添加车辆通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_loadData) name:KAddCarNotification object:nil];
+    
 }
 
 - (void)_initView {
     // 设置返回按钮
-    UIBarButtonItem *returnButtonItem = [[UIBarButtonItem alloc] init];
-    returnButtonItem.title = @"";
-    self.navigationItem.backBarButtonItem = returnButtonItem;
+    UIButton *leftBtn = [[UIButton alloc] init];
+    leftBtn.frame = CGRectMake(0, 0, 40, 40);
+    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
+    [leftBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(_leftBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
     
     UIButton *billBt = [UIButton buttonWithType:UIButtonTypeCustom];
-    billBt.frame = CGRectMake(0, 0, 65, 60);
-    [billBt setBackgroundImage:[UIImage imageNamed:@"icon_bill_click"] forState:UIControlStateNormal];
+    billBt.frame = CGRectMake(0, 0, 40, 33);
+    [billBt setTitle:@"账单" forState:UIControlStateNormal];
     [billBt addTarget:self action:@selector(billAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:billBt];
     
@@ -110,7 +121,7 @@
         if([responseObject[@"success"] boolValue]){
             UserExtModel *userExtModel = [[UserExtModel alloc] initWithDataDic:responseObject[@"data"]];
             dispatch_async(dispatch_get_main_queue(), ^{
-                _balanceLabel.text = [NSString stringWithFormat:@"%@元", userExtModel.accountAmt];
+                _balanceLabel.text = [NSString stringWithFormat:@"%.2f元", [userExtModel.accountAmt floatValue]/100.0];
                 _cardLabel.text = [NSString stringWithFormat:@"%@张", userExtModel.cardCount];
                 _myCarLabel.text = [NSString stringWithFormat:@"%@辆", userExtModel.carCount];
             });
@@ -124,6 +135,7 @@
 
 #pragma makr tableView协议
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
     return 0.1;
     
 }
@@ -256,6 +268,11 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KLoginNotification object:nil];
+}
+
+-(void)_leftBarBtnItemClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

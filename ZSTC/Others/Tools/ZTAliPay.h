@@ -12,7 +12,7 @@ typedef void(^PayCompleteBlock)(NSString *stateCode);
 
 @interface ZTAliPay : NSObject
 
-+ (void)aliPayWithOrderId:(NSString *)orderId withComplete:(PayCompleteBlock)payCompleteBlock;  // 订单号
++ (void)aliPayWithOrderId:(NSString *)orderId payType:(NSString *)type withComplete:(PayCompleteBlock)payCompleteBlock;  // 订单号
 
 @property (nonatomic, assign) PayCompleteBlock payCompleteBlock;
 

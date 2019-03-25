@@ -67,7 +67,6 @@
 		9283D7701EA85DE800BC2EAA /* CarDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9283D76F1EA85DE800BC2EAA /* CarDetailModel.m */; };
 		9283D7731EA8652D00BC2EAA /* PaySelfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9283D7721EA8652D00BC2EAA /* PaySelfViewController.m */; };
 		9283D7761EA8A31F00BC2EAA /* PaySelfModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9283D7751EA8A31F00BC2EAA /* PaySelfModel.m */; };
-		9283D7791EA8B16100BC2EAA /* SelCarNoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9283D7781EA8B16100BC2EAA /* SelCarNoView.m */; };
 		9283D77C1EA8B17500BC2EAA /* PayTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9283D77B1EA8B17500BC2EAA /* PayTypeView.m */; };
 		9283D7801EA8B3D100BC2EAA /* CarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9283D77E1EA8B3D100BC2EAA /* CarCell.m */; };
 		9283D7811EA8B3D100BC2EAA /* CarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9283D77F1EA8B3D100BC2EAA /* CarCell.xib */; };
@@ -97,6 +96,8 @@
 		92E950491E9B213800A017AC /* ZTMoreMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E950381E9B213800A017AC /* ZTMoreMenuView.m */; };
 		92E950561E9B21E800A017AC /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E950551E9B21E800A017AC /* BaseModel.m */; };
 		92E9505C1E9B25B700A017AC /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E9505B1E9B25B700A017AC /* HomeViewController.m */; };
+		D602D9351F04A56E0037EF48 /* RechargeSuccessViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = D602D9341F04A56E0037EF48 /* RechargeSuccessViewCtrl.m */; };
+		D602D9381F04EDD40037EF48 /* RechargeFailedViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = D602D9371F04EDD40037EF48 /* RechargeFailedViewCtrl.m */; };
 		D608EDE51E83B28800848829 /* FLAlipayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D608EDE41E83B28800848829 /* FLAlipayManager.m */; };
 		D608EDE81E83B8BD00848829 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D608EDE71E83B8BD00848829 /* Reachability.m */; };
 		D608EDF01E83BBE100848829 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D608EDEF1E83BBE100848829 /* Assets.xcassets */; };
@@ -124,6 +125,7 @@
 		D62697821EA5FFA4008078AA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62697811EA5FFA4008078AA /* AVFoundation.framework */; };
 		D626978E1EA6049E008078AA /* SpeechSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D626978D1EA6049E008078AA /* SpeechSynthesizer.m */; };
 		D62AAA011E826E9E00FC11C1 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D62AAA001E826E9E00FC11C1 /* AlipaySDK.framework */; };
+		D6351FC921913EE400CC9F93 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D6351FC821913EE400CC9F93 /* libstdc++.6.0.9.tbd */; };
 		D6356EF31EA9932E00950091 /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6356EF21EA9932E00950091 /* iflyMSC.framework */; };
 		D6356EF51EA993E500950091 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6356EF41EA993E500950091 /* ContactsUI.framework */; };
 		D6356EF71EA993F000950091 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6356EF61EA993F000950091 /* Contacts.framework */; };
@@ -173,6 +175,8 @@
 		D6E925B31E792D2F003AECFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E925B21E792D2F003AECFB /* main.m */; };
 		D6E925C11E792D2F003AECFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6E925BF1E792D2F003AECFB /* LaunchScreen.storyboard */; };
 		D6EB13041EAF227D006DBB3A /* BillingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB13031EAF227D006DBB3A /* BillingModel.m */; };
+		D6FBAE1B2193C5AB00864F01 /* UIColor+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FBAE1A2193C5AB00864F01 /* UIColor+Add.m */; };
+		D6FBAE1E219426B300864F01 /* SelCarNoView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FBAE1D219426B300864F01 /* SelCarNoView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -288,8 +292,6 @@
 		9283D7721EA8652D00BC2EAA /* PaySelfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySelfViewController.m; sourceTree = "<group>"; };
 		9283D7741EA8A31F00BC2EAA /* PaySelfModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySelfModel.h; sourceTree = "<group>"; };
 		9283D7751EA8A31F00BC2EAA /* PaySelfModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySelfModel.m; sourceTree = "<group>"; };
-		9283D7771EA8B16100BC2EAA /* SelCarNoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelCarNoView.h; sourceTree = "<group>"; };
-		9283D7781EA8B16100BC2EAA /* SelCarNoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelCarNoView.m; sourceTree = "<group>"; };
 		9283D77A1EA8B17500BC2EAA /* PayTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayTypeView.h; sourceTree = "<group>"; };
 		9283D77B1EA8B17500BC2EAA /* PayTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayTypeView.m; sourceTree = "<group>"; };
 		9283D77D1EA8B3D100BC2EAA /* CarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarCell.h; sourceTree = "<group>"; };
@@ -345,6 +347,10 @@
 		92E9505A1E9B25B700A017AC /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		92E9505B1E9B25B700A017AC /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		CA0EC60F7C49CC5CE4484A1A /* Pods-ZSTC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZSTC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZSTC/Pods-ZSTC.debug.xcconfig"; sourceTree = "<group>"; };
+		D602D9331F04A56E0037EF48 /* RechargeSuccessViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeSuccessViewCtrl.h; sourceTree = "<group>"; };
+		D602D9341F04A56E0037EF48 /* RechargeSuccessViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeSuccessViewCtrl.m; sourceTree = "<group>"; };
+		D602D9361F04EDD40037EF48 /* RechargeFailedViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeFailedViewCtrl.h; sourceTree = "<group>"; };
+		D602D9371F04EDD40037EF48 /* RechargeFailedViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeFailedViewCtrl.m; sourceTree = "<group>"; };
 		D608EDE31E83B28800848829 /* FLAlipayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAlipayManager.h; sourceTree = "<group>"; };
 		D608EDE41E83B28800848829 /* FLAlipayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAlipayManager.m; sourceTree = "<group>"; };
 		D608EDE61E83B8BD00848829 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -385,6 +391,7 @@
 		D62AA9FC1E826DCD00FC11C1 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		D62AA9FD1E826DCD00FC11C1 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		D62AAA001E826E9E00FC11C1 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlipaySDK.framework; path = ZSTC/Bundle/Alipay/AlipaySDK.framework; sourceTree = "<group>"; };
+		D6351FC821913EE400CC9F93 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = "libstdc++.6.0.9.tbd"; sourceTree = "<group>"; };
 		D6356EF21EA9932E00950091 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = ZSTC/lib/iflyMSC.framework; sourceTree = "<group>"; };
 		D6356EF41EA993E500950091 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		D6356EF61EA993F000950091 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
@@ -555,6 +562,10 @@
 		D6E925C21E792D2F003AECFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6EB13021EAF227D006DBB3A /* BillingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillingModel.h; sourceTree = "<group>"; };
 		D6EB13031EAF227D006DBB3A /* BillingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillingModel.m; sourceTree = "<group>"; };
+		D6FBAE192193C5AB00864F01 /* UIColor+Add.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Add.h"; sourceTree = "<group>"; };
+		D6FBAE1A2193C5AB00864F01 /* UIColor+Add.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Add.m"; sourceTree = "<group>"; };
+		D6FBAE1C219426B300864F01 /* SelCarNoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelCarNoView.h; sourceTree = "<group>"; };
+		D6FBAE1D219426B300864F01 /* SelCarNoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelCarNoView.m; sourceTree = "<group>"; };
 		E23A8D7BDDCD78A9D61A0294 /* libPods-ZSTC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZSTC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -577,6 +588,7 @@
 				D61478851E80CC45001A13D7 /* CFNetwork.framework in Frameworks */,
 				D6902E2F1E825CE700C3196D /* CoreMotion.framework in Frameworks */,
 				D6902E2D1E825CDB00C3196D /* libc++.tbd in Frameworks */,
+				D6351FC921913EE400CC9F93 /* libstdc++.6.0.9.tbd in Frameworks */,
 				D6902E2C1E825CCC00C3196D /* libz.tbd in Frameworks */,
 				D61478991E80CD13001A13D7 /* libresolv.tbd in Frameworks */,
 				92E950211E9B201800A017AC /* libcrypto.a in Frameworks */,
@@ -674,8 +686,6 @@
 				925391EB1E9B5EC20020F7E7 /* CarStateView.m */,
 				925391F31E9B78C60020F7E7 /* CarInfoView.h */,
 				925391F41E9B78C60020F7E7 /* CarInfoView.m */,
-				9283D7771EA8B16100BC2EAA /* SelCarNoView.h */,
-				9283D7781EA8B16100BC2EAA /* SelCarNoView.m */,
 				9283D77A1EA8B17500BC2EAA /* PayTypeView.h */,
 				9283D77B1EA8B17500BC2EAA /* PayTypeView.m */,
 				9283D77D1EA8B3D100BC2EAA /* CarCell.h */,
@@ -683,6 +693,8 @@
 				9283D77F1EA8B3D100BC2EAA /* CarCell.xib */,
 				D656359D1EADF0FE005DCA7F /* StartRoadParkView.h */,
 				D656359E1EADF0FE005DCA7F /* StartRoadParkView.m */,
+				D6FBAE1C219426B300864F01 /* SelCarNoView.h */,
+				D6FBAE1D219426B300864F01 /* SelCarNoView.m */,
 			);
 			name = home;
 			sourceTree = "<group>";
@@ -940,6 +952,10 @@
 				920C98DE1E9C6EA700B33D21 /* SetViewController.m */,
 				9211C5271EAEDD9D0085D1AD /* AboutOurViewController.h */,
 				9211C5281EAEDD9D0085D1AD /* AboutOurViewController.m */,
+				D602D9331F04A56E0037EF48 /* RechargeSuccessViewCtrl.h */,
+				D602D9341F04A56E0037EF48 /* RechargeSuccessViewCtrl.m */,
+				D602D9361F04EDD40037EF48 /* RechargeFailedViewCtrl.h */,
+				D602D9371F04EDD40037EF48 /* RechargeFailedViewCtrl.m */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -1005,6 +1021,8 @@
 				D65E9F171ED3D7C2009CF10E /* ZTWeChatPayTools.m */,
 				D65E9F191ED41B14009CF10E /* NoNetWorkView.h */,
 				D65E9F1A1ED41B14009CF10E /* NoNetWorkView.m */,
+				D6FBAE192193C5AB00864F01 /* UIColor+Add.h */,
+				D6FBAE1A2193C5AB00864F01 /* UIColor+Add.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1119,6 +1137,7 @@
 		D6902E201E824EE700C3196D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D6351FC821913EE400CC9F93 /* libstdc++.6.0.9.tbd */,
 				92E950571E9B223600A017AC /* common.h */,
 			);
 			path = Common;
@@ -1364,7 +1383,6 @@
 				D6E925AA1E792D2F003AECFB /* Sources */,
 				D6E925AB1E792D2F003AECFB /* Frameworks */,
 				D6E925AC1E792D2F003AECFB /* Resources */,
-				1278B04A5CD1B320EC6E9F30 /* [CP] Embed Pods Frameworks */,
 				9DDAB441A32E13A94279D787 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -1387,7 +1405,7 @@
 				TargetAttributes = {
 					D6E925AD1E792D2F003AECFB = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = X36P6J44B6;
+						DevelopmentTeam = QNNB6W47D7;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1445,34 +1463,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1278B04A5CD1B320EC6E9F30 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZSTC/Pods-ZSTC-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		71179BF681823247BC7B4501 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ZSTC-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9DDAB441A32E13A94279D787 /* [CP] Copy Pods Resources */ = {
@@ -1481,9 +1487,22 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ZSTC/Pods-ZSTC-resources.sh",
+				"${PODS_ROOT}/AMap3DMap-NO-IDFA/MAMapKit.framework/AMap.bundle",
+				"${PODS_ROOT}/AMapNavi-NO-IDFA/AMapNaviKit.framework/AMapNavi.bundle",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/NSDate+TimeAgo/NSDateTimeAgo.bundle",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMapNavi.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NSDateTimeAgo.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TZImagePickerController.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1502,6 +1521,7 @@
 				D619BD421E9DB97300756A55 /* UIBarButtonItem+JExtension.m in Sources */,
 				92487E911E9F7AD900A1E778 /* BillInfoModel.m in Sources */,
 				D6902E9A1E8263BD00C3196D /* Order.m in Sources */,
+				D602D9381F04EDD40037EF48 /* RechargeFailedViewCtrl.m in Sources */,
 				928C3FDE1EA73CFE00C31324 /* PropertyTableViewController.m in Sources */,
 				D62697701EA5ACBC008078AA /* SearchViewCtrl.m in Sources */,
 				920C98D61E9C6E7400B33D21 /* HistoryViewController.m in Sources */,
@@ -1524,7 +1544,6 @@
 				925391E91E9B5D8E0020F7E7 /* UIViewExt.m in Sources */,
 				D65635931EADCD57005DCA7F /* UIImage+MDQRCode.m in Sources */,
 				D6902E901E8261F400C3196D /* base64.m in Sources */,
-				9283D7791EA8B16100BC2EAA /* SelCarNoView.m in Sources */,
 				925391E61E9B5D2B0020F7E7 /* TopScrollView.m in Sources */,
 				92469F461EA6F72E00FA1577 /* CardModel.m in Sources */,
 				92B3092D1EA0C48000AF09B2 /* NSDateFormatter+Category.m in Sources */,
@@ -1557,6 +1576,7 @@
 				D67F781E1E9F28EC00BFD023 /* ZTmapPopView.m in Sources */,
 				D65E9F181ED3D7C2009CF10E /* ZTWeChatPayTools.m in Sources */,
 				920C98C71E9C6E1900B33D21 /* BillViewController.m in Sources */,
+				D6FBAE1B2193C5AB00864F01 /* UIColor+Add.m in Sources */,
 				D608EDE51E83B28800848829 /* FLAlipayManager.m in Sources */,
 				D65635911EADCD57005DCA7F /* rscode.c in Sources */,
 				9283D6791EA8436E00BC2EAA /* CWStarRateView.m in Sources */,
@@ -1585,6 +1605,7 @@
 				9283D67C1EA8455D00BC2EAA /* NSDate+MJ.m in Sources */,
 				D608EDE81E83B8BD00848829 /* Reachability.m in Sources */,
 				D62697731EA5C111008078AA /* HotSearchCell.m in Sources */,
+				D6FBAE1E219426B300864F01 /* SelCarNoView.m in Sources */,
 				925391EC1E9B5EC20020F7E7 /* CarStateView.m in Sources */,
 				D63B78531EA46B0C00D878CF /* ZTRouteViewCtrl.m in Sources */,
 				D65635991EADE83E005DCA7F /* RoadParkModel.m in Sources */,
@@ -1615,6 +1636,7 @@
 				D65635901EADCD57005DCA7F /* qrspec.c in Sources */,
 				D619BD481E9E208E00756A55 /* ZTAnnotation.m in Sources */,
 				925391EF1E9B6C010020F7E7 /* AdvModel.m in Sources */,
+				D602D9351F04A56E0037EF48 /* RechargeSuccessViewCtrl.m in Sources */,
 				D656359F1EADF0FE005DCA7F /* StartRoadParkView.m in Sources */,
 				9283D6721EA8430F00BC2EAA /* parkCommentModel.m in Sources */,
 				D6902E931E8261F400C3196D /* RSADataSigner.m in Sources */,
@@ -1732,7 +1754,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ZSTC/ZSTC.entitlements;
-				DEVELOPMENT_TEAM = X36P6J44B6;
+				DEVELOPMENT_TEAM = QNNB6W47D7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1766,12 +1788,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZSTC/Bundle/Alipay",
 					"$(PROJECT_DIR)/ZSTC/Bundle/Wechat",
+					"$(PROJECT_DIR)/ZSTC/Common",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sunrise.zhangting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.transfar.sunrise.zhangting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ZSTC/Main/ZSTC-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1782,7 +1806,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ZSTC/ZSTC.entitlements;
-				DEVELOPMENT_TEAM = X36P6J44B6;
+				DEVELOPMENT_TEAM = QNNB6W47D7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1816,11 +1840,13 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZSTC/Bundle/Alipay",
 					"$(PROJECT_DIR)/ZSTC/Bundle/Wechat",
+					"$(PROJECT_DIR)/ZSTC/Common",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sunrise.zhangting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.transfar.sunrise.zhangting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ZSTC/Main/ZSTC-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

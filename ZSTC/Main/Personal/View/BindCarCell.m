@@ -20,9 +20,12 @@
     if(bindCarModel.carNo != nil && ![bindCarModel.carNo isKindOfClass:[NSNull class]] && bindCarModel.carNo.length > 0) {
         _numLabel.text = bindCarModel.carNo;
     }
-    if(bindCarModel.carNike != nil && ![bindCarModel.carNike isKindOfClass:[NSNull class]] && bindCarModel.carNike.length > 0) {
+    if( ![bindCarModel.carNike isKindOfClass:[NSNull class]] &&bindCarModel.carNike != nil&& bindCarModel.carNike.length > 0) {
         _carNameLabel.text = bindCarModel.carNike;
+    }else{
+        _carNameLabel.text = @"";
     }
+    
     if([bindCarModel.carAutoPay isEqualToString:@"0"]){
         // 关闭
         _paySwitch.on = NO;

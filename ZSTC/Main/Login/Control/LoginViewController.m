@@ -40,7 +40,7 @@
     UIButton *backBtn = [[UIButton alloc] init];
     [backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     backBtn.frame = CGRectMake(10, 20, 40, 40);
-    [backBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"opencv_back"] forState:UIControlStateNormal];
     [self.view addSubview:backBtn];
     
     [self loadSubViews];
@@ -66,6 +66,7 @@
     accountTextField.layer.borderWidth = 0.5;
     accountTextField.font = [UIFont systemFontOfSize:14];
     accountTextField.placeholder = @"请输入手机号";
+    accountTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.accountTextField = accountTextField;
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     accountTextField.leftView = leftView;
@@ -153,17 +154,23 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:self.accountTextField.text forKey:@"phone"];
     
-    [self startTimer];
+    [self showHudInView:self.view hint:nil];
     
     [[ZTNetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
         NSDictionary *dic = (NSDictionary *)responseObject;
+        [self hideHud];
         if ([dic[@"success"] boolValue]) {
+            [self startTimer];
             NSDictionary *dataDic = responseObject[@"data"];
             _checktoken = dataDic[@"checktoken"];
+            _passWordTextField.text = dataDic[@"datas"];
+            [self showHint:@"验证码发送成功!"];
+        }else{
+            [self showHint:responseObject[@"message"]];
         }
-        [self showHint:responseObject[@"message"]];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
+        [self hideHud];
         [self showHint:@"网络不给力,请稍后重试!"];
     }];
     

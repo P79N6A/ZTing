@@ -8,7 +8,6 @@
 
 #import "PaySelfViewController.h"
 #import "PaySelfModel.h"
-#import "SelCarNoView.h"
 #import "PayTypeView.h"
 #import "NoDataView.h"
 #import "InputKeyBoardView.h"
@@ -19,7 +18,10 @@
 #import "ZTWeChatPayTools.h"
 #import "WXApi.h"
 
-@interface PaySelfViewController ()<SelCarNoDelegate, SelPayDelegate>
+#import "BindCarModel.h"
+#import "SelCarNoView.h"
+
+@interface PaySelfViewController ()<SelPayDelegate>
 {
     __weak IBOutlet UIView *_carInfoView;
 
@@ -43,11 +45,11 @@
     
     PaySelfModel *_paySelfModel;
     
-    SelCarNoView *_selCarNoView;  // 选择车牌
-    
     PayTypeView *_payTypeView;   // 支付
     
     NoDataView *_noDataView;
+    
+    NSMutableArray *_carData;
 }
 @end
 
@@ -58,9 +60,17 @@
     
     [self _initView];
     
+    _carData = @[].mutableCopy;
+    
     if(_carNo != nil && _carNo.length > 0){
         [self _loadData:_carNo];
+        
+        _provinceTF.text = [_carNo substringWithRange:NSMakeRange(0, 1)];
+        _letterTF.text = [_carNo substringWithRange:NSMakeRange(1, 1)];
+        _numTF.text = [_carNo substringWithRange:NSMakeRange(2, _carNo.length - 2)];
     }
+    
+    [self loadAllCar];
 }
 
 - (void)_initView {
@@ -69,7 +79,19 @@
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
+    
+    // 设置返回按钮
+    UIButton *leftBtn = [[UIButton alloc] init];
+    leftBtn.frame = CGRectMake(0, 0, 40, 40);
+    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
+    [leftBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(_leftBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
 
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    [self.view addGestureRecognizer:tap];
+    
     // 设置自定义键盘
     int verticalCount = 5;
     CGFloat kheight = KScreenWidth/10 + 8;
@@ -100,7 +122,7 @@
     _letterTF.inputView = letInputView;
     
     NumInputView *numInputView = [[NumInputView alloc] initWithFrame:CGRectMake(0, KScreenHeight - kheight * verticalCount, KScreenWidth, kheight * verticalCount) withClickKeyBoard:^(NSString *character) {
-        if(_numTF.text.length >= 5){
+        if(_numTF.text.length >= 6){
             [_numTF resignFirstResponder];
         }else {
             _numTF.text = [NSString stringWithFormat:@"%@%@", _numTF.text, character];
@@ -163,12 +185,6 @@
     [closeButton addTarget:self action:@selector(closeRule) forControlEvents:UIControlEventTouchUpInside];
     [ruleBgView addSubview:closeButton];
     
-    // 选择车牌
-    _selCarNoView = [[SelCarNoView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
-    _selCarNoView.hidden = YES;
-    _selCarNoView.delegate = self;
-    [self.view addSubview:_selCarNoView];
-    
     // 缴费视图
     _payTypeView = [[PayTypeView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-64)];
     _payTypeView.hidden = YES;
@@ -179,11 +195,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipayfa) name:@"alipayfa" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipayDidntFinsh) name:@"alipayDidntFinsh" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipayNetWor) name:@"alipayNetWor" object:nil];
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipaySuccess:) name:@"wechatPaySuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wechatF) name:@"wechatPayFalu" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wechatDidntFinsh) name:@"wechatPaydidntFinsh" object:nil];
+}
+
+-(void)tapAction{
+    [self.view endEditing:YES];
 }
 
 -(void)hudHud
@@ -294,23 +312,41 @@
 
 #pragma mark 选取按钮
 - (IBAction)selCarNo:(id)sender {
-    _selCarNoView.hidden = NO;
+    if (_carData.count == 0) {
+        [self showHint:@"您没有绑定车辆!"];
+    }else{
+        SelCarNoView *pop = [[SelCarNoView alloc]initTotalPay:@"" vc:self dataSource:_carData];
+        STPopupController *popVericodeController = [[STPopupController alloc] initWithRootViewController:pop];
+        popVericodeController.style = STPopupStyleBottomSheet;
+        [popVericodeController presentInViewController:self];
+        pop.SelCarNum = ^(NSString * _Nonnull carNo) {
+            [self _loadData:carNo];
+            
+            _provinceTF.text = [carNo substringWithRange:NSMakeRange(0, 1)];
+            _letterTF.text = [carNo substringWithRange:NSMakeRange(1, 1)];
+            _numTF.text = [carNo substringWithRange:NSMakeRange(2, carNo.length - 2)];
+        };
+    }
 }
 
 #pragma mark 查询按钮
 - (IBAction)queryCar:(id)sender {
     [self.view endEditing:YES];
-    if(_provinceTF.text == nil && _provinceTF.text.length <= 0){
-        [self showHint:@"请输入有效的车牌"];
+    
+    if(_provinceTF.text.length <= 0 ||
+       _letterTF.text.length <= 0
+       ){
+        [self showHint:@"请输入真实有效的车牌"];
         return;
-    }
-    if(_letterTF.text == nil && _letterTF.text.length <= 0){
-        [self showHint:@"请输入有效的车牌"];
-        return;
-    }
-    if(_numTF.text == nil && _provinceTF.text.length < 5){
-        [self showHint:@"请输入有效的车牌"];
-        return;
+    }else{
+        if (_numTF.text.length < 5) {
+            [self showHint:@"请输入真实有效的车牌"];
+            return;
+        }
+        if (_numTF.text.length > 6) {
+            [self showHint:@"请输入真实有效的车牌"];
+            return;
+        }
     }
     
     NSString *inputCarNo = [NSString stringWithFormat:@"%@%@%@", _provinceTF.text, _letterTF.text, _numTF.text];
@@ -327,15 +363,6 @@
 //    }
 }
 
-#pragma mark 选择车牌协议
-- (void)selCarNoCompelete:(NSString *)carNo {
-    [self _loadData:carNo];
-    
-    _provinceTF.text = [carNo substringWithRange:NSMakeRange(0, 1)];
-    _letterTF.text = [carNo substringWithRange:NSMakeRange(1, 1)];
-    _numTF.text = [carNo substringWithRange:NSMakeRange(2, carNo.length - 2)];
-}
-
 #pragma mark 选择支付协议
 - (void)selPay:(PayType)payType {
     
@@ -349,7 +376,8 @@
             if(_paySelfModel.orderId != nil && ![_paySelfModel.orderId isKindOfClass:[NSNull class]] && _paySelfModel.orderId.length > 0){
                 
                 NSLog(@"%@",_paySelfModel.orderId);
-                [ZTAliPay aliPayWithOrderId:_paySelfModel.orderId withComplete:^(NSString *stateCode) {
+                
+                [ZTAliPay aliPayWithOrderId:_paySelfModel.orderId payType:@"2" withComplete:^(NSString *stateCode) {
                     [self hideHud];
                     if ([stateCode isEqualToString:@"6001"]) {
                         [self showHint:@"您取消了支付"];
@@ -362,8 +390,10 @@
             [self showHudInView:self.view hint:@""];
             if(_paySelfModel.orderId != nil && ![_paySelfModel.orderId isKindOfClass:[NSNull class]] && _paySelfModel.orderId.length > 0){
                 if([WXApi isWXAppInstalled]){
+                    
                     NSLog(@"%@",_paySelfModel.orderId);
-                    [ZTWeChatPayTools weChatPayWithOrderId:_paySelfModel.orderId];
+                    
+                    [ZTWeChatPayTools weChatPayWithOrderId:_paySelfModel.orderId payType:@"2"];
                 }else {
                     [self hideHud];
                     [self showHint:@"未安装微信应用"];
@@ -421,5 +451,44 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+ #pragma mark 加载数据
+ - (void)loadAllCar {
+     // 获取所有绑定车辆
+     NSString *bindUrl = [NSString stringWithFormat:@"%@member/getMemberCards", KDomain];
+     
+     NSMutableDictionary *params = @{}.mutableCopy;
+     [params setObject:KToken forKey:@"token"];
+     [params setObject:KMemberId forKey:@"memberId"];
+     
+     [self showHudInView:self.view hint:nil];
+     
+     [[ZTNetworkClient sharedInstance] POST:bindUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+         [self hideHud];
+         if([responseObject[@"success"] boolValue]){
+             NSArray *datas = responseObject[@"data"][@"carList"];
+         
+             [_carData removeAllObjects];
+             [datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                 BindCarModel *bindCarModel = [[BindCarModel alloc] initWithDataDic:obj];
+                 [_carData addObject:bindCarModel];
+             }];
+             
+         }else if ([responseObject[@"statusCode"] integerValue] == 202) {
+             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KLoginState];
+             // 发送登出通知
+             [[NSNotificationCenter defaultCenter] postNotificationName:KLoginOutNotification object:nil];
+         }
+     } failure:^(NSError *error) {
+         [self hideHud];
+         [self showHint:@"网络不给力,请稍后重试!"];
+     }];
+ }
+
+-(void)_leftBarBtnItemClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

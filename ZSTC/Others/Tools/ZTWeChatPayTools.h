@@ -10,6 +10,6 @@
 
 @interface ZTWeChatPayTools : NSObject
 
-+ (void)weChatPayWithOrderId:(NSString *)orderId;  // 订单号
++ (void)weChatPayWithOrderId:(NSString *)orderId payType:(NSString *)type;  // 订单号
 
 @end

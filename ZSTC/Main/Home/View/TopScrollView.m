@@ -46,7 +46,7 @@
 }
 
 - (void)createScroll{
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenWidth*26/75)];
 //    _scrollView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0);
     _scrollView.pagingEnabled = YES;
     _scrollView.delegate = self;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '3CAF99E525444760E4006B7C19E0D5E3'
-               BlueprintName = 'CYLTableViewPlaceHolder'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libCYLTableViewPlaceHolder.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3CAF99E525444760E4006B7C19E0D5E3"
+               BlueprintName = "CYLTableViewPlaceHolder"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libCYLTableViewPlaceHolder.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

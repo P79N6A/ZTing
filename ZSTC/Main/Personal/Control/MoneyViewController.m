@@ -52,13 +52,16 @@
 }
 
 - (void)_loadData {
-    NSString *accountUrl = [NSString stringWithFormat:@"%@pay/getMemberAccount", KDomain];
+    NSString *accountUrl = [NSString stringWithFormat:@"%@member/getWallet", KDomain];
+    
     NSMutableDictionary *params = @{}.mutableCopy;
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
+    
     [[ZTNetworkClient sharedInstance] POST:accountUrl dict:params progressFloat:nil succeed:^(id responseObject) {
         if([responseObject[@"success"] boolValue]){
-            float account = [responseObject[@"accountBalanceAmt"] floatValue]/100;
+            NSDictionary *dic = responseObject[@"data"];
+            float account = [dic[@"accountBalanceAmt"] floatValue]/100.0;
             _accountLabel.text = [NSString stringWithFormat:@"%.2f", account];
         }
     } failure:^(NSError *error) {

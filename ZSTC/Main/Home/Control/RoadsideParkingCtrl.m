@@ -15,7 +15,8 @@
 #import "PaySelfViewController.h"
 #import "BillingModel.h"
 
-@interface RoadsideParkingCtrl ()<ZTScannerViewCtrlDelegate,SelCarNoDelegate>
+@interface RoadsideParkingCtrl ()<ZTScannerViewCtrlDelegate>
+//SelCarNoDelegate
 {
     //无数据视图
     NoDataView *_noDataView;
@@ -121,11 +122,11 @@
     .rightSpaceToView(self.view, 0);
     
     // 选择车牌
-    _selCarNoView = [[SelCarNoView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
-    _selCarNoView.hidden = YES;
-    _selCarNoView.delegate = self;
-    [self.view addSubview:_selCarNoView];
-    [self.view bringSubviewToFront:_selCarNoView];
+//    _selCarNoView = [[SelCarNoView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+//    _selCarNoView.hidden = YES;
+//    _selCarNoView.delegate = self;
+//    [self.view addSubview:_selCarNoView];
+//    [self.view bringSubviewToFront:_selCarNoView];
     
     //开始路边停车
     _startRoadParkView = [[StartRoadParkView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-64)];
@@ -359,7 +360,7 @@
 #pragma mark 选取车牌
 -(void)selBtnAction:(id)sender
 {
-    _selCarNoView.hidden = NO;
+//    _selCarNoView.hidden = NO;
 }
 
 #pragma mark 开始停车

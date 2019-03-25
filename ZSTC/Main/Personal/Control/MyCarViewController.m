@@ -121,6 +121,7 @@
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
             // 发送删除车辆通知
             [[NSNotificationCenter defaultCenter] postNotificationName:KDeleteCarNotification object:nil];
+            [self _loadData];
         }else {
             [self showHint:responseObject[@"message"]];
         }

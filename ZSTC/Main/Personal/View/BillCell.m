@@ -44,37 +44,40 @@
         _weekLabel.text = [NSString stringWithFormat:@"星期%@", [self weekStr:_weekday - 1]];
     }
     
-
     _numLabel.text = [NSString stringWithFormat:@"%.2f", billInfoModel.assetsAfter.floatValue - billInfoModel.assetsLast.floatValue];
     
     // 变动类型 1：充值入账 2：红包入账 3:账户停车消费 4：红包停车消费 5：其他消费 6:会员卡消费
     switch ([billInfoModel.assetsChangeType integerValue]) {
         case 1:
             _infoLabel.text = @"充值入账";
+            _billImageView.image = [UIImage imageNamed:@"icon_user_bill_cost"];
             break;
             
         case 2:
             _infoLabel.text = @"红包入账";
+            _billImageView.image = [UIImage imageNamed:@"icon_user_bill_cost"];
             break;
             
         case 3:
             _infoLabel.text = @"账户停车消费";
+            _billImageView.image = [UIImage imageNamed:@"icon_user_bill_recharge"];
             break;
             
         case 4:
             _infoLabel.text = @"红包停车消费";
+            _billImageView.image = [UIImage imageNamed:@"icon_user_bill_recharge"];
             break;
             
         case 5:
             _infoLabel.text = @"其他消费";
+            _billImageView.image = [UIImage imageNamed:@"icon_user_bill_recharge"];
             break;
             
         case 6:
             _infoLabel.text = @"会员卡消费";
+            _billImageView.image = [UIImage imageNamed:@"icon_user_bill_recharge"];
             break;
-
     }
-    
 }
 
 - (NSString *)weekStr:(NSInteger)day {

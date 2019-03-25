@@ -37,7 +37,8 @@
 }
 
 - (void)_initView {
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.2];
+//    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.2];
+    self.backgroundColor = [UIColor colorWithHexString:@"#e2e2e2"];
     
     _drawRects = @[].mutableCopy;
     

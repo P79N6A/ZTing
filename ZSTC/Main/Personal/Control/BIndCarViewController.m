@@ -32,7 +32,15 @@
     [super viewDidLoad];
     _carType = @"1";
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    [self.view addGestureRecognizer:tap];
+    
     [self _initView];
+}
+
+-(void)tapAction
+{
+    [self.view endEditing:YES];
 }
 
 - (void)hidView {
@@ -79,7 +87,7 @@
     _letterTF.inputView = letInputView;
     
     NumInputView *numInputView = [[NumInputView alloc] initWithFrame:CGRectMake(0, KScreenHeight - kheight * verticalCount, KScreenWidth, kheight * verticalCount) withClickKeyBoard:^(NSString *character) {
-        if(_numTF.text.length >= 5){
+        if(_numTF.text.length >= 6){
             [_numTF resignFirstResponder];
         }else {
             _numTF.text = [NSString stringWithFormat:@"%@%@", _numTF.text, character];
@@ -130,17 +138,20 @@
 
 #pragma mark 新增车辆
 - (IBAction)addAction:(id)sender {
-    if(_provinceTF.text == nil && _provinceTF.text.length <= 0){
-        [self showHint:@"请检查车牌号码"];
+    if(_provinceTF.text.length <= 0 ||
+       _letterTF.text.length <= 0
+       ){
+        [self showHint:@"请输入真实有效的车牌"];
         return;
-    }
-    if(_letterTF.text == nil && _letterTF.text.length <= 0){
-        [self showHint:@"请检查车牌号码"];
-        return;
-    }
-    if(_numTF.text == nil && _numTF.text.length < 5){
-        [self showHint:@"请检查车牌号码"];
-        return;
+    }else{
+        if (_numTF.text.length < 5) {
+            [self showHint:@"请输入真实有效的车牌"];
+            return;
+        }
+        if (_numTF.text.length > 6) {
+            [self showHint:@"请输入真实有效的车牌"];
+            return;
+        }
     }
     
     NSString *carNum = [NSString stringWithFormat:@"%@%@%@", _provinceTF.text, _letterTF.text, _numTF.text];

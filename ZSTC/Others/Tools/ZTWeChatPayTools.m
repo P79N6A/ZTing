@@ -11,25 +11,47 @@
 
 @implementation ZTWeChatPayTools
 
-+ (void)weChatPayWithOrderId:(NSString *)orderId
++ (void)weChatPayWithOrderId:(NSString *)orderId payType:(NSString *)type
 {
-    NSString *aliPayUrl = [NSString stringWithFormat:@"%@pay/payByWeixin", KDomain];
-    NSMutableDictionary *params = @{}.mutableCopy;
-    [params setObject:KToken forKey:@"token"];
-    [params setObject:KMemberId forKey:@"memberId"];
-    [params setObject:orderId forKey:@"orderId"];
-    
-    [[ZTNetworkClient sharedInstance] POST:aliPayUrl dict:params progressFloat:nil succeed:^(id responseObject) {
-        if([responseObject[@"success"] boolValue]){
+    if ([type isEqualToString:@"1"]) {
+        NSString *aliPayUrl = [NSString stringWithFormat:@"%@pay/memberRechargeByWeixin", KDomain];
+        NSMutableDictionary *params = @{}.mutableCopy;
+        [params setObject:KToken forKey:@"token"];
+        [params setObject:KMemberId forKey:@"memberId"];
+        [params setObject:orderId forKey:@"orderId"];
+        
+        [[ZTNetworkClient sharedInstance] POST:aliPayUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+            if([responseObject[@"success"] boolValue]){
+                
+                [self weChatPay:responseObject];
+            }
             
-            [self weChatPay:responseObject];
-        }
+            
+            NSLog(@"%@",responseObject[@"message"]);
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    }else
+    {
+        NSString *aliPayUrl = [NSString stringWithFormat:@"%@pay/payByWeixin", KDomain];
+        NSMutableDictionary *params = @{}.mutableCopy;
+        [params setObject:KToken forKey:@"token"];
+        [params setObject:KMemberId forKey:@"memberId"];
+        [params setObject:orderId forKey:@"orderId"];
         
-        
-        NSLog(@"%@",responseObject[@"message"]);
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
+        [[ZTNetworkClient sharedInstance] POST:aliPayUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+            if([responseObject[@"success"] boolValue]){
+                
+                [self weChatPay:responseObject];
+            }
+            
+            
+            NSLog(@"%@",responseObject[@"message"]);
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    }
+    
     
     
 }

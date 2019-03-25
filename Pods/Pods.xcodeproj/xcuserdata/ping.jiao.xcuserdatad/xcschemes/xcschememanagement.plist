@@ -54,6 +54,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>STPopup.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>TZImagePickerController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -66,92 +71,6 @@
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2D0C5ACBB79D836FB8000BA64498F017</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>34570380B54CF07B477E17BD491D3D17</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3CAF99E525444760E4006B7C19E0D5E3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>45732D6E651B9382BAC690BBE0A4FC48</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>47892A9F641C217C16DBE6B4B7BF711F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4E39CD8583D033DE0EE5A22CE976C003</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>586F2DFA9BDCC6675C2546793A69E5CC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9650B5ADCE86F1A055FAFC635284BDB5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9E033EDB5EC0819481B0546434FA577B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AF5B59A6EFE749926CE1AC58D78D41CA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C2CF906E200BD29AB817C2B1B1193D97</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CA1F71158E6B58318262202F744DFA51</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CC7A1BAE873796AC4C5B83210D501FFD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CEE85E50EF4C64B811F5458431E74D8C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DAF5C24B925B25C2EB68406A40F84849</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>ED3336F6A43FAE811E656DE0E3FFB328</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>

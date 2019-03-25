@@ -35,26 +35,31 @@
         [_parkImageView sd_setImageWithURL:[NSURL URLWithString:utf_8UrlString]];
     }
     
-    _parkLabel.text = collectModel.parkName;
+    if (![collectModel.parkName isKindOfClass:[NSNull class]]) {
+        _parkLabel.text = collectModel.parkName;
+    }
     
-    NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@/%@", collectModel.parkIdle, collectModel.parkCapacity]];
-    [attributeStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, collectModel.parkIdle.length)];
-    [attributeStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(collectModel.parkIdle.length + 1, collectModel.parkCapacity.length)];
-    _numLabel.attributedText = attributeStr;
+    if (![collectModel.parkIdle isKindOfClass:[NSNull class]]) {
+        NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@/%@", collectModel.parkIdle, collectModel.parkCapacity]];
+        [attributeStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, collectModel.parkIdle.length)];
+        [attributeStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(collectModel.parkIdle.length + 1, collectModel.parkCapacity.length)];
+        _numLabel.attributedText = attributeStr;
+    }
     
     NSString *levelStr;
     UIColor *levelColor;
-    if([collectModel.parkFeelevel isEqualToString:@"0"]){
+    if(![collectModel.parkFeelevel isKindOfClass:[NSNull class]]&&[collectModel.parkFeelevel isEqualToString:@"0"]){
         levelStr = @"便宜";
         levelColor = [UIColor greenColor];
-    }
-    else if([collectModel.parkFeelevel isEqualToString:@"1"]){
+    }else if(![collectModel.parkFeelevel isKindOfClass:[NSNull class]]&&[collectModel.parkFeelevel isEqualToString:@"1"]){
         levelStr = @"适中";
         levelColor = [UIColor orangeColor];
-    }
-    else if([collectModel.parkFeelevel isEqualToString:@"2"]){
+    }else if(![collectModel.parkFeelevel isKindOfClass:[NSNull class]]&&[collectModel.parkFeelevel isEqualToString:@"2"]){
         levelStr = @"偏贵";
         levelColor = [UIColor redColor];
+    }else{
+        levelStr = @"未知";
+        levelColor = [UIColor greenColor];
     }
     NSMutableAttributedString *levelAtrStr = [[NSMutableAttributedString alloc] initWithString:levelStr];
     [levelAtrStr addAttribute:NSForegroundColorAttributeName value:levelColor range:NSMakeRange(0, levelStr.length)];
@@ -69,26 +74,33 @@
         [_parkImageView sd_setImageWithURL:[NSURL URLWithString:utf_8UrlString]];
     }
     
-    _parkLabel.text = model.parkName;
+    if (![model.parkName isKindOfClass:[NSNull class]]) {
+        _parkLabel.text = model.parkName;
+    }
     
-    NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@/%@", model.parkIdle, model.parkCapacity]];
-    [attributeStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, [model.parkIdle stringValue].length)];
-    [attributeStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange([model.parkIdle stringValue].length + 1, [model.parkCapacity stringValue].length)];
-    _numLabel.attributedText = attributeStr;
+    if (![model.parkIdle isKindOfClass:[NSNull class]]) {
+        NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@/%@", model.parkIdle, model.parkCapacity]];
+        [attributeStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, [model.parkIdle stringValue].length)];
+        [attributeStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange([model.parkIdle stringValue].length + 1, [model.parkCapacity stringValue].length)];
+        _numLabel.attributedText = attributeStr;
+    }
     
     NSString *levelStr;
     UIColor *levelColor;
-    if([model.parkFeelevel isEqualToString:@"0"]){
+    if(![model.parkFeelevel isKindOfClass:[NSNull class]]&&[model.parkFeelevel isEqualToString:@"0"]){
         levelStr = @"便宜";
         levelColor = [UIColor greenColor];
     }
-    else if([model.parkFeelevel isEqualToString:@"1"]){
+    else if(![model.parkFeelevel isKindOfClass:[NSNull class]]&&[model.parkFeelevel isEqualToString:@"1"]){
         levelStr = @"适中";
         levelColor = [UIColor orangeColor];
     }
-    else if([model.parkFeelevel isEqualToString:@"2"]){
+    else if(![model.parkFeelevel isKindOfClass:[NSNull class]]&&[model.parkFeelevel isEqualToString:@"2"]){
         levelStr = @"偏贵";
         levelColor = [UIColor redColor];
+    }else{
+        levelStr = @"未知";
+        levelColor = [UIColor greenColor];
     }
     NSMutableAttributedString *levelAtrStr = [[NSMutableAttributedString alloc] initWithString:levelStr];
     [levelAtrStr addAttribute:NSForegroundColorAttributeName value:levelColor range:NSMakeRange(0, levelStr.length)];

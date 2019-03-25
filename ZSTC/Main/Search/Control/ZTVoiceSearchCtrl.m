@@ -117,7 +117,6 @@
     [self showHudInView:self.view hint:@""];
     
     [[ZTNetworkClient sharedInstance] GET:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
-        NSLog(@"%@",responseObject);
         [self hideHud];
         NSArray *arr = responseObject[@"data"];
         for (int i = 0; i < arr.count; i++) {
@@ -259,6 +258,7 @@
     [self loadPardDetail:parkId withType:1];
 }
 
+#warning 参数问题
 - (void)loadPardDetail:(NSString *)parkId withType:(int)type {   // type: 类型，0：路线规划； 1：导航
     
     [self showHudInView:self.view hint:@""];
@@ -270,8 +270,8 @@
         if (isLocationSuccess) {
             NSString *parkUrl = [NSString stringWithFormat:@"%@park/detail", KDomain];
             NSMutableDictionary *params = @{}.mutableCopy;
-            [params setObject:KToken forKey:@"token"];
-            [params setObject:KMemberId forKey:@"memberId"];
+//            [params setObject:KToken forKey:@"token"];
+//            [params setObject:KMemberId forKey:@"memberId"];
             [params setObject:parkId forKey:@"parkId"];
             
             [[ZTNetworkClient sharedInstance] POST:parkUrl dict:params progressFloat:nil succeed:^(id responseObject) {
@@ -297,6 +297,7 @@
             } failure:^(NSError *error) {
                 [self hideHud];
             }];
+            
             [delegate stopLocation];
 
         }else

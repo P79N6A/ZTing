@@ -11,6 +11,8 @@
 #import "ZTAliPay.h"
 #import "WXApi.h"
 #import "ZTWeChatPayTools.h"
+#import "RechargeFailedViewCtrl.h"
+#import "RechargeSuccessViewCtrl.h"
 
 @interface TopUpViewController ()
 {
@@ -19,12 +21,12 @@
     __weak IBOutlet UIButton *_ailiSelBt;
     __weak IBOutlet UIView *_weChatPayView;
     __weak IBOutlet UIButton *_weChatSelBt;
-
     
     __weak IBOutlet UIButton *_topupBt;
     
     RechageModel *_rechageModel;
 }
+
 @end
 
 @implementation TopUpViewController
@@ -58,8 +60,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipayfa) name:@"alipayfa" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipayDidntFinsh) name:@"alipayDidntFinsh" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipayNetWor) name:@"alipayNetWor" object:nil];
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alipaySuccess:) name:@"wechatPaySuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wechatF) name:@"wechatPayFalu" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wechatDidntFinsh) name:@"wechatPaydidntFinsh" object:nil];
@@ -73,11 +73,11 @@
 -(void)alipaySuccess:(id)sender
 {
     [self hudHud];
-//    RechageSuccessCtrl *rechageSuccessCtrl = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RechageSuccessCtrl"];
-//    rechageSuccessCtrl.orderId = _rechageModel.orderId;
-//    [self.navigationController pushViewController:rechageSuccessCtrl animated:YES];
-    UIViewController *rechageSuccessCtrl = [[UIViewController alloc] init];
+    RechargeSuccessViewCtrl *rechageSuccessCtrl = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeSuccessViewCtrl"];
+    
     [self.navigationController pushViewController:rechageSuccessCtrl animated:YES];
+//    UIViewController *rechageSuccessCtrl = [[UIViewController alloc] init];
+//    [self.navigationController pushViewController:rechageSuccessCtrl animated:YES];
     
 }
 
@@ -85,33 +85,49 @@
 -(void)wechatF
 {
     [self hudHud];
-    [self showHint:@"微信支付失败"];
+//    [self showHint:@"微信支付失败"];
+    
+    RechargeFailedViewCtrl *rechageFCtrl = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeFailedViewCtrl"];
+    rechageFCtrl.reasonStr = @"微信支付失败";
+    [self.navigationController pushViewController:rechageFCtrl animated:YES];
 }
 
 #pragma mark 微信支付用户退出支付  支付失败
 -(void)wechatDidntFinsh
 {
     [self hudHud];
-    [self showHint:@"您取消了支付！"];
+//    [self showHint:@"您取消了支付"];
+    RechargeFailedViewCtrl *rechageFCtrl = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeFailedViewCtrl"];
+    rechageFCtrl.reasonStr = @"您取消了支付";
+    [self.navigationController pushViewController:rechageFCtrl animated:YES];
 }
 
 #pragma mark 支付宝支付失败
 -(void)alipayfa
 {
     [self hudHud];
-    [self showHint:@"支付失败，请重新尝试！"];
+//    [self showHint:@"支付失败，请重新尝试！"];
+    RechargeFailedViewCtrl *rechageFCtrl = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeFailedViewCtrl"];
+    rechageFCtrl.reasonStr = @"支付失败，请重新尝试";
+    [self.navigationController pushViewController:rechageFCtrl animated:YES];
 }
 
 -(void)alipayDidntFinsh
 {
     [self hudHud];
-    [self showHint:@"您取消了支付！"];
+//    [self showHint:@"您取消了支付！"];
+    RechargeFailedViewCtrl *rechageFCtrl = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeFailedViewCtrl"];
+    rechageFCtrl.reasonStr = @"您取消了支付";
+    [self.navigationController pushViewController:rechageFCtrl animated:YES];
 }
 
 -(void)alipayNetWor
 {
     [self hudHud];
-    [self showHint:@"网络连接出错！"];
+//    [self showHint:@"网络连接出错！"];
+    RechargeFailedViewCtrl *rechageFCtrl = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeFailedViewCtrl"];
+    rechageFCtrl.reasonStr = @"网络连接出错";
+    [self.navigationController pushViewController:rechageFCtrl animated:YES];
 }
 
 #pragma mark 选择支付方式
@@ -137,6 +153,7 @@
     NSString *topupUrl = [NSString stringWithFormat:@"%@pay/memberRecharge", KDomain];
     
     NSMutableDictionary *params = @{}.mutableCopy;
+    
     [params setObject:KToken forKey:@"token"];
     [params setObject:KMemberId forKey:@"memberId"];
     [params setObject:payMoney forKey:@"payMoney"];
@@ -152,7 +169,7 @@
             if(_ailiSelBt.selected){
                 // 支付宝
                 if(_rechageModel.orderId != nil && ![_rechageModel.orderId isKindOfClass:[NSNull class]] && _rechageModel.orderId.length > 0){
-                    [ZTAliPay aliPayWithOrderId:_rechageModel.orderId withComplete:^(NSString *stateCode) {
+                    [ZTAliPay aliPayWithOrderId:_rechageModel.orderId payType:@"1" withComplete:^(NSString *stateCode) {
                         [self hideHud];
                         if([stateCode isEqualToString:@"6001"]){
                             [self showHint:@"您取消了支付"];
@@ -164,21 +181,17 @@
                 // 微信
                 if(_rechageModel.orderId != nil && ![_rechageModel.orderId isKindOfClass:[NSNull class]] && _rechageModel.orderId.length > 0){
                     if([WXApi isWXAppInstalled]){
-                        [ZTWeChatPayTools weChatPayWithOrderId:_rechageModel.orderId];
+                        [ZTWeChatPayTools weChatPayWithOrderId:_rechageModel.orderId payType:@"1"];
                     }else {
                         [self hideHud];
                         [self showHint:@"未安装微信应用"];
                     }
                 }
-                
             }
-            
         }
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
     }];
-    
-    
 }
 
 -(void)dealloc

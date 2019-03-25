@@ -2,20 +2,20 @@
 //  SelCarNoView.h
 //  ZSTC
 //
-//  Created by 魏唯隆 on 2017/4/20.
-//  Copyright © 2017年 HNZT. All rights reserved.
+//  Created by coder on 2018/11/8.
+//  Copyright © 2018年 HNZT. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@protocol SelCarNoDelegate <NSObject>
+NS_ASSUME_NONNULL_BEGIN
 
-- (void)selCarNoCompelete:(NSString *)carNo;
+@interface SelCarNoView : ZTBaseViewCtrl
 
-@end
-
-@interface SelCarNoView : UIView <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
-
-@property (nonatomic, assign) id<SelCarNoDelegate> delegate;
+- (instancetype)initTotalPay:(NSString *)totalBalance vc:(UIViewController *)vc dataSource:(NSArray *)dataSource;
+//支付方式
+@property (nonatomic, copy) void(^SelCarNum)(NSString *carNo);
 
 @end
+
+NS_ASSUME_NONNULL_END

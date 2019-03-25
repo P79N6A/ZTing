@@ -118,11 +118,13 @@
     _carStateView.layer.borderWidth = 0.5;
     _carStateView.layer.borderColor = [[UIColor grayColor] CGColor];
     
+    CGFloat height = (KScreenHeight-kTopHeight)*0.25;
     // 底部菜单
     NSArray *menuTitles = @[@"钱包", @"卡包", @"停车历史", @"收藏"];
     NSArray *menuImages = @[@"simple_function_wallet_icon", @"simple_function_coupons_icon", @"simple_function_park_history_icon", @"simple_function_collection_icon"];
+    
     [menuTitles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(KScreenWidth/4 * idx, 0, KScreenWidth/4, _menuView.height)];
+        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(KScreenWidth/4 * idx, 0, KScreenWidth/4, height)];
         itemView.tag = 100 + idx;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuAction:)];
         itemView.userInteractionEnabled = YES;

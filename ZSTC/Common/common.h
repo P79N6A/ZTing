@@ -11,11 +11,20 @@
 
 //#define KDomain @"http://115.29.51.72:9080/park-service/"
 
-#define KDomain @"http://www.hnzhangting.cn/park-service/"
+//#define KDomain @"http://www.hnzhangting.cn/park-service/"
 //#define KDomain @"http://192.168.7.36:8080/yunservice/"
+#define KDomain @"http://192.168.13.16:8080/park-service/"
+//#define KDomain @"http://192.168.7.36:8070/yunservice/"
+
+
 
 #define KScreenWidth [UIScreen mainScreen].bounds.size.width
 #define KScreenHeight [UIScreen mainScreen].bounds.size.height
+
+#define kStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
+#define kNavBarHeight 44.0
+#define kTabBarHeight ([[UIApplication sharedApplication] statusBarFrame].size.height>20?83:49)
+#define kTopHeight (kStatusBarHeight + kNavBarHeight)
 
 #define MainColor [UIColor colorWithRed:255.2f/255 green:180.2f/255 blue:0.2f/255 alpha:1]
 #define color(r,g,b,a)     [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
@@ -49,5 +58,7 @@
 #import <MJRefresh.h>
 #import "NSString+Date.h"
 #import "AppDelegate+Location.h"
+#import "UIColor+Add.h"
+#import <STPopup/STPopup.h>
 
 #endif /* common_h */

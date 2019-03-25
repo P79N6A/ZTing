@@ -328,43 +328,49 @@ static NSString * const parkCellId = @"parkCellId";
     [delegate receiveLocationBlock:^(CLLocation *currentLocation, AMapLocationReGeocode *regeocode, BOOL isLocationSuccess) {
         if (isLocationSuccess) {
             
-            NSString *parkUrl = [NSString stringWithFormat:@"%@park/detail", KDomain];
-            NSMutableDictionary *params = @{}.mutableCopy;
-            [params setObject:KToken forKey:@"token"];
-            [params setObject:KMemberId forKey:@"memberId"];
-            [params setObject:_parkId forKey:@"parkId"];
             
-            [[ZTNetworkClient sharedInstance] POST:parkUrl dict:params progressFloat:nil succeed:^(id responseObject) {
-                
+            if (KMemberId == nil) {
+                // 路线规划
+                ZTRouteViewCtrl *routeVC = [[ZTRouteViewCtrl alloc] init];
+                routeVC.startCoor = CLLocationCoordinate2DMake(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
+                CLLocationCoordinate2D coor = CLLocationCoordinate2DMake(_model.parkLat.floatValue/1000000.6f, _model.parkLng.floatValue/1000000.6f);
+                routeVC.coor = coor;
+                routeVC.model = self.model;
+                [self.navigationController pushViewController:routeVC animated:YES];
+    
+                [delegate stopLocation];
                 [self hideHud];
+            }else{
+                NSString *parkUrl = [NSString stringWithFormat:@"%@park/detail", KDomain];
+                NSMutableDictionary *params = @{}.mutableCopy;
+                [params setObject:KToken forKey:@"token"];
+                [params setObject:KMemberId forKey:@"memberId"];
+                [params setObject:_parkId forKey:@"parkId"];
                 
-                if([responseObject[@"success"] boolValue]){
-                    AnnotationModel *annModel = [[AnnotationModel alloc] initWithDataDic:responseObject[@"data"][@"park"]];
-                    CLLocationCoordinate2D coor = CLLocationCoordinate2DMake(annModel.parkLat.floatValue/1000000.6f, annModel.parkLng.floatValue/1000000.6f);
+                [[ZTNetworkClient sharedInstance] POST:parkUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+                    
+                    [self hideHud];
+                    
+                    if([responseObject[@"success"] boolValue]){
+                        AnnotationModel *annModel = [[AnnotationModel alloc] initWithDataDic:responseObject[@"data"][@"park"]];
+                        CLLocationCoordinate2D coor = CLLocationCoordinate2DMake(annModel.parkLat.floatValue/1000000.6f, annModel.parkLng.floatValue/1000000.6f);
                         // 路线规划
                         ZTRouteViewCtrl *routeVC = [[ZTRouteViewCtrl alloc] init];
                         routeVC.startCoor = CLLocationCoordinate2DMake(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
                         routeVC.coor = coor;
                         routeVC.model = annModel;
                         [self.navigationController pushViewController:routeVC animated:YES];
+                        
+                    }
                     
-                }
+                    [delegate stopLocation];
+                    
+                } failure:^(NSError *error) {
+                    
+                }];
 
-                [delegate stopLocation];
-                
-            } failure:^(NSError *error) {
-                
-            }];
+            }
             
-//            // 路线规划
-//            ZTRouteViewCtrl *routeVC = [[ZTRouteViewCtrl alloc] init];
-//            routeVC.startCoor = CLLocationCoordinate2DMake(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
-//            CLLocationCoordinate2D coor = CLLocationCoordinate2DMake(_model.parkLat.floatValue/1000000.6f, _model.parkLng.floatValue/1000000.6f);
-//            routeVC.coor = coor;
-//            routeVC.model = self.model;
-//            [self.navigationController pushViewController:routeVC animated:YES];
-            
-//            [delegate stopLocation];
         }else
         {
             [self showHint:@"路线规划失败"];
@@ -467,6 +473,9 @@ static NSString * const parkCellId = @"parkCellId";
              [_tableView reloadData];
              
              NSDictionary *dic = responseObject[@"data"][@"park"];
+             if ([dic isKindOfClass:[NSNull class]]) {
+                 return;
+             }
              AnnotationModel *model = [[AnnotationModel alloc] initWithDataDic:dic];
              
              dispatch_async(dispatch_get_main_queue(), ^{
@@ -599,7 +608,7 @@ static NSString * const parkCellId = @"parkCellId";
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _dataArr.count;
+    return self.dataArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

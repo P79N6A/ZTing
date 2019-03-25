@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"自助缴费";
+    self.title = @"缴费成功";
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"login_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
 }

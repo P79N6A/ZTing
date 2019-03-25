@@ -48,6 +48,15 @@
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
     
+    // 设置返回按钮
+    UIButton *leftBtn = [[UIButton alloc] init];
+    leftBtn.frame = CGRectMake(0, 0, 40, 40);
+    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
+    [leftBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(_leftBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"BillCell" bundle:nil] forCellReuseIdentifier:@"BillCell"];
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.tableFooterView = [[UIView alloc] init];
@@ -71,6 +80,11 @@
     _notNetworkView.userInteractionEnabled = YES;
     [_notNetworkView addGestureRecognizer:reloadTap];
     [self.view addSubview:_notNetworkView];
+}
+
+-(void)_leftBarBtnItemClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)_loadData {

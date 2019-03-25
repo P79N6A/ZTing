@@ -12,4 +12,6 @@
 
 + (NSString *)created_at:(NSDate *)createDate;
 
+- (NSString *)stringByTrim;
+
 @end

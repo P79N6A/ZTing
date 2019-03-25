@@ -53,6 +53,10 @@ static NSString * const ID = @"CollectionViewCellId";
     self.title = @"搜索停车场";
     self.view.backgroundColor = [UIColor whiteColor];
     
+    //创建POI检索引擎
+    _POISearchManager = [[AMapSearchAPI alloc] init];
+    _POISearchManager.delegate = self;
+    
     [self _initData];
     
     [self _initSubView];
@@ -116,10 +120,6 @@ static NSString * const ID = @"CollectionViewCellId";
         
         _searchTextField.text = result;
         
-        //创建POI检索引擎
-        _POISearchManager = [[AMapSearchAPI alloc] init];
-        _POISearchManager.delegate = self;
-        
         //创建地理编码请求
         AMapGeocodeSearchRequest *geoSearchRequest = [[AMapGeocodeSearchRequest alloc] init];
         geoSearchRequest.address = result;
@@ -128,7 +128,6 @@ static NSString * const ID = @"CollectionViewCellId";
         [_POISearchManager AMapGeocodeSearch:geoSearchRequest];
 
     }
-    
 }
 
 /*识别会话错误返回代理
@@ -173,7 +172,6 @@ static NSString * const ID = @"CollectionViewCellId";
     [self.navigationController pushViewController:voiceSearchCtrl animated:YES];
 }
 
-
 #pragma mark 数据源
 -(void)_initData
 {
@@ -187,7 +185,6 @@ static NSString * const ID = @"CollectionViewCellId";
 #pragma mark 创建子视图
 -(void)_initSubView
 {
-    
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
     
@@ -213,11 +210,9 @@ static NSString * const ID = @"CollectionViewCellId";
     self.searchTextField.leftView = leftView;
     self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
     
-    
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 40)];
     self.searchTextField.rightView = rightView;
     self.searchTextField.rightViewMode = UITextFieldViewModeAlways;
-    
     
     UIButton *xfBtn = [[UIButton alloc] init];
     self.xfBtn = xfBtn;
@@ -235,7 +230,6 @@ static NSString * const ID = @"CollectionViewCellId";
     .leftSpaceToView(rightView, 5)
     .rightSpaceToView(rightView, 5)
     .bottomSpaceToView(rightView, 5);
-    
     
     UILabel *signLab = [[UILabel alloc] init];
     self.signLab = signLab;
@@ -262,14 +256,12 @@ static NSString * const ID = @"CollectionViewCellId";
     .rightSpaceToView(self.view, 10)
     .heightIs(0.5);
     
-    
     [self.view addSubview:self.areaCollection];
     self.areaCollection.sd_layout
     .topSpaceToView(self.sepView, 10)
     .leftSpaceToView(self.view, 10)
     .rightSpaceToView(self.view, 10)
     .heightIs(40);
-    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -280,10 +272,21 @@ static NSString * const ID = @"CollectionViewCellId";
     {
         if ([_searchTextField.text length] > 0)
         {
-            NSLog(@"123");
+            [self searchParkWithKeyWord:_searchTextField.text];
         }
     }
     return YES;
+}
+
+//搜索
+-(void)searchParkWithKeyWord:(NSString *)keyWords
+{
+    //创建地理编码请求
+    AMapGeocodeSearchRequest *geoSearchRequest = [[AMapGeocodeSearchRequest alloc] init];
+    geoSearchRequest.address = keyWords;
+    
+    //发起请求,开始POI的地理编码检索
+    [_POISearchManager AMapGeocodeSearch:geoSearchRequest];
 }
 
 -(UICollectionView *)areaCollection
@@ -316,7 +319,6 @@ static NSString * const ID = @"CollectionViewCellId";
     [_searchTextField resignFirstResponder];
     //启动识别服务
     [_iflyRecognizerView start];
-
 }
 
 #pragma mark collectionView delegate
@@ -324,10 +326,8 @@ static NSString * const ID = @"CollectionViewCellId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-    NSLog(@"%@   %@   %@",_dataArr[indexPath.row][@"areaName"],_dataArr[indexPath.row][@"areaLat"],_dataArr[indexPath.row][@"areaLng"]);
     
     ZTVoiceSearchCtrl *searchViewCtrl = [[ZTVoiceSearchCtrl alloc] init];
-    
     NSString *lat = _dataArr[indexPath.row][@"areaLat"];
     NSString *lng = _dataArr[indexPath.row][@"areaLng"];
     searchViewCtrl.origleCoor = CLLocationCoordinate2DMake([lat doubleValue], [lng doubleValue]);
@@ -354,7 +354,6 @@ static NSString * const ID = @"CollectionViewCellId";
     cell.areaLab.layer.borderColor = [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1].CGColor;
     cell.areaLab.layer.borderWidth = 1;
     cell.areaLab.textColor = [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1];
-    
     cell.areaLab.text = _dataArr[indexPath.row][@"areaName"];
     
     return cell;
@@ -364,15 +363,5 @@ static NSString * const ID = @"CollectionViewCellId";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

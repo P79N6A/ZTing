@@ -11,28 +11,56 @@
 
 @implementation ZTAliPay
 
-+ (void)aliPayWithOrderId:(NSString *)orderId withComplete:(PayCompleteBlock)payCompleteBlock{
-    NSString *aliPayUrl = [NSString stringWithFormat:@"%@pay/payByAlipay", KDomain];
-    NSMutableDictionary *params = @{}.mutableCopy;
-    [params setObject:KToken forKey:@"token"];
-    [params setObject:KMemberId forKey:@"memberId"];
-    [params setObject:orderId forKey:@"orderId"];
-    
-    [[ZTNetworkClient sharedInstance] POST:aliPayUrl dict:params progressFloat:nil succeed:^(id responseObject) {
-        if([responseObject[@"success"] boolValue]){
-            
-            NSLog(@"%@",responseObject[@"message"]);
-            
-            NSString *payInfo = responseObject[@"payInfo"];
-            
-            [[AlipaySDK defaultService] payOrder:payInfo fromScheme:KAppScheme callback:^(NSDictionary *resultDic) {
-//                NSLog(@"+++++++++++++++++++++++%@", resultDic);
-                payCompleteBlock(resultDic[@"resultStatus"]);
-            }];
-        }
-    } failure:^(NSError *error) {
++ (void)aliPayWithOrderId:(NSString *)orderId payType:(NSString *)type withComplete:(PayCompleteBlock)payCompleteBlock{
+    if ([type isEqualToString:@"1"]) {
+        NSString *aliPayUrl = [NSString stringWithFormat:@"%@pay/memberRechargeByAliyun", KDomain];
+        NSMutableDictionary *params = @{}.mutableCopy;
+        [params setObject:KToken forKey:@"token"];
+        [params setObject:KMemberId forKey:@"memberId"];
+        [params setObject:orderId forKey:@"orderId"];
         
-    }];
+        [[ZTNetworkClient sharedInstance] POST:aliPayUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+            if([responseObject[@"success"] boolValue]){
+                
+                NSLog(@"%@",responseObject[@"message"]);
+                
+                NSDictionary *dic = responseObject[@"data"];
+                
+                NSString *payInfo = dic[@"payInfo"];
+                
+                [[AlipaySDK defaultService] payOrder:payInfo fromScheme:KAppScheme callback:^(NSDictionary *resultDic) {
+                    //                NSLog(@"+++++++++++++++++++++++%@", resultDic);
+                    payCompleteBlock(resultDic[@"resultStatus"]);
+                }];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }else
+    {
+        NSString *aliPayUrl = [NSString stringWithFormat:@"%@pay/payByAlipay", KDomain];
+        NSMutableDictionary *params = @{}.mutableCopy;
+        [params setObject:KToken forKey:@"token"];
+        [params setObject:KMemberId forKey:@"memberId"];
+        [params setObject:orderId forKey:@"orderId"];
+        
+        [[ZTNetworkClient sharedInstance] POST:aliPayUrl dict:params progressFloat:nil succeed:^(id responseObject) {
+            if([responseObject[@"success"] boolValue]){
+                
+                NSLog(@"%@",responseObject[@"message"]);
+                
+                NSString *payInfo = responseObject[@"payInfo"];
+                
+                [[AlipaySDK defaultService] payOrder:payInfo fromScheme:KAppScheme callback:^(NSDictionary *resultDic) {
+                    //                NSLog(@"+++++++++++++++++++++++%@", resultDic);
+                    payCompleteBlock(resultDic[@"resultStatus"]);
+                }];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+    
     
 }
 

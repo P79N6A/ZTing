@@ -29,14 +29,15 @@ PODS:
   - IQKeyboardManager (4.0.8)
   - JCore (1.1.1)
   - JPush (3.0.2):
-    - JCore (= 1.1.1)
+    - JCore (~> 1.1.1)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.1.12)
-  - NSDate+TimeAgo (1.0.6)
-  - SDAutoLayout (2.1.7)
+  - "NSDate+TimeAgo (1.0.6)"
+  - SDAutoLayout (2.2.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
+  - STPopup (1.8.3)
   - TZImagePickerController (1.5.0)
   - WMPageController (2.2.1)
 
@@ -51,11 +52,34 @@ DEPENDENCIES:
   - JPush (~> 3.0.2)
   - MBProgressHUD (~> 1.0.0)
   - MJRefresh (~> 3.1.12)
-  - NSDate+TimeAgo (~> 1.0.6)
-  - SDAutoLayout (~> 2.1.7)
+  - "NSDate+TimeAgo (~> 1.0.6)"
+  - SDAutoLayout (~> 2.2.0)
   - SDWebImage (~> 4.0.0)
+  - STPopup (~> 1.8.3)
   - TZImagePickerController (~> 1.5.0)
   - WMPageController
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - AMap3DMap-NO-IDFA
+    - AMapFoundation-NO-IDFA
+    - AMapLocation-NO-IDFA
+    - AMapNavi-NO-IDFA
+    - AMapSearch-NO-IDFA
+    - CYLTableViewPlaceHolder
+    - DOPDropDownMenu-Enhanced
+    - IQKeyboardManager
+    - JCore
+    - JPush
+    - MBProgressHUD
+    - MJRefresh
+    - "NSDate+TimeAgo"
+    - SDAutoLayout
+    - SDWebImage
+    - STPopup
+    - TZImagePickerController
+    - WMPageController
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -68,15 +92,16 @@ SPEC CHECKSUMS:
   DOPDropDownMenu-Enhanced: 9ec473b16351b5b0b2d6ef87e7f666fe5ff54ad5
   IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
   JCore: 2210a789c8efb7dc2a46b1c24d2209b995b18ad2
-  JPush: 5d53c88e32e48b559edc3adb20ade30903a5b9e1
+  JPush: 01a693fafe51b93eafc2e368bbc7a7cc07e12ce4
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
-  NSDate+TimeAgo: 35601c619b2d59290055e4fe76e61d97677a2360
-  SDAutoLayout: e9b36d04b8c0b504762a04d76fbbe5108944297a
+  "NSDate+TimeAgo": 35601c619b2d59290055e4fe76e61d97677a2360
+  SDAutoLayout: c5509e77ae75735d9a39f7bc83dba6d3f75d49d8
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  STPopup: da1167250a01584af7bcccb898653185f223ec46
   TZImagePickerController: d09eef6042852a9dd19224ae4e874f7430852a51
   WMPageController: 181bcc9b1fb7c9c3466bff66012552953a547d28
 
-PODFILE CHECKSUM: c0d3cbc70846db413fcc05b196c94610f98b9b1f
+PODFILE CHECKSUM: 1d81c9b0c45687357cbe8b7136175e9aa636ccbb
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.5.0

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C2CF906E200BD29AB817C2B1B1193D97'
-               BlueprintName = 'TZImagePickerController'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libTZImagePickerController.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BADBF41F1C67C2732BFF52CA83787D21"
+               BlueprintName = "TZImagePickerController"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libTZImagePickerController.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

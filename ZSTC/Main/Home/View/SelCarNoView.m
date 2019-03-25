@@ -2,150 +2,163 @@
 //  SelCarNoView.m
 //  ZSTC
 //
-//  Created by 魏唯隆 on 2017/4/20.
-//  Copyright © 2017年 HNZT. All rights reserved.
+//  Created by coder on 2018/11/8.
+//  Copyright © 2018年 HNZT. All rights reserved.
 //
 
 #import "SelCarNoView.h"
 #import "CarCell.h"
 #import "BindCarModel.h"
 
-@implementation SelCarNoView
-{
-    UITableView *_carTabelView;
-    NSMutableArray *_carData;
-    
-    UIView *_headView;  // 自定义头视图
-}
+#define KColorFromRGB(rgbValue) \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if(self) {
-        [self _initView];
-        
-        [self _loadData];
+#define LineColor                KColorFromRGB(0xefefef)
+#define CColor                   KColorFromRGB(0x666666)
+#define DColor                   KColorFromRGB(0x999999)
+#define RemindRedColor           KColorFromRGB(0xF05F50)
+
+@interface SelCarNoView ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic ,strong) NSArray *dataArr;
+@property (nonatomic ,strong) UITableView *tableView;
+@property (nonatomic ,strong) UIButton *sureBtn;
+@property (nonatomic ,strong) UIViewController *vc;
+
+@property (nonatomic ,copy) NSString *totalBalance;
+
+@end
+
+@implementation SelCarNoView
+
+- (instancetype)initTotalPay:(NSString *)totalBalance vc:(UIViewController *)vc dataSource:(NSArray *)dataSource{
+    if (self = [super init]) {
+        self.vc = vc;
+        self.totalBalance = totalBalance;
+        self.dataArr = dataSource;
     }
     return self;
 }
+- (void)viewDidLoad {
+    [super viewDidLoad];
 
-- (void)hidView {
-    self.hidden = YES;
+    [self initPop];
+    [self setUpUI];
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if(touch.view == self){
-        return YES;
-    }else{
-        return NO;
-    }
+- (void)initPop {
+    self.view.backgroundColor = [UIColor whiteColor];
+    CGFloat height = 60;
+    height += self.dataArr.count * 60;
+    self.contentSizeInPopup = CGSizeMake(self.view.frame.size.width, height);
+    self.popupController.navigationBarHidden = YES;
+    [self.popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTap)]];
 }
 
-- (void)_initView {
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.4];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidView)];
-    self.userInteractionEnabled = YES;
-    tap.delegate = self;
-    [self addGestureRecognizer:tap];
-    
-    _carData = @[].mutableCopy;
-    
-    _headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 60)];
-    _headView.backgroundColor = [UIColor whiteColor];
-    UILabel *headLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 100, 20)];
-    headLabel.text = @"选择车辆";
-    headLabel.textColor = [UIColor blackColor];
-    headLabel.font = [UIFont systemFontOfSize:16];
-    headLabel.textAlignment = NSTextAlignmentLeft;
-    [_headView addSubview:headLabel];
-    
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(10, 59, KScreenWidth - 20, 1)];
-    lineView.backgroundColor = [UIColor colorWithWhite:0.6 alpha:0.5];
-    [_headView addSubview:lineView];
-
-    _carTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, KScreenHeight, KScreenWidth, 80 * 3 + 60) style:UITableViewStylePlain];
-    _carTabelView.delegate = self;
-    _carTabelView.dataSource = self;
-    [_carTabelView registerNib:[UINib nibWithNibName:@"CarCell" bundle:nil] forCellReuseIdentifier:@"CarCell"];
-    _carTabelView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
-    _carTabelView.tableFooterView = [[UIView alloc] init];
-    [self addSubview:_carTabelView];
-    
+- (void)setUpUI {
+    [self.view addSubview:self.tableView];
 }
 
-#pragma mark 加载数据
-- (void)_loadData {
-    // 获取所有绑定车辆
-    NSString *bindUrl = [NSString stringWithFormat:@"%@member/getMemberCards", KDomain];
-    
-    NSMutableDictionary *params = @{}.mutableCopy;
-    [params setObject:KToken forKey:@"token"];
-    [params setObject:KMemberId forKey:@"memberId"];
-    
-    [[ZTNetworkClient sharedInstance] POST:bindUrl dict:params progressFloat:nil succeed:^(id responseObject) {
-        if([responseObject[@"success"] boolValue]){
-            NSArray *datas = responseObject[@"data"][@"carList"];
-            
-            [_carData removeAllObjects];
-            [datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                BindCarModel *bindCarModel = [[BindCarModel alloc] initWithDataDic:obj];
-                [_carData addObject:bindCarModel];
-            }];
-            [_carTabelView reloadData];
-        }else if ([responseObject[@"statusCode"] integerValue] == 202) {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:KLoginState];
-            // 发送登出通知
-            [[NSNotificationCenter defaultCenter] postNotificationName:KLoginOutNotification object:nil];
-        }
-    } failure:^(NSError *error) {
-        [self.viewController showHint:@"网络不给力,请稍后重试!"];
+-(void)closeBlockView {
+    [self backgroundTap];
+}
+
+- (void)backgroundTap  {
+    [self.popupController dismiss];
+}
+
+-(UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.tableFooterView = [UIView new];
+        [_tableView registerNib:[UINib nibWithNibName:@"CarCell" bundle:nil] forCellReuseIdentifier:@"CarCell"];
+        [self.view addSubview:_tableView];
         
-    }];
+        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 50)];
+        v.backgroundColor = [UIColor whiteColor];
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 50, KScreenWidth, 1)];
+        line.backgroundColor = LineColor;
+        [v addSubview:line];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth-30, 50)];
+        label.centerX = KScreenWidth/2;
+        label.textAlignment = 0;
+        label.text = [NSString stringWithFormat:@"选择车辆"];
+        label.font = [UIFont systemFontOfSize:14];
+        label.textColor = CColor;
+        label.numberOfLines = 1;
+        [v addSubview:label];
+        
+        UIButton *xButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [xButton setImage:[UIImage imageNamed:@"pay_close"] forState:UIControlStateNormal];
+        xButton.frame = CGRectMake(KScreenWidth - 35, 11, 22, 22);
+        [v addSubview:xButton];
+        [xButton addTarget:self action:@selector(backgroundTap) forControlEvents:UIControlEventTouchUpInside];
+
+        _tableView.tableHeaderView = v;
+    }
+    return _tableView;
 }
 
-#pragma mark UITableView 协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _carData.count;
+    return self.dataArr.count;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 60;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return _headView;
-}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CarCell"];
-    BindCarModel *bindCarModel = _carData[indexPath.row];
-    cell.carNoLabel.text = bindCarModel.carNo;
-    cell.carNameLabel.text = bindCarModel.carNike;
+    NSString *cellId = [NSString stringWithFormat:@"CarCell"];
+    CarCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    [self configCell:cell data:[self.dataArr objectAtIndex:indexPath.row] indexPath:indexPath];
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [_carTabelView deselectRowAtIndexPath:indexPath animated:YES];
-    self.hidden = YES;
-    
-    BindCarModel *bindCarModel = _carData[indexPath.row];
-    [_delegate selCarNoCompelete:bindCarModel.carNo];
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60;
 }
 
-#pragma mark 加动画
-- (void)setHidden:(BOOL)hidden {
-    
-    if(hidden) {
-        [UIView animateWithDuration:0.2 animations:^{
-            _carTabelView.frame = CGRectMake(0, self.height-64, _carTabelView.width, _carTabelView.height);
-        } completion:^(BOOL finished) {
-            [super setHidden:hidden];
-        }];
-    }else {
-        [super setHidden:hidden];
-        [UIView animateWithDuration:0.2 animations:^{
-            _carTabelView.frame = CGRectMake(0, self.height - 300-64, _carTabelView.width, _carTabelView.height);
-        }];
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return nil;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.001;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return [UIView new];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.001;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.SelCarNum) {
+        BindCarModel *model = [self.dataArr objectAtIndex:indexPath.row];
+        self.SelCarNum([NSString stringWithFormat:@"%@",model.carNo]);
+        [self backgroundTap];
     }
+}
+
+- (void)configCell:(CarCell *)cell data:(BindCarModel *)model indexPath:(NSIndexPath *)indexPath{
+
+    BindCarModel *currentModel = model;
+    if (![currentModel.carNike isKindOfClass:[NSNull class]]) {
+        cell.carNameLabel.text = currentModel.carNike;
+    }else{
+        cell.carNameLabel.text = @"";
+    }
+    
+    cell.carNoLabel.text = [NSString stringWithFormat:@"%@",currentModel.carNo];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 

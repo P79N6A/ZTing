@@ -22,6 +22,6 @@ typedef enum {
 
 @interface PayTypeView : UIView <UIGestureRecognizerDelegate>
 
-@property (nonatomic, assign) id<SelPayDelegate> delegate;
+@property (nonatomic, weak) id<SelPayDelegate> delegate;
 
 @end
