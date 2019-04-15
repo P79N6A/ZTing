@@ -12,8 +12,10 @@
 //#define KDomain @"http://115.29.51.72:9080/park-service/"
 
 //#define KDomain @"http://www.hnzhangting.cn/park-service/"
+#define KDomain @"http://192.168.13.62:8080/park-service/"
+
 //#define KDomain @"http://192.168.7.36:8080/yunservice/"
-#define KDomain @"http://192.168.13.16:8080/park-service/"
+//#define KDomain @"http://192.168.13.16:8080/park-service/"
 //#define KDomain @"http://192.168.7.36:8070/yunservice/"
 
 

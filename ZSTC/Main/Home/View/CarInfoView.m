@@ -148,8 +148,10 @@
     parkNameLabel.text = carDetailModel.parkName;
     
     UILabel *inTimeLabel = [self viewWithTag:203];
-    NSString *viewTime = [carDetailModel.startTime substringWithRange:NSMakeRange(5, carDetailModel.startTime.length - 5)];
-    inTimeLabel.text = [NSString stringWithFormat:@"进场时间: %@", viewTime];
+    if (![carDetailModel.startTime isKindOfClass:[NSNull class]]) {
+        NSString *viewTime = [carDetailModel.startTime substringWithRange:NSMakeRange(5, carDetailModel.startTime.length - 5)];
+            inTimeLabel.text = [NSString stringWithFormat:@"进场时间: %@", viewTime];
+    }
     
     UILabel *timeLabel = [self viewWithTag:204];
     timeLabel.text = [NSString stringWithFormat:@"停车时长: %@", carDetailModel.differStr];
